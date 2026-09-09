@@ -28,8 +28,8 @@ class AppConfig:
     DB_PATH = ROOT / "survey.db"
     HTML_PATH = ROOT / "index.html"
     PASSWORD_PATH = ROOT / "access-password.txt"
-    DATABASE_XLSX = ROOT / "DATABASE.xlsx"
-    PHOTOS_DIR = ROOT / "photos"
+    ONEDRIVE_PHOTOS_DIR = Path(r"d:\Users\utai3\OneDrive - FORTH CORPORATION PUBLIC COMPANY LIMITED\NBTC Microwave\Photo\Pre_PM")
+    PHOTOS_DIR = ONEDRIVE_PHOTOS_DIR if ONEDRIVE_PHOTOS_DIR.exists() else (ROOT / "photos")
     ASSETS_DIR = ROOT / "assets"
     
     HOST = "0.0.0.0"
@@ -302,6 +302,23 @@ class DatabaseService:
                         "INSERT INTO survey_photos (survey_id, name, content_type, data) VALUES (?, ?, ?, ?)",
                         (survey_id, photo.get("name", "photo"), photo.get("type", "image/jpeg"), photo_bytes)
                     )
+
+        # Write physical photo files directly into OneDrive / Photos folder for auto-cloud sync
+        station_name = str(fields.get("station") or fields.get("stationSelect") or "Unspecified").strip()
+        safe_station = "".join(c for c in station_name if c not in r'\/:*?"<>|').strip() or "General"
+        target_photo_dir = AppConfig.PHOTOS_DIR / safe_station
+        target_photo_dir.mkdir(parents=True, exist_ok=True)
+
+        for idx, photo in enumerate(photos, 1):
+            raw_b64 = photo.get("data", "")
+            if raw_b64:
+                try:
+                    photo_bytes = base64.b64decode(raw_b64)
+                    raw_name = photo.get("name", f"photo_{idx}.jpg")
+                    safe_name = f"{record_id}_{idx}_{raw_name}"
+                    (target_photo_dir / safe_name).write_bytes(photo_bytes)
+                except Exception as pe:
+                    print(f"Warning: Failed to save photo to OneDrive folder: {pe}")
 
         # Write local backup JSON for compatibility with export scripts
         backup_file = AppConfig.ROOT / f"survey-{timestamp}.json"

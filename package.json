@@ -1,13 +1,15 @@
 {
   "name": "survey-control-room",
-  "version": "2.0.8",
+  "version": "2.0.9",
   "private": true,
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
     "start": "node server.js",
-    "export:photos": "node scripts/export-photos.js"
+    "export:photos": "node scripts/export-photos.js",
+    "export:onedrive": "python export_photos.py",
+    "sync:onedrive": "python sync_onedrive.py"
   },
   "dependencies": {
     "@netlify/blobs": "^8.2.0",

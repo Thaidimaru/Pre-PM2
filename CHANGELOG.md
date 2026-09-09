@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.9] - 2026-09-09
+
+### Added
+- Integrated direct photo export and saving to company **Microsoft OneDrive** (`NBTC Microwave/Photo/Pre_PM`) for automatic cloud syncing to SharePoint.
+- Updated `database.py` to auto-detect the local OneDrive folder and write full resolution image files organized by station name upon saving.
+- Enhanced `export_photos.py` with automatic OneDrive default destination and station-based folder organization.
+- Created `sync_onedrive.py` utility (`npm run sync:onedrive`) to synchronize survey photos from local backups and Cloud API down to the OneDrive directory.
+
 ## [2.0.8] - 2026-09-09
 
 ### Added
