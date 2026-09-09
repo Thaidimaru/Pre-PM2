@@ -5,11 +5,7 @@
   "outputDirectory": "dist",
   "functions": {
     "api/*.js": {
-      "includeFiles": [
-        "DATABASE.xlsx",
-        "access-password.txt",
-        "survey-*.json"
-      ]
+      "includeFiles": "{DATABASE.xlsx,access-password.txt,survey-*.json}"
     }
   },
   "rewrites": [
