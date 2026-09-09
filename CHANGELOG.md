@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.8] - 2026-09-09
+
+### Added
+- Integrated **Vercel Blob Storage (`@vercel/blob`)** as persistent cloud storage for Vercel deployments.
+- Implemented multi-tier storage abstraction in `netlify/functions/api.js`: Tier 1 (Vercel Blob), Tier 2 (Netlify Blobs), Tier 3 (In-Memory / Local fallback).
+- Added automatic detection for `BLOB_READ_WRITE_TOKEN` to activate Vercel Blob without manual code changes.
+
 ## [2.0.7] - 2026-09-09
 
 ### Fixed

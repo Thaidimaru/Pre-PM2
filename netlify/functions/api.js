@@ -61,6 +61,17 @@ function isAuthorized(event) {
   }
 }
 
+let vercelBlob = null;
+try {
+  vercelBlob = require("@vercel/blob");
+} catch {
+  vercelBlob = null;
+}
+
+function hasVercelBlob() {
+  return Boolean(process.env.BLOB_READ_WRITE_TOKEN && vercelBlob);
+}
+
 const memoryStore = new Map();
 
 function getBlobStore() {
@@ -72,6 +83,21 @@ function getBlobStore() {
 }
 
 async function readJson(key, fallback = null) {
+  if (hasVercelBlob()) {
+    try {
+      const { blobs } = await vercelBlob.list({ prefix: key });
+      const target = blobs.find((b) => b.pathname === key);
+      if (target && target.url) {
+        const res = await fetch(target.url, { cache: "no-store" });
+        if (res.ok) {
+          return await res.json();
+        }
+      }
+    } catch (err) {
+      console.warn("Vercel Blob read error:", err?.message);
+    }
+  }
+
   try {
     const store = getBlobStore();
     if (store) {
@@ -85,6 +111,19 @@ async function readJson(key, fallback = null) {
 }
 
 async function writeJson(key, value) {
+  if (hasVercelBlob()) {
+    try {
+      await vercelBlob.put(key, JSON.stringify(value), {
+        access: "public",
+        addRandomSuffix: false,
+        allowOverwrite: true,
+      });
+      return;
+    } catch (err) {
+      console.warn("Vercel Blob write error:", err?.message);
+    }
+  }
+
   try {
     const store = getBlobStore();
     if (store) {
@@ -148,21 +187,46 @@ async function getStations() {
 
 async function getAllSurveys() {
   const surveys = [];
-  try {
-    const store = getBlobStore();
-    if (store) {
-      const result = await store.list({ prefix: SURVEY_PREFIX });
-      const items = Array.isArray(result) ? result : (result?.blobs || []);
-      const blobSurveys = (await Promise.all(items.map(async (item) => {
-        const key = typeof item === "string" ? item : item?.key;
-        return key ? await readJson(key, null) : null;
-      }))).filter(Boolean);
-      surveys.push(...blobSurveys);
 
-      const legacy = await readJson(LEGACY_SURVEYS_KEY, []);
-      if (Array.isArray(legacy)) surveys.push(...legacy);
+  if (hasVercelBlob()) {
+    try {
+      const { blobs } = await vercelBlob.list({ prefix: SURVEY_PREFIX });
+      if (Array.isArray(blobs) && blobs.length > 0) {
+        const blobSurveys = (await Promise.all(
+          blobs.map(async (b) => {
+            try {
+              if (!b.url) return null;
+              const res = await fetch(b.url, { cache: "no-store" });
+              return res.ok ? await res.json() : null;
+            } catch {
+              return null;
+            }
+          })
+        )).filter(Boolean);
+        surveys.push(...blobSurveys);
+      }
+    } catch (err) {
+      console.warn("Vercel Blob getAllSurveys error:", err?.message);
     }
-  } catch {}
+  }
+
+  if (surveys.length === 0) {
+    try {
+      const store = getBlobStore();
+      if (store) {
+        const result = await store.list({ prefix: SURVEY_PREFIX });
+        const items = Array.isArray(result) ? result : (result?.blobs || []);
+        const blobSurveys = (await Promise.all(items.map(async (item) => {
+          const key = typeof item === "string" ? item : item?.key;
+          return key ? await readJson(key, null) : null;
+        }))).filter(Boolean);
+        surveys.push(...blobSurveys);
+
+        const legacy = await readJson(LEGACY_SURVEYS_KEY, []);
+        if (Array.isArray(legacy)) surveys.push(...legacy);
+      }
+    } catch {}
+  }
 
   for (const [key, val] of memoryStore.entries()) {
     if (key.startsWith(SURVEY_PREFIX) && val && typeof val === "object") {
