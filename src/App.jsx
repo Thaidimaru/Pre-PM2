@@ -68,6 +68,8 @@ export function App() {
     }
   }, [token]);
 
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   if (!token) {
     return (
       <div
@@ -92,21 +94,28 @@ export function App() {
       <Spotlight />
 
       {/* Top Fixed Navbar */}
-      <Navbar />
+      <Navbar
+        isMobileMenuOpen={isMobileMenuOpen}
+        onToggleMobileMenu={() => setIsMobileMenuOpen(prev => !prev)}
+        theme={theme}
+        toggleTheme={toggleTheme}
+      />
 
       <div className="flex">
-        {/* Left Fixed Sidebar */}
+        {/* Left Fixed Sidebar & Mobile Drawer */}
         <Sidebar
           currentPage={currentPage === 'login' ? 'dashboard' : currentPage}
           onNavigate={navigateTo}
           onLogout={handleLogout}
           theme={theme}
           toggleTheme={toggleTheme}
+          isMobileOpen={isMobileMenuOpen}
+          onCloseMobile={() => setIsMobileMenuOpen(false)}
         />
 
         {/* Dynamic Page Content */}
         <div className="flex-1 pl-0 lg:pl-64 transition-all duration-300">
-          <div className="min-h-[calc(100vh-88px)] py-6">
+          <div className="min-h-[calc(100vh-64px)] lg:min-h-[calc(100vh-88px)] py-4 sm:py-6">
             {currentPage === 'dashboard' ? (
               <DashboardView onNavigate={navigateTo} />
             ) : (

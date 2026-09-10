@@ -56,7 +56,7 @@ export function DashboardView({ onNavigate }) {
             <Radio className="h-4 w-4" />
             <span>Operational Telemetry & Control</span>
           </div>
-          <h1 className="mt-1 text-2xl sm:text-3xl lg:text-4xl font-black tracking-normal leading-normal text-white whitespace-nowrap">
+          <h1 className="mt-1 text-xl sm:text-3xl lg:text-4xl font-black tracking-normal leading-normal text-white sm:whitespace-nowrap">
             <ShinyText>ศูนย์ควบคุมผลสำรวจสถานี (Pre-PM)</ShinyText>
           </h1>
           <p className="mt-1 text-base text-slate-300 leading-relaxed">
