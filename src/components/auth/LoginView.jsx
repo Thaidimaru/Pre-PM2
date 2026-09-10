@@ -51,22 +51,22 @@ export function LoginView({ onLoginSuccess }) {
               className="h-12 w-auto object-contain drop-shadow-[0_0_10px_rgba(8,127,255,0.4)]"
             />
             <div className="flex flex-col">
+              <span className="text-xl font-black text-white whitespace-nowrap">
+                NBTC MICROWAVE
+              </span>
               <div className="flex items-center gap-2">
-                <span className="text-xs font-bold tracking-[0.2em] text-cyan-400">
+                <span className="text-xs font-bold tracking-[0.2em] text-cyan-400 whitespace-nowrap">
                   SURVEY CONTROL ROOM
                 </span>
-                <span className="rounded-md bg-blue-500/20 px-2 py-0.5 text-xs font-semibold text-blue-300 border border-blue-500/30">
+                <span className="rounded-md bg-blue-500/20 px-2 py-0.5 text-xs font-semibold text-blue-300 border border-blue-500/30 whitespace-nowrap">
                   v{APP_VERSION}
                 </span>
               </div>
-              <span className="text-lg font-black text-white">
-                NBTC MICROWAVE
-              </span>
             </div>
           </div>
 
           <div className="mt-6 mb-6">
-            <h1 className="text-3xl font-extrabold tracking-normal leading-normal text-white">
+            <h1 className="text-3xl font-extrabold tracking-normal leading-normal text-white whitespace-nowrap">
               <ShinyText>เข้าสู่ระบบ</ShinyText>
             </h1>
             <p className="mt-1.5 text-sm text-slate-300 leading-relaxed">

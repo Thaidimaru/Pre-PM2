@@ -57,13 +57,15 @@ export function KpiCards({ stats = {} }) {
             key={idx}
             className={`flex flex-col justify-between bg-gradient-to-b ${card.bgColor} ${card.borderColor}`}
           >
-            <div className="flex items-center justify-between">
-              <span className="text-base font-semibold text-slate-200 leading-normal">{card.label}</span>
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-900/60 border border-slate-700/50 shadow-inner">
+            <div className="flex items-center justify-between gap-2">
+              <span className="text-sm xl:text-base font-semibold text-slate-200 leading-normal whitespace-nowrap truncate" title={card.label}>
+                {card.label}
+              </span>
+              <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-slate-900/60 border border-slate-700/50 shadow-inner">
                 <Icon className={`h-5 w-5 ${card.iconColor}`} />
               </div>
             </div>
-            <div className={`mt-5 text-4xl font-extrabold tracking-tight leading-none lg:text-5xl ${card.valColor}`}>
+            <div className={`mt-4 text-3xl sm:text-4xl font-extrabold tracking-tight leading-none lg:text-5xl ${card.valColor} whitespace-nowrap`}>
               <AnimatedCounter value={card.value} />
             </div>
           </GlassCard>

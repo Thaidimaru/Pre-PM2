@@ -63,7 +63,7 @@ export function RecentSurveys({ recent = [], onNavigate }) {
             <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-cyan-500/20 text-cyan-300">
               <Clock className="h-5 w-5" />
             </div>
-            <h2 className="text-xl font-bold text-white tracking-normal leading-normal">
+            <h2 className="text-xl font-bold text-white tracking-normal leading-normal whitespace-nowrap">
               การสำรวจล่าสุด
             </h2>
           </div>
@@ -72,7 +72,7 @@ export function RecentSurveys({ recent = [], onNavigate }) {
             <button
               type="button"
               onClick={() => onNavigate('field')}
-              className="group inline-flex items-center gap-1.5 rounded-xl border border-blue-500/30 bg-blue-600/20 px-3.5 py-1.5 text-sm font-semibold text-blue-300 hover:bg-blue-600/30 hover:border-blue-500/50 hover:text-white transition-all duration-200 cursor-pointer"
+              className="group inline-flex items-center gap-1.5 rounded-xl border border-blue-500/30 bg-blue-600/20 px-3.5 py-1.5 text-sm font-semibold text-blue-300 hover:bg-blue-600/30 hover:border-blue-500/50 hover:text-white transition-all duration-200 cursor-pointer whitespace-nowrap flex-shrink-0"
             >
               <span>บันทึกใหม่</span>
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
@@ -85,13 +85,13 @@ export function RecentSurveys({ recent = [], onNavigate }) {
           <table className="w-full text-left text-base">
             <thead>
               <tr className="border-b border-slate-800 text-sm font-semibold text-slate-300">
-                <th className="pb-2.5 pr-3">รหัสรายการ</th>
-                <th className="pb-2.5 px-3">สถานี</th>
-                <th className="pb-2.5 px-3">จังหวัด</th>
-                <th className="pb-2.5 px-3 text-center">ผล</th>
-                <th className="pb-2.5 px-3 text-center">รูปถ่าย</th>
-                <th className="pb-2.5 pl-3 text-right">เวลาบันทึก</th>
-                <th className="pb-2.5 pl-2 text-center">ดู</th>
+                <th className="pb-2.5 pr-3 whitespace-nowrap">รหัสรายการ</th>
+                <th className="pb-2.5 px-3 whitespace-nowrap">สถานี</th>
+                <th className="pb-2.5 px-3 whitespace-nowrap">จังหวัด</th>
+                <th className="pb-2.5 px-3 text-center whitespace-nowrap">ผล</th>
+                <th className="pb-2.5 px-3 text-center whitespace-nowrap">รูปถ่าย</th>
+                <th className="pb-2.5 pl-3 text-right whitespace-nowrap">เวลาบันทึก</th>
+                <th className="pb-2.5 pl-2 text-center whitespace-nowrap">ดู</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-800/50">
@@ -102,35 +102,35 @@ export function RecentSurveys({ recent = [], onNavigate }) {
                     onClick={() => handleOpenDetail(item)}
                     className="hover:bg-slate-800/40 transition-colors cursor-pointer group"
                   >
-                    <td className="py-3 pr-3 font-mono text-sm text-cyan-400 group-hover:underline">
+                    <td className="py-3 pr-3 font-mono text-sm text-cyan-400 group-hover:underline whitespace-nowrap">
                       {item.recordId}
                     </td>
-                    <td className="py-3 px-3 font-semibold text-slate-100">
+                    <td className="py-3 px-3 font-semibold text-slate-100 whitespace-nowrap">
                       {item.station}
                     </td>
-                    <td className="py-3 px-3 text-slate-300">
+                    <td className="py-3 px-3 text-slate-300 whitespace-nowrap">
                       {item.province}
                     </td>
-                    <td className="py-3 px-3 text-center">
+                    <td className="py-3 px-3 text-center whitespace-nowrap">
                       {getBadge(item.permit)}
                     </td>
-                    <td className="py-3 px-3 text-center">
+                    <td className="py-3 px-3 text-center whitespace-nowrap">
                       {item.hasPhotos || (item.photoCount && item.photoCount > 0) ? (
-                        <span className="inline-flex items-center gap-1 rounded-md bg-blue-500/20 px-2 py-0.5 text-xs font-semibold text-cyan-300 border border-blue-500/30">
+                        <span className="inline-flex items-center gap-1 rounded-md bg-blue-500/20 px-2 py-0.5 text-xs font-semibold text-cyan-300 border border-blue-500/30 whitespace-nowrap">
                           <Camera className="h-3.5 w-3.5" />
                           <span>{item.photoCount || 'มีภาพ'}</span>
                         </span>
                       ) : (
-                        <span className="text-xs text-slate-500">-</span>
+                        <span className="text-xs text-slate-500 whitespace-nowrap">-</span>
                       )}
                     </td>
-                    <td className="py-3 pl-3 text-right text-xs font-medium text-slate-300">
+                    <td className="py-3 pl-3 text-right text-xs font-medium text-slate-300 whitespace-nowrap">
                       {new Date(item.savedAt).toLocaleString('th-TH', {
                         dateStyle: 'short',
                         timeStyle: 'short'
                       })}
                     </td>
-                    <td className="py-3 pl-2 text-center">
+                    <td className="py-3 pl-2 text-center whitespace-nowrap">
                       <div className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-slate-800/80 text-slate-400 group-hover:bg-blue-600 group-hover:text-white transition-colors">
                         <Eye className="h-4 w-4" />
                       </div>

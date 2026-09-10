@@ -9,10 +9,10 @@ export function ProvinceChart({ provinces = [] }) {
     <GlassCard className="flex flex-col h-full" hoverEffect={false}>
       {/* Panel Title */}
       <div className="flex items-center gap-2 pb-4 border-b border-slate-800/80">
-        <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-500/20 text-cyan-300">
+        <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-500/20 text-cyan-300 flex-shrink-0">
           <MapPin className="h-5 w-5" />
         </div>
-        <h2 className="text-xl font-bold text-white tracking-normal leading-normal">
+        <h2 className="text-xl font-bold text-white tracking-normal leading-normal whitespace-nowrap">
           สรุปผลการสำรวจรายจังหวัด
         </h2>
       </div>
@@ -105,18 +105,18 @@ export function ProvinceChart({ provinces = [] }) {
           </div>
 
           {/* Map Legend */}
-          <div className="flex items-center justify-center gap-6 pt-4 text-sm text-slate-300">
+          <div className="flex items-center justify-center gap-6 pt-4 text-sm text-slate-300 whitespace-nowrap">
             <div className="flex items-center gap-2">
-              <span className="h-2.5 w-2.5 rounded-full bg-emerald-400 shadow-[0_0_6px_#00d49a]" />
-              <span>อนุญาต</span>
+              <span className="h-2.5 w-2.5 rounded-full bg-emerald-400 shadow-[0_0_6px_#00d49a] flex-shrink-0" />
+              <span className="whitespace-nowrap">อนุญาต</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="h-2.5 w-2.5 rounded-full bg-rose-400 shadow-[0_0_6px_#ff4f67]" />
-              <span>ไม่อนุญาต</span>
+              <span className="h-2.5 w-2.5 rounded-full bg-rose-400 shadow-[0_0_6px_#ff4f67] flex-shrink-0" />
+              <span className="whitespace-nowrap">ไม่อนุญาต</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="h-2.5 w-2.5 rounded-full bg-purple-400 shadow-[0_0_6px_#8b5cf6]" />
-              <span>รอพิจารณา</span>
+              <span className="h-2.5 w-2.5 rounded-full bg-purple-400 shadow-[0_0_6px_#8b5cf6] flex-shrink-0" />
+              <span className="whitespace-nowrap">รอพิจารณา</span>
             </div>
           </div>
         </div>
