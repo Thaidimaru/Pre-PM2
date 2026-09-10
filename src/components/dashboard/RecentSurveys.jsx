@@ -5,6 +5,38 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { fetchSurveyDetail, fetchSurveys } from '@/lib/api';
 import { ReportPDF } from './ReportPDF';
 
+const formatDateSafe = (dateVal) => {
+  if (!dateVal) return '-';
+  try {
+    const d = new Date(dateVal);
+    if (isNaN(d.getTime())) return String(dateVal);
+    return d.toLocaleString('th-TH', {
+      year: 'numeric',
+      month: 'numeric',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+  } catch (e) {
+    return String(dateVal);
+  }
+};
+
+const getPhotoUrl = (p, recordId, idx) => {
+  if (!p) return `/api/photos?id=${encodeURIComponent(recordId || '')}&index=${idx}`;
+  if (typeof p === 'string') {
+    return (p.startsWith('data:') || p.startsWith('http') || p.startsWith('/'))
+      ? p
+      : `data:image/jpeg;base64,${p}`;
+  }
+  if (p && typeof p.data === 'string' && p.data) {
+    return p.data.startsWith('data:')
+      ? p.data
+      : `data:${p.type || 'image/jpeg'};base64,${p.data}`;
+  }
+  return `/api/photos?id=${encodeURIComponent(recordId || '')}&index=${idx}`;
+};
+
 export function RecentSurveys({ recent = [], onNavigate }) {
   const [activeSurvey, setActiveSurvey] = useState(null);
   const [surveyDetail, setSurveyDetail] = useState(null);
@@ -66,7 +98,7 @@ export function RecentSurveys({ recent = [], onNavigate }) {
         return {
           'ลำดับ': idx + 1,
           'รหัสรายการ': s.recordId || f.recordId || '',
-          'วันที่บันทึก': s.savedAt ? new Date(s.savedAt).toLocaleString('th-TH') : (f.visitDate || ''),
+          'วันที่บันทึก': formatDateSafe(s.savedAt || f.visitDate),
           'ชื่อสถานี': f.station || f.stationSelect || s.station || '',
           'จังหวัด': f.province || s.province || '',
           'ผลการอนุญาต': f.permit || s.permit || '',
@@ -315,14 +347,7 @@ export function RecentSurveys({ recent = [], onNavigate }) {
                       )}
                     </td>
                     <td className="py-3 pl-3 text-right text-xs font-medium text-slate-300 whitespace-nowrap">
-                      {item.savedAt ? (() => {
-                        try {
-                          const d = new Date(item.savedAt);
-                          return isNaN(d.getTime()) ? String(item.savedAt) : d.toLocaleString('th-TH', { year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' });
-                        } catch (e) {
-                          return String(item.savedAt);
-                        }
-                      })() : '-'}
+                      {formatDateSafe(item.savedAt)}
                     </td>
                     <td className="py-3 pl-2 text-center whitespace-nowrap">
                       <div className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-slate-800/80 text-slate-400 group-hover:bg-blue-600 group-hover:text-white transition-colors">
@@ -376,7 +401,7 @@ export function RecentSurveys({ recent = [], onNavigate }) {
                 </div>
                 <div className="text-sm text-slate-300 flex items-center gap-4 flex-wrap">
                   <span>จังหวัด: <b className="text-white font-semibold">{activeSurvey?.province}</b></span>
-                  <span>บันทึกเมื่อ: <b className="text-white font-semibold">{activeSurvey ? new Date(activeSurvey.savedAt).toLocaleString('th-TH') : ''}</b></span>
+                  <span>บันทึกเมื่อ: <b className="text-white font-semibold">{formatDateSafe(activeSurvey?.savedAt)}</b></span>
                 </div>
               </div>
 
@@ -435,9 +460,7 @@ export function RecentSurveys({ recent = [], onNavigate }) {
                       onClick={(e) => {
                         e.stopPropagation();
                         (surveyDetail.photos || []).forEach((p, idx) => {
-                          const photoUrl = p.data
-                            ? (p.data.startsWith('data:') ? p.data : `data:${p.type || 'image/jpeg'};base64,${p.data}`)
-                            : `/api/photos?id=${encodeURIComponent(activeSurvey.recordId)}&index=${idx}`;
+                          const photoUrl = getPhotoUrl(p, activeSurvey?.recordId, idx);
                           const link = document.createElement('a');
                           link.href = photoUrl;
                           link.download = p.name || `photo_${idx + 1}.jpg`;
@@ -457,9 +480,7 @@ export function RecentSurveys({ recent = [], onNavigate }) {
                 {surveyDetail?.photos && surveyDetail.photos.length > 0 ? (
                   <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                     {surveyDetail.photos.map((p, idx) => {
-                      const photoUrl = p.data
-                        ? (p.data.startsWith('data:') ? p.data : `data:${p.type || 'image/jpeg'};base64,${p.data}`)
-                        : `/api/photos?id=${encodeURIComponent(activeSurvey.recordId)}&index=${idx}`;
+                      const photoUrl = getPhotoUrl(p, activeSurvey?.recordId, idx);
                       return (
                         <div
                           key={idx}
