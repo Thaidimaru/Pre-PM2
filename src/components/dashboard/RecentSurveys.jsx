@@ -161,7 +161,7 @@ export function RecentSurveys({ recent = [], onNavigate }) {
         const html2pdf = html2pdfMod.default || html2pdfMod;
 
         const opt = {
-          margin: [10, 8, 10, 8],
+          margin: [6, 6, 6, 6],
           filename: filename,
           image: { type: 'jpeg', quality: 0.98 },
           html2canvas: {
@@ -171,7 +171,7 @@ export function RecentSurveys({ recent = [], onNavigate }) {
             letterRendering: true,
             scrollY: 0,
             scrollX: 0,
-            windowWidth: 1024,
+            windowWidth: 794,
           },
           jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
           pagebreak: { mode: ['avoid-all', 'css', 'legacy'] },
