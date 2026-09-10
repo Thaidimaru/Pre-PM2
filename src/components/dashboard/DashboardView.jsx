@@ -52,14 +52,14 @@ export function DashboardView({ onNavigate }) {
       {/* Top Hero Banner */}
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-2">
         <div>
-          <div className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-cyan-400 whitespace-nowrap">
+          <div className="flex items-center gap-2 text-xs sm:text-sm font-bold uppercase tracking-widest text-blue-600 dark:text-cyan-400 whitespace-nowrap">
             <Radio className="h-4 w-4" />
             <span>Operational Telemetry & Control</span>
           </div>
-          <h1 className="mt-1 text-xl sm:text-3xl lg:text-4xl font-black tracking-normal leading-normal text-white sm:whitespace-nowrap">
+          <h1 className="mt-1 text-xl sm:text-3xl lg:text-4xl font-black tracking-normal leading-normal text-slate-900 dark:text-white sm:whitespace-nowrap">
             <ShinyText>ศูนย์ควบคุมผลสำรวจสถานี (Pre-PM)</ShinyText>
           </h1>
-          <p className="mt-1 text-base text-slate-300 leading-relaxed">
+          <p className="mt-1 text-base text-slate-600 dark:text-slate-300 leading-relaxed">
             ติดตามความคืบหน้าการลงพื้นที่ตรวจเยี่ยมเจ้าของพื้นที่สถานีวิทยุคมนาคม NBTC Microwave แบบเรียลไทม์
           </p>
         </div>
@@ -69,10 +69,10 @@ export function DashboardView({ onNavigate }) {
             type="button"
             onClick={loadData}
             disabled={isLoading}
-            className="flex items-center gap-2 rounded-xl border border-slate-700/80 bg-slate-800/50 px-4 py-2.5 text-sm font-semibold text-slate-200 hover:bg-slate-800 hover:text-white transition-all disabled:opacity-50 cursor-pointer whitespace-nowrap"
+            className="flex items-center gap-2 rounded-xl border border-slate-200 dark:border-slate-700/80 bg-white dark:bg-slate-800/50 px-4 py-2.5 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white transition-all disabled:opacity-50 cursor-pointer whitespace-nowrap shadow-xs"
             title="รีเฟรชข้อมูล"
           >
-            <RefreshCw className={`h-4 w-4 ${isLoading ? 'animate-spin text-cyan-400' : ''}`} />
+            <RefreshCw className={`h-4 w-4 ${isLoading ? 'animate-spin text-blue-600 dark:text-cyan-400' : 'text-slate-500 dark:text-slate-400'}`} />
             <span>อัปเดตข้อมูล</span>
           </button>
         </div>

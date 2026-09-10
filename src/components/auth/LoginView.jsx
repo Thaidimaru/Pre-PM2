@@ -170,7 +170,7 @@ export function LoginView({ onLoginSuccess, theme = 'light', toggleTheme }) {
               whileTap={{ scale: 0.99 }}
               type="submit"
               disabled={isSubmitting}
-              className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 via-cyan-500 to-emerald-500 py-3.5 text-base font-bold text-slate-950 shadow-lg shadow-blue-500/25 hover:shadow-cyan-500/35 transition-all disabled:opacity-60 cursor-pointer"
+              className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 py-3.5 text-base font-bold text-white shadow-md shadow-blue-500/25 hover:shadow-lg hover:shadow-blue-500/35 transition-all disabled:opacity-60 cursor-pointer"
             >
               {isSubmitting ? (
                 <>
