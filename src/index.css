@@ -212,6 +212,11 @@ body {
   color: #0f172a;
 }
 
+[data-theme="light"] label {
+  color: #0f172a !important;
+  font-weight: 700 !important;
+}
+
 [data-theme="light"] .glass-card h2,
 [data-theme="light"] .glass-card h3 {
   color: #0f172a;
@@ -219,9 +224,9 @@ body {
 
 [data-theme="light"] .text-slate-100 { color: #0f172a; }
 [data-theme="light"] .text-slate-200 { color: #1e293b; }
-[data-theme="light"] .text-slate-300 { color: #475569; }
-[data-theme="light"] .text-slate-400 { color: #64748b; }
-[data-theme="light"] .text-slate-500 { color: #94a3b8; }
+[data-theme="light"] .text-slate-300 { color: #334155; }
+[data-theme="light"] .text-slate-400 { color: #475569; }
+[data-theme="light"] .text-slate-500 { color: #64748b; }
 
 /* Keep button hover and active state text white when background has vibrant color */
 [data-theme="light"] button:hover .group-hover\:text-white,
@@ -236,7 +241,10 @@ body {
    Navbar in Light Mode
    ---------------------------- */
 [data-theme="light"] header {
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05) !important;
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05) !important;
+}
+[data-theme="light"] header .text-slate-900 {
+  color: #0f172a !important;
 }
 [data-theme="light"] header .text-cyan-400 {
   color: #0284c7 !important;
@@ -244,24 +252,27 @@ body {
 [data-theme="light"] header .text-blue-300 {
   color: #1d4ed8 !important;
 }
-[data-theme="light"] header .bg-emerald-950\/40 {
-  background-color: #f0fdf4 !important;
-  border-color: #bbf7d0 !important;
-  color: #166534 !important;
+[data-theme="light"] header .bg-emerald-950\/40,
+[data-theme="light"] header .bg-emerald-50 {
+  background-color: rgba(240, 253, 244, 0.85) !important;
+  border-color: rgba(187, 247, 208, 0.9) !important;
+  color: #15803d !important;
 }
-[data-theme="light"] header .bg-cyan-950\/40 {
-  background-color: #f0f9ff !important;
-  border-color: #bae6fd !important;
+[data-theme="light"] header .bg-cyan-950\/40,
+[data-theme="light"] header .bg-blue-50 {
+  background-color: rgba(240, 249, 255, 0.85) !important;
+  border-color: rgba(186, 230, 253, 0.9) !important;
   color: #0369a1 !important;
 }
-[data-theme="light"] header .bg-blue-500\/20 {
-  background-color: #eff6ff !important;
-  border-color: #bfdbfe !important;
-  color: #1d4ed8 !important;
+[data-theme="light"] header .bg-blue-500\/20,
+[data-theme="light"] header .bg-blue-100 {
+  background-color: rgba(224, 242, 254, 0.85) !important;
+  border-color: rgba(186, 230, 253, 0.9) !important;
+  color: #0369a1 !important;
 }
 [data-theme="light"] header .bg-slate-700\/80,
 [data-theme="light"] header .bg-slate-700\/60 {
-  background-color: #e2e8f0 !important;
+  background-color: #cbd5e1 !important;
 }
 
 /* ----------------------------
@@ -270,10 +281,10 @@ body {
 [data-theme="light"] aside {
   background: var(--theme-sidebar-bg) !important;
   border-right: 1px solid var(--theme-sidebar-border) !important;
-  box-shadow: 1px 0 3px 0 rgba(15, 23, 42, 0.02) !important;
+  box-shadow: 2px 0 12px 0 rgba(15, 23, 42, 0.03) !important;
 }
 [data-theme="light"] aside .text-cyan-400 {
-  color: #2563eb !important;
+  color: #0284c7 !important;
 }
 
 /* Active Nav Button */
@@ -286,49 +297,60 @@ body {
 [data-theme="light"] aside nav button.bg-blue-600 span {
   color: #ffffff !important;
 }
+[data-theme="light"] aside nav button.bg-blue-600 .text-blue-100 {
+  color: #e0f2fe !important;
+}
 [data-theme="light"] aside nav button.bg-blue-600 .bg-white\/20 {
-  background-color: rgba(255, 255, 255, 0.2) !important;
+  background-color: rgba(255, 255, 255, 0.25) !important;
   color: #ffffff !important;
 }
 
 /* Inactive Nav Buttons */
 [data-theme="light"] aside nav button:not(.bg-blue-600) {
+  color: #0f172a !important;
+}
+[data-theme="light"] aside nav button:not(.bg-blue-600) span.text-xs {
   color: #475569 !important;
 }
 [data-theme="light"] aside nav button:not(.bg-blue-600):hover {
-  background-color: #f1f5f9 !important;
+  background-color: rgba(241, 245, 249, 0.85) !important;
   color: #0f172a !important;
 }
-[data-theme="light"] aside nav button:not(.bg-blue-600) .bg-slate-100 {
-  background-color: #f1f5f9 !important;
-  color: #64748b !important;
+[data-theme="light"] aside nav button:not(.bg-blue-600) .bg-slate-100,
+[data-theme="light"] aside nav button:not(.bg-blue-600) .bg-slate-800\/60 {
+  background-color: rgba(241, 245, 249, 0.85) !important;
+  color: #334155 !important;
+  border: 1px solid rgba(226, 232, 240, 0.8) !important;
 }
-[data-theme="light"] aside nav button:not(.bg-blue-600):hover .bg-slate-100 {
-  background-color: #e2e8f0 !important;
-  color: #1e293b !important;
+[data-theme="light"] aside nav button:not(.bg-blue-600):hover .bg-slate-100,
+[data-theme="light"] aside nav button:not(.bg-blue-600):hover .bg-slate-800\/60 {
+  background-color: rgba(224, 242, 254, 0.8) !important;
+  color: #0284c7 !important;
 }
 
 /* Action Buttons in Sidebar */
 [data-theme="light"] aside button.border-blue-500\/20 {
-  background-color: #f8fafc !important;
-  border-color: #e2e8f0 !important;
-  color: #334155 !important;
+  background-color: rgba(255, 255, 255, 0.65) !important;
+  border-color: rgba(203, 213, 225, 0.85) !important;
+  color: #1d4ed8 !important;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02) !important;
+  backdrop-filter: blur(12px) !important;
 }
 [data-theme="light"] aside button.border-blue-500\/20:hover {
-  background-color: #f1f5f9 !important;
-  color: #0f172a !important;
-  border-color: #cbd5e1 !important;
+  background-color: rgba(239, 246, 255, 0.9) !important;
+  color: #1e40af !important;
+  border-color: #93c5fd !important;
 }
 [data-theme="light"] aside button.border-blue-500\/20 .bg-blue-100 {
   background-color: #eff6ff !important;
   color: #2563eb !important;
 }
 [data-theme="light"] aside button.border-rose-500\/20 {
-  background-color: #fff1f2 !important;
-  border-color: #fecdd3 !important;
+  background-color: rgba(255, 241, 242, 0.75) !important;
+  border-color: rgba(254, 205, 211, 0.9) !important;
   color: #be123c !important;
   box-shadow: 0 1px 2px rgba(225, 29, 72, 0.03) !important;
+  backdrop-filter: blur(12px) !important;
 }
 [data-theme="light"] aside button.border-rose-500\/20:hover {
   background-color: #ffe4e6 !important;
@@ -341,10 +363,12 @@ body {
 }
 
 /* Sidebar Footer Box */
+[data-theme="light"] aside .bg-white\/55,
 [data-theme="light"] aside .bg-slate-50,
 [data-theme="light"] aside .bg-blue-950\/20 {
-  background-color: #f8fafc !important;
-  border-color: #e2e8f0 !important;
+  background-color: rgba(248, 250, 252, 0.75) !important;
+  border-color: rgba(226, 232, 240, 0.85) !important;
+  backdrop-filter: blur(12px) !important;
 }
 
 /* ----------------------------
@@ -476,6 +500,10 @@ body {
 /* ShinyText in Light Mode: High contrast dark sapphire shimmer */
 [data-theme="light"] .animate-shine {
   background-image: linear-gradient(110deg, #0f172a 25%, #0284c7 45%, #0f172a 65%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  color: transparent !important;
 }
 
 /* Refresh Button in Light Mode: Semi-transparent Frosted */
@@ -744,10 +772,16 @@ body {
   -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
 }
 
-[data-theme="light"] .field-visit-header h1,
+[data-theme="light"] .field-visit-header h1 {
+  color: #0f172a;
+}
+
 [data-theme="light"] .field-visit-header .animate-shine {
-  color: #0f172a !important;
   background-image: linear-gradient(110deg, #0f172a 25%, #0284c7 45%, #0f172a 65%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  color: transparent !important;
 }
 
 [data-theme="light"] .field-visit-header p {
