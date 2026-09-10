@@ -23,7 +23,7 @@ export function GlassCard({
   return (
     <Component
       className={cn(
-        'relative overflow-hidden rounded-2xl border border-[rgba(56,149,255,0.22)] bg-[linear-gradient(145deg,rgba(14,33,58,0.85),rgba(7,19,35,0.88))] p-6 shadow-2xl backdrop-blur-xl',
+        'glass-card relative overflow-hidden rounded-2xl p-6 shadow-xl backdrop-blur-xl transition-all duration-300',
         className
       )}
       onClick={onClick}

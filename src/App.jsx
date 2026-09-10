@@ -8,7 +8,7 @@ import { LoginView } from '@/components/auth/LoginView';
 
 export function App() {
   const [token, setToken] = useState(() => sessionStorage.getItem('surveyToken') || '');
-  const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'dark');
+  const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'light');
   const [currentPage, setCurrentPage] = useState(() => {
     const path = window.location.pathname;
     if (path === '/dashboard') return 'dashboard';
@@ -17,10 +17,10 @@ export function App() {
   });
 
   useEffect(() => {
-    if (theme === 'light') {
-      document.documentElement.setAttribute('data-theme', 'light');
+    if (theme === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
     } else {
-      document.documentElement.removeAttribute('data-theme');
+      document.documentElement.setAttribute('data-theme', 'light');
     }
     localStorage.setItem('theme', theme);
   }, [theme]);
@@ -71,19 +71,23 @@ export function App() {
   if (!token) {
     return (
       <div
-        className="relative min-h-screen text-slate-100 flex flex-col justify-center transition-colors duration-300"
-        style={{ background: 'var(--theme-bg-gradient)' }}
+        className="relative min-h-screen flex flex-col justify-center transition-colors duration-300"
+        style={{ background: 'var(--theme-bg-gradient)', color: 'var(--theme-text)' }}
       >
         <Spotlight />
-        <LoginView onLoginSuccess={handleLoginSuccess} />
+        <LoginView
+          theme={theme}
+          toggleTheme={toggleTheme}
+          onLoginSuccess={handleLoginSuccess}
+        />
       </div>
     );
   }
 
   return (
     <div
-      className="relative min-h-screen text-slate-100 transition-colors duration-300"
-      style={{ background: 'var(--theme-bg-gradient)' }}
+      className="relative min-h-screen transition-colors duration-300"
+      style={{ background: 'var(--theme-bg-gradient)', color: 'var(--theme-text)' }}
     >
       <Spotlight />
 
