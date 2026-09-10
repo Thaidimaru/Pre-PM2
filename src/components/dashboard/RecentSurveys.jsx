@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
-import { Clock, ArrowRight, CheckCircle2, XCircle, AlertCircle, Eye, Camera, ZoomIn, Loader2, MapPin, User, Calendar, Radio, Download, FileSpreadsheet } from 'lucide-react';
+import React, { useState, useRef } from 'react';
+import { Clock, ArrowRight, CheckCircle2, XCircle, AlertCircle, Eye, Camera, ZoomIn, Loader2, MapPin, User, Calendar, Radio, Download, FileText } from 'lucide-react';
+import html2pdf from 'html2pdf.js';
 import { GlassCard } from '@/components/ui/glass-card';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { fetchSurveyDetail, fetchSurveys } from '@/lib/api';
+import { ReportPDF } from './ReportPDF';
 
 export function RecentSurveys({ recent = [], onNavigate }) {
   const [activeSurvey, setActiveSurvey] = useState(null);
@@ -10,6 +12,8 @@ export function RecentSurveys({ recent = [], onNavigate }) {
   const [isLoadingDetail, setIsLoadingDetail] = useState(false);
   const [activeZoomPhoto, setActiveZoomPhoto] = useState(null);
   const [isExporting, setIsExporting] = useState(false);
+  const [fullSurveys, setFullSurveys] = useState([]);
+  const reportRef = useRef(null);
 
   const token = typeof window !== 'undefined' ? sessionStorage.getItem('surveyToken') || '' : '';
 
@@ -30,102 +34,55 @@ export function RecentSurveys({ recent = [], onNavigate }) {
     }
   };
 
-  const handleExportCSV = async () => {
+  const handleExportPDF = async () => {
     if (isExporting) return;
     setIsExporting(true);
     try {
-      // Fetch all surveys with full detail from the API
       const data = await fetchSurveys(token);
       const surveys = data.surveys || [];
 
       if (surveys.length === 0) {
         alert('ไม่มีข้อมูลสำรวจสำหรับ Export');
+        setIsExporting(false);
         return;
       }
 
-      // CSV Header
-      const headers = [
-        'รหัสรายการ',
-        'วันที่บันทึก',
-        'สถานี',
-        'สถานที่ติดตั้ง',
-        'สถานที่วางเครื่อง',
-        'จังหวัด',
-        'อำเภอ',
-        'ตำบล',
-        'ผลการอนุญาต',
-        'ข้อจำกัดในการเข้าพื้นที่',
-        'ภาพรวมเครื่องวิทยุ',
-        'การรับสัญญาณ',
-        'ทดสอบการสนทนา',
-        'การทำงานของระบบไฟฟ้า',
-        'การทำงานของระบบสำรองไฟ',
-        'ปัญหาเพิ่มเติม',
-        'ชื่อผู้ให้ข้อมูล',
-        'ตำแหน่ง',
-        'หน่วยงาน/หมู่บ้าน',
-        'เบอร์โทรศัพท์',
-        'ผู้ปฏิบัติงาน',
-        'สรุปสิ่งที่ได้รับแจ้ง',
-        'จำนวนรูปถ่าย'
-      ];
+      setFullSurveys(surveys);
 
-      const escapeCsv = (val) => {
-        const str = String(val ?? '');
-        if (str.includes(',') || str.includes('"') || str.includes('\n') || str.includes('\r')) {
-          return `"${str.replace(/"/g, '""')}"`;
+      // Wait a moment for React to render the hidden ReportPDF component with the new data
+      setTimeout(() => {
+        if (!reportRef.current) {
+          setIsExporting(false);
+          return;
         }
-        return str;
-      };
 
-      const rows = surveys.map((s) => {
-        const f = s.fields || {};
-        return [
-          s.recordId || '',
-          s.savedAt ? new Date(s.savedAt).toLocaleString('th-TH') : '',
-          f.station || f.stationSelect || '',
-          f.installationPlace || '',
-          f.equipmentPlace || '',
-          f.province || '',
-          f.district || '',
-          f.subdistrict || '',
-          f.permit || '',
-          f.accessLimit || '',
-          f.radioStatus || '',
-          f.receiveStatus || '',
-          f.transmitStatus || '',
-          f.powerStatus || '',
-          f.batteryStatus || '',
-          f.userProblem || '',
-          f.contactName || '',
-          f.contactPosition || '',
-          f.contactVillage || '',
-          f.contactPhone || '',
-          f.operatorName || '',
-          f.summary || '',
-          Array.isArray(s.photos) ? s.photos.length : 0
-        ].map(escapeCsv).join(',');
-      });
+        const dateStr = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+        const filename = `NBTC_PrePM_Report_${dateStr}.pdf`;
 
-      // BOM + CSV content for Thai encoding
-      const bom = '\uFEFF';
-      const csvContent = bom + headers.map(escapeCsv).join(',') + '\n' + rows.join('\n');
+        const opt = {
+          margin: 0,
+          filename: filename,
+          image: { type: 'jpeg', quality: 0.98 },
+          html2canvas: { scale: 2, useCORS: true, letterRendering: true },
+          jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
 
-      // Trigger download
-      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      const dateStr = new Date().toISOString().slice(0, 10).replace(/-/g, '');
-      link.href = url;
-      link.download = `NBTC_PrePM_Survey_${dateStr}.csv`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      URL.revokeObjectURL(url);
+        html2pdf()
+          .set(opt)
+          .from(reportRef.current)
+          .save()
+          .then(() => {
+            setIsExporting(false);
+          })
+          .catch((err) => {
+            console.error('PDF generation error:', err);
+            alert('ไม่สามารถสร้าง PDF ได้');
+            setIsExporting(false);
+          });
+      }, 500); // 500ms delay to ensure images/fonts are ready if any
     } catch (err) {
       console.error('Export error:', err);
       alert('ไม่สามารถ Export ข้อมูลได้: ' + (err.message || 'เกิดข้อผิดพลาด'));
-    } finally {
       setIsExporting(false);
     }
   };
@@ -170,19 +127,19 @@ export function RecentSurveys({ recent = [], onNavigate }) {
           </div>
 
           <div className="flex items-center gap-2 flex-shrink-0">
-            {/* Export CSV Button */}
+            {/* Export PDF Button */}
             <button
               type="button"
-              onClick={handleExportCSV}
+              onClick={handleExportPDF}
               disabled={isExporting}
-              className="group inline-flex items-center gap-1.5 rounded-xl border border-emerald-500/30 bg-emerald-600/20 px-3.5 py-1.5 text-sm font-semibold text-emerald-300 hover:bg-emerald-600/30 hover:border-emerald-500/50 hover:text-white transition-all duration-200 cursor-pointer whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
+              className="group inline-flex items-center gap-1.5 rounded-xl border border-rose-500/30 bg-rose-600/20 px-3.5 py-1.5 text-sm font-semibold text-rose-300 hover:bg-rose-600/30 hover:border-rose-500/50 hover:text-white transition-all duration-200 cursor-pointer whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isExporting ? (
                 <Loader2 className="h-4 w-4 animate-spin" />
               ) : (
-                <FileSpreadsheet className="h-4 w-4" />
+                <FileText className="h-4 w-4" />
               )}
-              <span>{isExporting ? 'กำลัง Export...' : 'Export'}</span>
+              <span>{isExporting ? 'กำลังสร้าง PDF...' : 'Export PDF'}</span>
             </button>
 
             {/* Navigate to New Record Button */}
@@ -471,6 +428,10 @@ export function RecentSurveys({ recent = [], onNavigate }) {
           </div>
         </DialogContent>
       </Dialog>
+
+      {/* Hidden PDF Report Template */}
+      <ReportPDF ref={reportRef} surveys={fullSurveys} />
     </>
   );
 }
+

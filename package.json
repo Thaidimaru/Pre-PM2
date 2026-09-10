@@ -1,6 +1,6 @@
 {
   "name": "survey-control-room",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "private": true,
   "scripts": {
     "dev": "vite",
@@ -22,6 +22,9 @@
     "@vercel/blob": "^2.8.0",
     "clsx": "^2.1.1",
     "framer-motion": "^13.2.0",
+    "html2pdf.js": "^0.14.0",
+    "jspdf": "^4.2.1",
+    "jspdf-autotable": "^5.0.8",
     "lucide-react": "^1.42.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
