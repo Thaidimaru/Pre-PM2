@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
-import { Clock, ArrowRight, CheckCircle2, XCircle, AlertCircle, Eye, Camera, ZoomIn, Loader2, MapPin, User, Calendar, Radio } from 'lucide-react';
+import { Clock, ArrowRight, CheckCircle2, XCircle, AlertCircle, Eye, Camera, ZoomIn, Loader2, MapPin, User, Calendar, Radio, Download, FileSpreadsheet } from 'lucide-react';
 import { GlassCard } from '@/components/ui/glass-card';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { fetchSurveyDetail } from '@/lib/api';
+import { fetchSurveyDetail, fetchSurveys } from '@/lib/api';
 
 export function RecentSurveys({ recent = [], onNavigate }) {
   const [activeSurvey, setActiveSurvey] = useState(null);
   const [surveyDetail, setSurveyDetail] = useState(null);
   const [isLoadingDetail, setIsLoadingDetail] = useState(false);
   const [activeZoomPhoto, setActiveZoomPhoto] = useState(null);
+  const [isExporting, setIsExporting] = useState(false);
 
   const token = typeof window !== 'undefined' ? sessionStorage.getItem('surveyToken') || '' : '';
 
@@ -26,6 +27,106 @@ export function RecentSurveys({ recent = [], onNavigate }) {
       console.error('Failed to load survey details:', err);
     } finally {
       setIsLoadingDetail(false);
+    }
+  };
+
+  const handleExportCSV = async () => {
+    if (isExporting) return;
+    setIsExporting(true);
+    try {
+      // Fetch all surveys with full detail from the API
+      const data = await fetchSurveys(token);
+      const surveys = data.surveys || [];
+
+      if (surveys.length === 0) {
+        alert('ไม่มีข้อมูลสำรวจสำหรับ Export');
+        return;
+      }
+
+      // CSV Header
+      const headers = [
+        'รหัสรายการ',
+        'วันที่บันทึก',
+        'สถานี',
+        'สถานที่ติดตั้ง',
+        'สถานที่วางเครื่อง',
+        'จังหวัด',
+        'อำเภอ',
+        'ตำบล',
+        'ผลการอนุญาต',
+        'ข้อจำกัดในการเข้าพื้นที่',
+        'ภาพรวมเครื่องวิทยุ',
+        'การรับสัญญาณ',
+        'ทดสอบการสนทนา',
+        'การทำงานของระบบไฟฟ้า',
+        'การทำงานของระบบสำรองไฟ',
+        'ปัญหาเพิ่มเติม',
+        'ชื่อผู้ให้ข้อมูล',
+        'ตำแหน่ง',
+        'หน่วยงาน/หมู่บ้าน',
+        'เบอร์โทรศัพท์',
+        'ผู้ปฏิบัติงาน',
+        'สรุปสิ่งที่ได้รับแจ้ง',
+        'จำนวนรูปถ่าย'
+      ];
+
+      const escapeCsv = (val) => {
+        const str = String(val ?? '');
+        if (str.includes(',') || str.includes('"') || str.includes('\n') || str.includes('\r')) {
+          return `"${str.replace(/"/g, '""')}"`;
+        }
+        return str;
+      };
+
+      const rows = surveys.map((s) => {
+        const f = s.fields || {};
+        return [
+          s.recordId || '',
+          s.savedAt ? new Date(s.savedAt).toLocaleString('th-TH') : '',
+          f.station || f.stationSelect || '',
+          f.installationPlace || '',
+          f.equipmentPlace || '',
+          f.province || '',
+          f.district || '',
+          f.subdistrict || '',
+          f.permit || '',
+          f.accessLimit || '',
+          f.radioStatus || '',
+          f.receiveStatus || '',
+          f.transmitStatus || '',
+          f.powerStatus || '',
+          f.batteryStatus || '',
+          f.userProblem || '',
+          f.contactName || '',
+          f.contactPosition || '',
+          f.contactVillage || '',
+          f.contactPhone || '',
+          f.operatorName || '',
+          f.summary || '',
+          Array.isArray(s.photos) ? s.photos.length : 0
+        ].map(escapeCsv).join(',');
+      });
+
+      // BOM + CSV content for Thai encoding
+      const bom = '\uFEFF';
+      const csvContent = bom + headers.map(escapeCsv).join(',') + '\n' + rows.join('\n');
+
+      // Trigger download
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      const dateStr = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+      link.href = url;
+      link.download = `NBTC_PrePM_Survey_${dateStr}.csv`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error('Export error:', err);
+      alert('ไม่สามารถ Export ข้อมูลได้: ' + (err.message || 'เกิดข้อผิดพลาด'));
+    } finally {
+      setIsExporting(false);
     }
   };
 
@@ -68,17 +169,36 @@ export function RecentSurveys({ recent = [], onNavigate }) {
             </h2>
           </div>
 
-          {onNavigate && (
+          <div className="flex items-center gap-2 flex-shrink-0">
+            {/* Export CSV Button */}
             <button
               type="button"
-              onClick={() => onNavigate('field')}
-              className="group inline-flex items-center gap-1.5 rounded-xl border border-blue-500/30 bg-blue-600/20 px-3.5 py-1.5 text-sm font-semibold text-blue-300 hover:bg-blue-600/30 hover:border-blue-500/50 hover:text-white transition-all duration-200 cursor-pointer whitespace-nowrap flex-shrink-0"
+              onClick={handleExportCSV}
+              disabled={isExporting}
+              className="group inline-flex items-center gap-1.5 rounded-xl border border-emerald-500/30 bg-emerald-600/20 px-3.5 py-1.5 text-sm font-semibold text-emerald-300 hover:bg-emerald-600/30 hover:border-emerald-500/50 hover:text-white transition-all duration-200 cursor-pointer whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              <span>บันทึกใหม่</span>
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+              {isExporting ? (
+                <Loader2 className="h-4 w-4 animate-spin" />
+              ) : (
+                <FileSpreadsheet className="h-4 w-4" />
+              )}
+              <span>{isExporting ? 'กำลัง Export...' : 'Export'}</span>
             </button>
-          )}
+
+            {/* Navigate to New Record Button */}
+            {onNavigate && (
+              <button
+                type="button"
+                onClick={() => onNavigate('field')}
+                className="group inline-flex items-center gap-1.5 rounded-xl border border-blue-500/30 bg-blue-600/20 px-3.5 py-1.5 text-sm font-semibold text-blue-300 hover:bg-blue-600/30 hover:border-blue-500/50 hover:text-white transition-all duration-200 cursor-pointer whitespace-nowrap flex-shrink-0"
+              >
+                <span>บันทึกใหม่</span>
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+              </button>
+            )}
+          </div>
         </div>
+
 
         {/* Table Container */}
         <div className="overflow-x-auto pt-4">
