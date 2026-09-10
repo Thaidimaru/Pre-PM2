@@ -24,7 +24,13 @@ export function Navbar() {
   });
 
   return (
-    <header className="sticky top-0 z-40 h-[88px] w-full border-b border-[rgba(28,139,255,0.45)] bg-[linear-gradient(90deg,#021735,#031b40)] shadow-[0_8px_30px_rgba(0,0,0,0.32)] backdrop-blur-xl">
+    <header 
+      className="sticky top-0 z-40 h-[88px] w-full border-b shadow-[0_8px_30px_rgba(0,0,0,0.32)] backdrop-blur-xl transition-all duration-300"
+      style={{
+        background: 'var(--theme-navbar-bg)',
+        borderColor: 'var(--theme-navbar-border)'
+      }}
+    >
       <div className="mx-auto flex h-full items-center justify-between px-6 lg:px-10">
         {/* Brand */}
         <div className="flex items-center gap-3.5 flex-shrink-0">

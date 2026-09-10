@@ -8,12 +8,26 @@ import { LoginView } from '@/components/auth/LoginView';
 
 export function App() {
   const [token, setToken] = useState(() => sessionStorage.getItem('surveyToken') || '');
+  const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'dark');
   const [currentPage, setCurrentPage] = useState(() => {
     const path = window.location.pathname;
     if (path === '/dashboard') return 'dashboard';
     if (path === '/login') return 'login';
     return 'field';
   });
+
+  useEffect(() => {
+    if (theme === 'light') {
+      document.documentElement.setAttribute('data-theme', 'light');
+    } else {
+      document.documentElement.removeAttribute('data-theme');
+    }
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme(prev => prev === 'light' ? 'dark' : 'light');
+  };
 
   const navigateTo = (page) => {
     setCurrentPage(page);
@@ -56,7 +70,10 @@ export function App() {
 
   if (!token) {
     return (
-      <div className="relative min-h-screen bg-[radial-gradient(ellipse_at_top_right,rgba(8,105,255,0.18),transparent_60%),linear-gradient(135deg,#020b1b,#031a3a_48%,#020f25)] text-slate-100 flex flex-col justify-center">
+      <div 
+        className="relative min-h-screen text-slate-100 flex flex-col justify-center transition-colors duration-300"
+        style={{ background: 'var(--theme-bg-gradient)' }}
+      >
         <Spotlight />
         <LoginView onLoginSuccess={handleLoginSuccess} />
       </div>
@@ -64,7 +81,10 @@ export function App() {
   }
 
   return (
-    <div className="relative min-h-screen bg-[radial-gradient(ellipse_at_top_right,rgba(8,105,255,0.18),transparent_60%),linear-gradient(135deg,#020b1b,#031a3a_48%,#020f25)] text-slate-100">
+    <div 
+      className="relative min-h-screen text-slate-100 transition-colors duration-300"
+      style={{ background: 'var(--theme-bg-gradient)' }}
+    >
       <Spotlight />
 
       {/* Top Fixed Navbar */}
@@ -76,6 +96,8 @@ export function App() {
           currentPage={currentPage === 'login' ? 'dashboard' : currentPage}
           onNavigate={navigateTo}
           onLogout={handleLogout}
+          theme={theme}
+          toggleTheme={toggleTheme}
         />
 
         {/* Dynamic Page Content */}

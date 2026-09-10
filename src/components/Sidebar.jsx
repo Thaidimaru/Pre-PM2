@@ -1,10 +1,10 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { LayoutDashboard, ClipboardList, LogOut, Radio, Activity } from 'lucide-react';
+import { LayoutDashboard, ClipboardList, LogOut, Radio, Activity, Sun, Moon } from 'lucide-react';
 import { APP_VERSION } from '@/version';
 import { cn } from '@/lib/utils';
 
-export function Sidebar({ currentPage, onNavigate, onLogout }) {
+export function Sidebar({ currentPage, onNavigate, onLogout, theme, toggleTheme }) {
   const navItems = [
     {
       id: 'dashboard',
@@ -21,7 +21,13 @@ export function Sidebar({ currentPage, onNavigate, onLogout }) {
   ];
 
   return (
-    <aside className="fixed left-0 top-[88px] z-30 flex h-[calc(100vh-88px)] w-64 flex-col justify-between border-r border-[rgba(28,139,255,0.22)] bg-[linear-gradient(180deg,rgba(2,15,35,0.95),rgba(2,11,27,0.98))] p-4 shadow-xl backdrop-blur-xl transition-all duration-300">
+    <aside 
+      className="fixed left-0 top-[88px] z-30 flex h-[calc(100vh-88px)] w-64 flex-col justify-between border-r p-4 shadow-xl backdrop-blur-xl transition-all duration-300"
+      style={{
+        background: 'var(--theme-sidebar-bg)',
+        borderColor: 'var(--theme-sidebar-border)'
+      }}
+    >
       <div className="space-y-6">
         <div>
           <div className="px-3 pb-2 text-xs font-bold tracking-wider text-cyan-400 uppercase">
@@ -72,7 +78,22 @@ export function Sidebar({ currentPage, onNavigate, onLogout }) {
         </div>
 
         {/* Action button */}
-        <div className="pt-2 border-t border-slate-800/80">
+        <div className="pt-2 border-t border-slate-800/80 space-y-2">
+          {toggleTheme && (
+            <button
+              type="button"
+              onClick={toggleTheme}
+              className="group flex w-full items-center gap-3 rounded-xl border border-blue-500/20 px-3.5 py-2.5 text-left text-blue-300 hover:bg-blue-500/10 hover:border-blue-500/40 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+            >
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-500/20 text-blue-400 group-hover:text-blue-200">
+                {theme === 'light' ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
+              </div>
+              <span className="text-base font-semibold">
+                {theme === 'light' ? 'โหมดกลางคืน' : 'โหมดกลางวัน'}
+              </span>
+            </button>
+          )}
+
           <button
             type="button"
             onClick={onLogout}
