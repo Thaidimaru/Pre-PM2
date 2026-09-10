@@ -1,50 +1,55 @@
 import React from 'react';
-import { Activity, Radio, CheckCircle2, XCircle } from 'lucide-react';
+import { Activity, Radio, CheckCircle2, XCircle, ArrowRight, List } from 'lucide-react';
 import { GlassCard } from '@/components/ui/glass-card';
 import { AnimatedCounter } from '@/components/ui/animated-counter';
 
 export function KpiCards({ stats = {} }) {
-  const total = stats.surveys || 0;
-  const stations = stats.stations || 0;
-  const allowed = stats.allowed || 0;
-  const denied = stats.denied || 0;
+  const safeStats = stats || {};
+  const total = safeStats.surveys || 0;
+  const stations = safeStats.stations || 0;
+  const allowed = safeStats.allowed || 0;
+  const denied = safeStats.denied || 0;
 
   const cards = [
     {
       label: 'ผลสำรวจทั้งหมด',
       value: total,
+      unit: 'รายการ',
       icon: Activity,
-      iconColor: 'text-blue-400',
-      bgColor: 'from-blue-500/10 to-transparent',
-      borderColor: 'hover:border-blue-500/40',
-      valColor: 'text-blue-400'
+      accentClass: 'kpi-card-blue',
+      iconBgClass: 'kpi-icon-blue',
+      valColorClass: 'text-blue-600 dark:text-blue-400',
+      linkText: `ดูข้อมูล ${total.toLocaleString()} รายการ`,
     },
     {
-      label: 'สถานีในระบบ',
+      label: 'สถานีในระบบทั้งหมด',
       value: stations,
+      unit: 'สถานี',
       icon: Radio,
-      iconColor: 'text-cyan-400',
-      bgColor: 'from-cyan-500/10 to-transparent',
-      borderColor: 'hover:border-cyan-500/40',
-      valColor: 'text-cyan-400'
+      accentClass: 'kpi-card-purple',
+      iconBgClass: 'kpi-icon-purple',
+      valColorClass: 'text-purple-600 dark:text-purple-400',
+      linkText: `ดูข้อมูล ${stations.toLocaleString()} สถานี`,
     },
     {
-      label: 'อนุญาตเข้าพื้นที่',
+      label: 'อนุญาตเข้าพื้นที่สำรวจ',
       value: allowed,
+      unit: 'สถานี',
       icon: CheckCircle2,
-      iconColor: 'text-emerald-400',
-      bgColor: 'from-emerald-500/10 to-transparent',
-      borderColor: 'hover:border-emerald-500/40',
-      valColor: 'text-emerald-400'
+      accentClass: 'kpi-card-emerald',
+      iconBgClass: 'kpi-icon-emerald',
+      valColorClass: 'text-emerald-600 dark:text-emerald-400',
+      linkText: `ดูข้อมูล ${allowed.toLocaleString()} สถานี`,
     },
     {
-      label: 'ไม่อนุญาตเข้าพื้นที่',
+      label: 'ไม่อนุญาตเข้าพื้นที่สำรวจ',
       value: denied,
+      unit: 'สถานี',
       icon: XCircle,
-      iconColor: 'text-rose-400',
-      bgColor: 'from-rose-500/10 to-transparent',
-      borderColor: 'hover:border-rose-500/40',
-      valColor: 'text-rose-400'
+      accentClass: 'kpi-card-rose',
+      iconBgClass: 'kpi-icon-rose',
+      valColorClass: 'text-rose-600 dark:text-rose-400',
+      linkText: `ดูข้อมูล ${denied.toLocaleString()} สถานี`,
     }
   ];
 
@@ -55,18 +60,34 @@ export function KpiCards({ stats = {} }) {
         return (
           <GlassCard
             key={idx}
-            className={`flex flex-col justify-between bg-gradient-to-b ${card.bgColor} ${card.borderColor}`}
+            className={`flex flex-col justify-between p-5 transition-all duration-300 rounded-2xl shadow-sm hover:shadow-md ${card.accentClass}`}
           >
-            <div className="flex items-center justify-between gap-2">
-              <span className="text-sm xl:text-base font-semibold text-slate-200 leading-normal whitespace-nowrap truncate" title={card.label}>
-                {card.label}
-              </span>
-              <div className="kpi-icon-box flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-slate-900/60 border border-slate-700/50 shadow-inner">
-                <Icon className={`h-5 w-5 ${card.iconColor}`} />
+            <div>
+              <div className="flex items-start justify-between gap-2">
+                <span className="text-sm xl:text-base font-bold text-slate-800 dark:text-slate-200 leading-snug truncate" title={card.label}>
+                  {card.label}
+                </span>
+                <div className={`flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full transition-transform hover:scale-105 ${card.iconBgClass}`}>
+                  <Icon className="h-5.5 w-5.5" />
+                </div>
+              </div>
+
+              <div className="mt-3 flex items-baseline gap-2">
+                <span className={`text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-none ${card.valColorClass}`}>
+                  <AnimatedCounter value={card.value} />
+                </span>
+                <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">
+                  {card.unit}
+                </span>
               </div>
             </div>
-            <div className={`mt-4 text-3xl sm:text-4xl font-extrabold tracking-tight leading-none lg:text-5xl ${card.valColor} whitespace-nowrap`}>
-              <AnimatedCounter value={card.value} />
+
+            <div className="mt-5 pt-3 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-xs font-semibold cursor-pointer group">
+              <span className="text-slate-500 dark:text-slate-400 group-hover:text-blue-600 dark:group-hover:text-cyan-300 transition-colors flex items-center gap-1 truncate">
+                <List className="h-3.5 w-3.5 text-slate-400 group-hover:text-blue-600 dark:group-hover:text-cyan-300" />
+                <span>{card.linkText}</span>
+              </span>
+              <ArrowRight className="h-3.5 w-3.5 text-slate-400 group-hover:text-blue-600 dark:group-hover:text-cyan-300 group-hover:translate-x-1 transition-all flex-shrink-0" />
             </div>
           </GlassCard>
         );
