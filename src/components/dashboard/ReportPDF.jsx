@@ -138,6 +138,7 @@ export const ReportPDF = React.forwardRef(({ surveys = [] }, ref) => {
             {safeSurveys.length > 0 ? (
               safeSurveys.map((survey, index) => {
                 const f = survey.fields || survey || {};
+                const recordId = survey.recordId || f.recordId || '';
                 const date = survey.savedAt
                   ? (() => {
                       try {
