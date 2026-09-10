@@ -35,7 +35,7 @@ export function SurveyDonut({ stats = {} }) {
           className="relative flex h-40 w-40 items-center justify-center rounded-full p-3 shadow-[0_0_20px_rgba(0,0,0,0.4)] flex-shrink-0"
           style={{ background: donutGradient }}
         >
-          <div className="flex h-28 w-28 flex-col items-center justify-center rounded-full bg-[#051326] shadow-inner border border-slate-800">
+          <div className="survey-donut-center flex h-28 w-28 flex-col items-center justify-center rounded-full bg-[#051326] shadow-inner border border-slate-800">
             <span className="text-2xl font-black text-white whitespace-nowrap">
               {allowedPct.toFixed(1)}%
             </span>

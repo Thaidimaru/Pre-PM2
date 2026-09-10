@@ -1,6 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Clock, ArrowRight, CheckCircle2, XCircle, AlertCircle, Eye, Camera, ZoomIn, Loader2, MapPin, User, Calendar, Radio, Download, FileText } from 'lucide-react';
-import html2pdf from 'html2pdf.js';
+import { Clock, ArrowRight, CheckCircle2, XCircle, AlertCircle, Eye, Camera, ZoomIn, Loader2, MapPin, User, Calendar, Radio, Download, FileText, FileSpreadsheet } from 'lucide-react';
 import { GlassCard } from '@/components/ui/glass-card';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { fetchSurveyDetail, fetchSurveys } from '@/lib/api';
@@ -12,6 +11,7 @@ export function RecentSurveys({ recent = [], onNavigate }) {
   const [isLoadingDetail, setIsLoadingDetail] = useState(false);
   const [activeZoomPhoto, setActiveZoomPhoto] = useState(null);
   const [isExporting, setIsExporting] = useState(false);
+  const [isExportingExcel, setIsExportingExcel] = useState(false);
   const [fullSurveys, setFullSurveys] = useState([]);
   const reportRef = useRef(null);
 
@@ -34,12 +34,73 @@ export function RecentSurveys({ recent = [], onNavigate }) {
     }
   };
 
+  const getExportableSurveys = async () => {
+    let surveys = [];
+    try {
+      if (token) {
+        const data = await fetchSurveys(token);
+        surveys = data.surveys || [];
+      }
+    } catch (e) {
+      console.warn('fetchSurveys failed, falling back to recent surveys:', e);
+    }
+
+    if (surveys.length === 0 && recent && recent.length > 0) {
+      surveys = recent;
+    }
+    return surveys;
+  };
+
+  const handleExportExcel = async () => {
+    if (isExportingExcel) return;
+    setIsExportingExcel(true);
+    try {
+      const surveys = await getExportableSurveys();
+      if (surveys.length === 0) {
+        alert('ไม่มีข้อมูลสำรวจสำหรับ Export');
+        return;
+      }
+
+      const rows = surveys.map((s, idx) => {
+        const f = s.fields || s || {};
+        return {
+          'ลำดับ': idx + 1,
+          'รหัสรายการ': s.recordId || f.recordId || '',
+          'วันที่บันทึก': s.savedAt ? new Date(s.savedAt).toLocaleString('th-TH') : (f.visitDate || ''),
+          'ชื่อสถานี': f.station || f.stationSelect || s.station || '',
+          'จังหวัด': f.province || s.province || '',
+          'ผลการอนุญาต': f.permit || s.permit || '',
+          'สถานที่ติดตั้ง': f.installationPlace || '',
+          'สถานที่วางเครื่อง': f.equipmentPlace || '',
+          'ผู้ให้ข้อมูล': f.contactName || '',
+          'ตำแหน่ง': f.contactPosition || '',
+          'ผู้ปฏิบัติงาน': f.operatorName || '',
+          'สภาพวิทยุ': f.radioStatus || '',
+          'ระบบไฟฟ้า': f.powerStatus || '',
+          'ระบบสำรองไฟ': f.batteryStatus || '',
+          'สรุปสิ่งที่ได้รับแจ้ง': f.summary || f.siteCondition || f.userProblem || '',
+        };
+      });
+
+      const XLSX = await import('xlsx');
+      const ws = XLSX.utils.json_to_sheet(rows);
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, 'ผลการสำรวจ Pre-PM');
+      const dateStr = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+      XLSX.writeFile(wb, `NBTC_PrePM_Surveys_${dateStr}.xlsx`);
+    } catch (err) {
+      console.error('Excel export error:', err);
+      alert('ไม่สามารถ Export Excel ได้: ' + (err.message || 'เกิดข้อผิดพลาด'));
+    } finally {
+      setIsExportingExcel(false);
+    }
+  };
+
   const handleExportPDF = async () => {
     if (isExporting) return;
     setIsExporting(true);
     try {
-      const data = await fetchSurveys(token);
-      const surveys = data.surveys || [];
+      const surveys = await getExportableSurveys();
 
       if (surveys.length === 0) {
         alert('ไม่มีข้อมูลสำรวจสำหรับ Export');
@@ -49,40 +110,75 @@ export function RecentSurveys({ recent = [], onNavigate }) {
 
       setFullSurveys(surveys);
 
-      // Wait a moment for React to render the hidden ReportPDF component with the new data
-      setTimeout(() => {
-        if (!reportRef.current) {
-          setIsExporting(false);
-          return;
-        }
+      // Allow React to re-render the hidden ReportPDF component with data
+      await new Promise((resolve) => setTimeout(resolve, 400));
+      if (typeof document !== 'undefined' && document.fonts && document.fonts.ready) {
+        await document.fonts.ready;
+      }
 
-        const dateStr = new Date().toISOString().slice(0, 10).replace(/-/g, '');
-        const filename = `NBTC_PrePM_Report_${dateStr}.pdf`;
+      if (!reportRef.current) {
+        throw new Error('ไม่พบเทมเพลตสำหรับสร้างรายงาน PDF');
+      }
+
+      const dateStr = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+      const filename = `NBTC_PrePM_Report_${dateStr}.pdf`;
+
+      try {
+        const html2pdfMod = await import('html2pdf.js');
+        const html2pdf = html2pdfMod.default || html2pdfMod;
 
         const opt = {
-          margin: 0,
+          margin: [10, 8, 10, 8],
           filename: filename,
           image: { type: 'jpeg', quality: 0.98 },
-          html2canvas: { scale: 2, useCORS: true, letterRendering: true },
-          jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+          html2canvas: {
+            scale: 2,
+            useCORS: true,
+            logging: false,
+            letterRendering: true,
+            scrollY: 0,
+            scrollX: 0,
+            windowWidth: 1024,
+          },
+          jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+          pagebreak: { mode: ['avoid-all', 'css', 'legacy'] },
         };
 
-        html2pdf()
-          .set(opt)
-          .from(reportRef.current)
-          .save()
-          .then(() => {
-            setIsExporting(false);
-          })
-          .catch((err) => {
-            console.error('PDF generation error:', err);
-            alert('ไม่สามารถสร้าง PDF ได้');
-            setIsExporting(false);
-          });
-      }, 500); // 500ms delay to ensure images/fonts are ready if any
+        await html2pdf().set(opt).from(reportRef.current).save();
+      } catch (pdfErr) {
+        console.warn('html2pdf generation error, opening printable window as fallback:', pdfErr);
+        const printWindow = window.open('', '_blank');
+        if (printWindow) {
+          printWindow.document.write(`
+            <!DOCTYPE html>
+            <html>
+              <head>
+                <title>${filename}</title>
+                <style>
+                  @page { size: A4; margin: 10mm; }
+                  body { font-family: 'TH Sarabun New', sans-serif; margin: 0; padding: 0; background: #fff; }
+                </style>
+              </head>
+              <body>
+                ${reportRef.current.innerHTML}
+                <script>
+                  window.onload = function() {
+                    window.focus();
+                    window.print();
+                  };
+                </script>
+              </body>
+            </html>
+          `);
+          printWindow.document.close();
+        } else {
+          throw pdfErr;
+        }
+      }
     } catch (err) {
-      console.error('Export error:', err);
-      alert('ไม่สามารถ Export ข้อมูลได้: ' + (err.message || 'เกิดข้อผิดพลาด'));
+      console.error('PDF generation error:', err);
+      alert('ไม่สามารถสร้าง PDF ได้: ' + (err.message || 'เกิดข้อผิดพลาด'));
+    } finally {
       setIsExporting(false);
     }
   };
@@ -133,6 +229,7 @@ export function RecentSurveys({ recent = [], onNavigate }) {
               onClick={handleExportPDF}
               disabled={isExporting}
               className="group inline-flex items-center gap-1.5 rounded-xl border border-rose-500/30 bg-rose-600/20 px-3.5 py-1.5 text-sm font-semibold text-rose-300 hover:bg-rose-600/30 hover:border-rose-500/50 hover:text-white transition-all duration-200 cursor-pointer whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
+              title="ออกรายงานเอกสาร PDF"
             >
               {isExporting ? (
                 <Loader2 className="h-4 w-4 animate-spin" />
@@ -140,6 +237,22 @@ export function RecentSurveys({ recent = [], onNavigate }) {
                 <FileText className="h-4 w-4" />
               )}
               <span>{isExporting ? 'กำลังสร้าง PDF...' : 'Export PDF'}</span>
+            </button>
+
+            {/* Export Excel Button */}
+            <button
+              type="button"
+              onClick={handleExportExcel}
+              disabled={isExportingExcel}
+              className="group inline-flex items-center gap-1.5 rounded-xl border border-emerald-500/30 bg-emerald-600/20 px-3.5 py-1.5 text-sm font-semibold text-emerald-300 hover:bg-emerald-600/30 hover:border-emerald-500/50 hover:text-white transition-all duration-200 cursor-pointer whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
+              title="ส่งออกไฟล์ตาราง Excel (.xlsx)"
+            >
+              {isExportingExcel ? (
+                <Loader2 className="h-4 w-4 animate-spin" />
+              ) : (
+                <FileSpreadsheet className="h-4 w-4" />
+              )}
+              <span>{isExportingExcel ? 'กำลังสร้าง Excel...' : 'Export Excel'}</span>
             </button>
 
             {/* Navigate to New Record Button */}
@@ -429,8 +542,20 @@ export function RecentSurveys({ recent = [], onNavigate }) {
         </DialogContent>
       </Dialog>
 
-      {/* Hidden PDF Report Template */}
-      <ReportPDF ref={reportRef} surveys={fullSurveys} />
+      {/* Hidden PDF Report Template offscreen container */}
+      <div
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: '-99999px',
+          zIndex: -99999,
+          width: '210mm',
+          overflow: 'visible',
+          pointerEvents: 'none',
+        }}
+      >
+        <ReportPDF ref={reportRef} surveys={fullSurveys.length > 0 ? fullSurveys : recent} />
+      </div>
     </>
   );
 }

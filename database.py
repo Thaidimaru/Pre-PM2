@@ -27,6 +27,7 @@ class AppConfig:
     DIST_DIR = ROOT / "dist"
     DB_PATH = ROOT / "survey.db"
     HTML_PATH = ROOT / "index.html"
+    DATABASE_XLSX = ROOT / "DATABASE.xlsx"
     PASSWORD_PATH = ROOT / "access-password.txt"
     ONEDRIVE_PHOTOS_DIR = Path(r"d:\Users\utai3\OneDrive - FORTH CORPORATION PUBLIC COMPANY LIMITED\NBTC Microwave\Photo\Pre_PM")
     PHOTOS_DIR = ONEDRIVE_PHOTOS_DIR if ONEDRIVE_PHOTOS_DIR.exists() else (ROOT / "photos")
@@ -277,6 +278,9 @@ class DatabaseService:
                 "denied": denied
             },
             "provinces": top_provinces,
+            "recent": recent
+        }
+
     @classmethod
     def get_surveys(cls) -> list:
         """Return all survey records with fields and photos."""
@@ -303,6 +307,8 @@ class DatabaseService:
                     "photos": photos
                 })
             return surveys
+
+    @classmethod
     def save_survey(cls, fields: dict, photos: list) -> str:
         """Save survey record to SQLite, store photos, and create backup JSON."""
         timestamp = dt.datetime.now().strftime("%Y%m%d-%H%M%S")

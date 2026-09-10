@@ -61,7 +61,7 @@ export function KpiCards({ stats = {} }) {
               <span className="text-sm xl:text-base font-semibold text-slate-200 leading-normal whitespace-nowrap truncate" title={card.label}>
                 {card.label}
               </span>
-              <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-slate-900/60 border border-slate-700/50 shadow-inner">
+              <div className="kpi-icon-box flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-slate-900/60 border border-slate-700/50 shadow-inner">
                 <Icon className={`h-5 w-5 ${card.iconColor}`} />
               </div>
             </div>

@@ -3,6 +3,6 @@
  * Authoritative Application Version (Single Source of Truth)
  * SemVer: MAJOR.MINOR.PATCH
  */
-export const APP_VERSION = '2.3.0';
+export const APP_VERSION = '2.3.1';
 export const APP_BUILD_DATE = '2026-09-10';
 export const APP_TITLE = 'NBTC Microwave Survey Control Room';

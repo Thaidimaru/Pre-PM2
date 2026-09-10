@@ -333,7 +333,14 @@ exports.handler = async (event) => {
 
     if (event.httpMethod === "GET" && route === "surveys") {
       const surveys = await getAllSurveys();
-      return json(200, { surveys });
+      const lightSurveys = surveys.map((s) => ({
+        recordId: s.recordId,
+        savedAt: s.savedAt,
+        fields: s.fields || {},
+        photoCount: Array.isArray(s.photos) ? s.photos.length : 0,
+        hasPhotos: Array.isArray(s.photos) && s.photos.length > 0,
+      }));
+      return json(200, { surveys: lightSurveys });
     }
 
     if (event.httpMethod === "GET" && route === "survey") {
