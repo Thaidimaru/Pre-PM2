@@ -350,9 +350,34 @@ export function RecentSurveys({ recent = [], onNavigate }) {
 
               {/* Photos Gallery */}
               <div>
-                <div className="flex items-center gap-2 mb-2.5 text-base font-bold text-cyan-300">
-                  <Camera className="h-4.5 w-4.5" />
-                  <span>ภาพถ่ายก่อนดำเนินงาน ({surveyDetail?.photos?.length || 0} ภาพ)</span>
+                <div className="flex items-center justify-between mb-2.5">
+                  <div className="flex items-center gap-2 text-base font-bold text-cyan-300">
+                    <Camera className="h-4.5 w-4.5" />
+                    <span>ภาพถ่ายก่อนดำเนินงาน ({surveyDetail?.photos?.length || 0} ภาพ)</span>
+                  </div>
+                  {surveyDetail?.photos && surveyDetail.photos.length > 0 && (
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        (surveyDetail.photos || []).forEach((p, idx) => {
+                          const photoUrl = p.data
+                            ? (p.data.startsWith('data:') ? p.data : `data:${p.type || 'image/jpeg'};base64,${p.data}`)
+                            : `/api/photos?id=${encodeURIComponent(activeSurvey.recordId)}&index=${idx}`;
+                          const link = document.createElement('a');
+                          link.href = photoUrl;
+                          link.download = p.name || `photo_${idx + 1}.jpg`;
+                          document.body.appendChild(link);
+                          link.click();
+                          document.body.removeChild(link);
+                        });
+                      }}
+                      className="inline-flex items-center gap-1.5 rounded-lg border border-emerald-500/30 bg-emerald-600/20 px-3 py-1.5 text-xs font-semibold text-emerald-300 hover:bg-emerald-600/30 hover:border-emerald-500/50 hover:text-white transition-all duration-200 cursor-pointer whitespace-nowrap flex-shrink-0"
+                    >
+                      <Download className="h-3.5 w-3.5" />
+                      <span>ดาวน์โหลดทั้งหมด</span>
+                    </button>
+                  )}
                 </div>
 
                 {surveyDetail?.photos && surveyDetail.photos.length > 0 ? (
@@ -364,17 +389,34 @@ export function RecentSurveys({ recent = [], onNavigate }) {
                       return (
                         <div
                           key={idx}
-                          onClick={() => setActiveZoomPhoto({ url: photoUrl, name: p.name || `photo_${idx + 1}.jpg` })}
-                          className="group relative aspect-square rounded-xl overflow-hidden border border-blue-500/30 bg-slate-900 cursor-pointer shadow-md"
+                          className="group relative aspect-square rounded-xl overflow-hidden border border-blue-500/30 bg-slate-900 shadow-md"
                         >
                           <img
                             src={photoUrl}
                             alt={p.name || `photo_${idx + 1}`}
-                            className="h-full w-full object-cover transition-transform group-hover:scale-105"
+                            onClick={() => setActiveZoomPhoto({ url: photoUrl, name: p.name || `photo_${idx + 1}.jpg` })}
+                            className="h-full w-full object-cover transition-transform group-hover:scale-105 cursor-pointer"
                           />
-                          <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                          <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
                             <ZoomIn className="h-6 w-6 text-white" />
                           </div>
+                          {/* Download button overlay */}
+                          <button
+                            type="button"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              const link = document.createElement('a');
+                              link.href = photoUrl;
+                              link.download = p.name || `photo_${idx + 1}.jpg`;
+                              document.body.appendChild(link);
+                              link.click();
+                              document.body.removeChild(link);
+                            }}
+                            className="absolute top-2 right-2 flex h-7 w-7 items-center justify-center rounded-lg bg-black/60 text-white opacity-0 group-hover:opacity-100 hover:bg-emerald-600 transition-all duration-200 cursor-pointer z-10"
+                            title="ดาวน์โหลดรูปภาพ"
+                          >
+                            <Download className="h-3.5 w-3.5" />
+                          </button>
                           <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 to-transparent p-2 text-xs font-medium text-slate-200 truncate">
                             {p.name || `รูปที่ ${idx + 1}`}
                           </div>
@@ -397,8 +439,25 @@ export function RecentSurveys({ recent = [], onNavigate }) {
       <Dialog open={Boolean(activeZoomPhoto)} onOpenChange={(open) => !open && setActiveZoomPhoto(null)}>
         <DialogContent className="max-w-3xl bg-slate-950/95 border-blue-500/50 p-4">
           <DialogHeader>
-            <DialogTitle className="text-sm font-medium text-slate-300 truncate">
-              {activeZoomPhoto?.name}
+            <DialogTitle className="flex items-center justify-between gap-3 text-sm font-medium text-slate-300">
+              <span className="truncate">{activeZoomPhoto?.name}</span>
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  if (!activeZoomPhoto) return;
+                  const link = document.createElement('a');
+                  link.href = activeZoomPhoto.url;
+                  link.download = activeZoomPhoto.name || 'photo.jpg';
+                  document.body.appendChild(link);
+                  link.click();
+                  document.body.removeChild(link);
+                }}
+                className="inline-flex items-center gap-1.5 rounded-lg border border-emerald-500/30 bg-emerald-600/20 px-3 py-1.5 text-xs font-semibold text-emerald-300 hover:bg-emerald-600/30 hover:border-emerald-500/50 hover:text-white transition-all duration-200 cursor-pointer whitespace-nowrap flex-shrink-0"
+              >
+                <Download className="h-3.5 w-3.5" />
+                <span>ดาวน์โหลด</span>
+              </button>
             </DialogTitle>
           </DialogHeader>
           <div className="overflow-hidden rounded-xl bg-black/80 max-h-[75vh] flex items-center justify-center">
