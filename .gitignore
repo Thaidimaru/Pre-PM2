@@ -16,3 +16,6 @@ server.ps1
 
 # graft's local graph cache — regenerable, not committed (run `graft build`).
 graft/
+
+# Ignored nested directory
+Pre-PM2/

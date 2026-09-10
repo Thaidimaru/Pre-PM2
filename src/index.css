@@ -649,6 +649,91 @@ body {
   color: #2563eb !important;
 }
 
+/* ----------------------------
+   Field Visit Form in Light Mode
+   ---------------------------- */
+[data-theme="light"] .field-visit-header {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05), 0 2px 6px -1px rgba(15, 23, 42, 0.03) !important;
+}
+
+[data-theme="light"] .field-visit-header h1,
+[data-theme="light"] .field-visit-header .animate-shine {
+  color: #0f172a !important;
+  background-image: linear-gradient(110deg, #0f172a 35%, #0284c7 50%, #0f172a 65%) !important;
+}
+
+[data-theme="light"] .field-visit-header p {
+  color: #475569 !important;
+}
+
+[data-theme="light"] .field-visit-header .header-tag {
+  color: #0284c7 !important;
+}
+
+/* Radix Combobox / Select Trigger */
+[data-theme="light"] button[role="combobox"] {
+  background-color: #f8fafc !important;
+  border-color: #cbd5e1 !important;
+  color: #0f172a !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03) !important;
+}
+
+[data-theme="light"] button[role="combobox"]:hover {
+  background-color: #f1f5f9 !important;
+  border-color: #94a3b8 !important;
+}
+
+[data-theme="light"] button[role="combobox"] span {
+  color: #0f172a !important;
+}
+
+/* Assessment Table */
+[data-theme="light"] .assessment-table-container {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+}
+
+[data-theme="light"] .assessment-table-container table {
+  background-color: #ffffff !important;
+}
+
+[data-theme="light"] .assessment-table-container table tbody tr {
+  background-color: #ffffff !important;
+  border-color: #f1f5f9 !important;
+}
+
+[data-theme="light"] .assessment-table-container table tbody tr:hover {
+  background-color: #f8fafc !important;
+}
+
+[data-theme="light"] .assessment-table-container table tbody td {
+  color: #1e293b !important;
+}
+
+/* Permit Radio Buttons */
+[data-theme="light"] .permit-radio-allow[data-checked="false"],
+[data-theme="light"] .permit-radio-deny[data-checked="false"] {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  color: #475569 !important;
+}
+
+[data-theme="light"] .permit-radio-allow[data-checked="true"] {
+  background-color: #ecfdf5 !important;
+  border-color: #10b981 !important;
+  color: #065f46 !important;
+  box-shadow: 0 1px 3px rgba(16, 185, 129, 0.15) !important;
+}
+
+[data-theme="light"] .permit-radio-deny[data-checked="true"] {
+  background-color: #fff1f2 !important;
+  border-color: #f43f5e !important;
+  color: #9f1239 !important;
+  box-shadow: 0 1px 3px rgba(244, 63, 94, 0.15) !important;
+}
+
 html {
   font-family: var(--font-gui);
   font-size-adjust: from-font;
