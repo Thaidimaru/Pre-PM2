@@ -38,6 +38,7 @@ const getPhotoUrl = (p, recordId, idx) => {
 };
 
 export function RecentSurveys({ recent = [], onNavigate }) {
+  const safeRecent = Array.isArray(recent) ? recent : [];
   const [activeSurvey, setActiveSurvey] = useState(null);
   const [surveyDetail, setSurveyDetail] = useState(null);
   const [isLoadingDetail, setIsLoadingDetail] = useState(false);
@@ -77,8 +78,8 @@ export function RecentSurveys({ recent = [], onNavigate }) {
       console.warn('fetchSurveys failed, falling back to recent surveys:', e);
     }
 
-    if (surveys.length === 0 && recent && recent.length > 0) {
-      surveys = recent;
+    if (surveys.length === 0 && safeRecent.length > 0) {
+      surveys = safeRecent;
     }
     return surveys;
   };
@@ -317,8 +318,8 @@ export function RecentSurveys({ recent = [], onNavigate }) {
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-800/50">
-              {recent.length > 0 ? (
-                recent.map((item) => (
+              {safeRecent.length > 0 ? (
+                safeRecent.map((item) => (
                   <tr
                     key={item.recordId}
                     onClick={() => handleOpenDetail(item)}
@@ -579,7 +580,7 @@ export function RecentSurveys({ recent = [], onNavigate }) {
           pointerEvents: 'none',
         }}
       >
-        <ReportPDF ref={reportRef} surveys={fullSurveys.length > 0 ? fullSurveys : recent} />
+        <ReportPDF ref={reportRef} surveys={fullSurveys.length > 0 ? fullSurveys : safeRecent} />
       </div>
     </>
   );

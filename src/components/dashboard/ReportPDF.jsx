@@ -5,6 +5,7 @@ import { APP_VERSION } from '@/version';
 import { NBTC_LOGO_BASE64 } from '@/assets/logoBase64';
 
 export const ReportPDF = React.forwardRef(({ surveys = [] }, ref) => {
+  const safeSurveys = Array.isArray(surveys) ? surveys : [];
   const currentDate = new Date();
   const dateStr = currentDate.toLocaleDateString('th-TH', {
     day: 'numeric',
@@ -17,9 +18,9 @@ export const ReportPDF = React.forwardRef(({ surveys = [] }, ref) => {
   });
 
   // Calculate high-level KPI summary
-  const totalCount = surveys.length;
-  const allowedCount = surveys.filter((s) => (s.fields?.permit || s.permit) === 'อนุญาต').length;
-  const deniedCount = surveys.filter((s) => (s.fields?.permit || s.permit) === 'ไม่อนุญาต').length;
+  const totalCount = safeSurveys.length;
+  const allowedCount = safeSurveys.filter((s) => (s?.fields?.permit || s?.permit) === 'อนุญาต').length;
+  const deniedCount = safeSurveys.filter((s) => (s?.fields?.permit || s?.permit) === 'ไม่อนุญาต').length;
   const pendingCount = totalCount - allowedCount - deniedCount;
 
   const allowedPct = totalCount > 0 ? Math.round((allowedCount / totalCount) * 100) : 0;
@@ -134,8 +135,8 @@ export const ReportPDF = React.forwardRef(({ surveys = [] }, ref) => {
             </tr>
           </thead>
           <tbody>
-            {surveys.length > 0 ? (
-              surveys.map((survey, index) => {
+            {safeSurveys.length > 0 ? (
+              safeSurveys.map((survey, index) => {
                 const f = survey.fields || survey || {};
                 const date = survey.savedAt
                   ? (() => {

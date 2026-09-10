@@ -137,12 +137,24 @@ class ErrorBoundary extends React.Component {
     if (this.state.hasError) {
       return (
         <div className="min-h-screen flex flex-col items-center justify-center p-6 text-center bg-slate-50 text-slate-900">
-          <div className="max-w-md p-8 bg-white rounded-2xl shadow-xl border border-slate-200">
+          <div className="max-w-lg p-8 bg-white rounded-2xl shadow-xl border border-slate-200">
             <h2 className="text-xl font-bold text-slate-900 mb-2">เกิดข้อผิดพลาดในการแสดงผล</h2>
-            <p className="text-sm text-slate-600 mb-6">
-              ระบบตรวจพบข้อผิดพลาด กรุณารีเฟรชหน้าเว็บ หรือล้างข้อมูลเซสชันเพื่อเริ่มใหม่
+            <p className="text-sm text-slate-600 mb-4">
+              ระบบตรวจพบข้อผิดพลาด กรุณารีเฟรชหน้าเว็บ หรือกดลองใหม่อีกครั้ง
             </p>
-            <div className="flex gap-3 justify-center">
+            {this.state.error?.message && (
+              <div className="mb-6 p-3 bg-rose-50 border border-rose-200 rounded-xl text-xs font-mono text-rose-700 text-left overflow-x-auto max-h-32">
+                <b>Error:</b> {this.state.error.message}
+              </div>
+            )}
+            <div className="flex flex-wrap gap-3 justify-center">
+              <button
+                type="button"
+                onClick={() => this.setState({ hasError: false, error: null })}
+                className="px-4 py-2 rounded-xl bg-emerald-600 text-white font-semibold text-sm hover:bg-emerald-700 transition-colors cursor-pointer"
+              >
+                ลองใหม่อีกครั้ง
+              </button>
               <button
                 type="button"
                 onClick={() => window.location.reload()}

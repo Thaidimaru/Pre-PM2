@@ -3,7 +3,8 @@ import { MapPin } from 'lucide-react';
 import { GlassCard } from '@/components/ui/glass-card';
 
 export function ProvinceChart({ provinces = [] }) {
-  const maxProvinceCount = Math.max(...provinces.map((p) => Number(p?.count || 0)), 1);
+  const safeProvinces = Array.isArray(provinces) ? provinces : [];
+  const maxProvinceCount = Math.max(...safeProvinces.map((p) => Number(p?.count || 0)), 1);
 
   return (
     <GlassCard className="flex flex-col h-full" hoverEffect={false}>
@@ -70,8 +71,8 @@ export function ProvinceChart({ provinces = [] }) {
               <span className="col-span-2 text-right">รวม</span>
             </div>
             <div className="max-h-[300px] overflow-y-auto divide-y divide-slate-800/40">
-              {provinces.length > 0 ? (
-                provinces.map((prov, i) => {
+              {safeProvinces.length > 0 ? (
+                safeProvinces.map((prov, i) => {
                   const pct = Math.max(10, Math.min(100, (prov.count / maxProvinceCount) * 100));
                   return (
                     <div

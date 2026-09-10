@@ -23,7 +23,12 @@ export function DashboardView({ onNavigate }) {
     try {
       setIsLoading(true);
       const json = await fetchDashboardData();
-      setData(json);
+      setData({
+        stats: json?.stats || initialStats,
+        provinces: Array.isArray(json?.provinces) ? json.provinces : [],
+        recent: Array.isArray(json?.recent) ? json.recent : [],
+        updatedAt: json?.updatedAt || new Date().toISOString()
+      });
     } catch (err) {
       console.error('Failed to load dashboard data:', err);
     } finally {
