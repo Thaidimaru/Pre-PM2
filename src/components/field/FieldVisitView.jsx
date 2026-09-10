@@ -244,7 +244,7 @@ export function FieldVisitView() {
           <div className="header-tag text-sm font-bold uppercase tracking-[0.22em] text-blue-600 dark:text-cyan-400 whitespace-nowrap">
             FIELD VISIT / SITE RECORD
           </div>
-          <h1 className="mt-1 text-2xl sm:text-3xl lg:text-4xl font-black tracking-normal leading-normal text-slate-900 dark:text-white whitespace-nowrap">
+          <h1 className="mt-1 text-xl sm:text-3xl lg:text-4xl font-black tracking-normal leading-snug sm:leading-normal text-slate-900 dark:text-white sm:whitespace-nowrap">
             <ShinyText>แบบบันทึกเข้าตรวจเยี่ยมเจ้าของพื้นที่</ShinyText>
           </h1>
           <p className="mt-1 text-base text-slate-700 dark:text-slate-200 font-medium leading-relaxed">
@@ -424,13 +424,13 @@ export function FieldVisitView() {
               <RadioGroup
                 value={formData.permit || 'อนุญาต'}
                 onValueChange={(val) => updateField('permit', val)}
-                className="flex items-center gap-4"
+                className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4"
               >
                 <label
                   htmlFor="permit-allow"
                   data-checked={formData.permit === 'อนุญาต'}
                   className={cn(
-                    "permit-radio-allow flex items-center gap-3 rounded-xl border px-5 py-3 text-base font-semibold cursor-pointer transition-all duration-200 whitespace-nowrap shadow-xs select-none backdrop-blur-md",
+                    "permit-radio-allow flex items-center justify-center sm:justify-start gap-3 rounded-xl border px-5 py-3 text-base font-semibold cursor-pointer transition-all duration-200 whitespace-nowrap shadow-xs select-none backdrop-blur-md w-full sm:w-auto",
                     formData.permit === 'อนุญาต'
                       ? "border-emerald-500 bg-emerald-50/80 text-emerald-950 ring-2 ring-emerald-500/20 dark:bg-emerald-950/40 dark:border-emerald-500/60 dark:text-emerald-300 dark:ring-0"
                       : "border-slate-200/80 bg-white/55 hover:bg-white/75 text-slate-800 dark:border-slate-800 dark:bg-slate-900/60 dark:hover:bg-slate-800/60 dark:text-slate-400"
@@ -450,7 +450,7 @@ export function FieldVisitView() {
                   htmlFor="permit-deny"
                   data-checked={formData.permit === 'ไม่อนุญาต'}
                   className={cn(
-                    "permit-radio-deny flex items-center gap-3 rounded-xl border px-5 py-3 text-base font-semibold cursor-pointer transition-all duration-200 whitespace-nowrap shadow-xs select-none backdrop-blur-md",
+                    "permit-radio-deny flex items-center justify-center sm:justify-start gap-3 rounded-xl border px-5 py-3 text-base font-semibold cursor-pointer transition-all duration-200 whitespace-nowrap shadow-xs select-none backdrop-blur-md w-full sm:w-auto",
                     formData.permit === 'ไม่อนุญาต'
                       ? "border-rose-500 bg-rose-50/80 text-rose-950 ring-2 ring-rose-500/20 dark:bg-rose-950/40 dark:border-rose-500/60 dark:text-rose-300 dark:ring-0"
                       : "border-slate-200/80 bg-white/55 hover:bg-white/75 text-slate-800 dark:border-slate-800 dark:bg-slate-900/60 dark:hover:bg-slate-800/60 dark:text-slate-400"

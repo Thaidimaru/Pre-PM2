@@ -52,18 +52,18 @@ export function Navbar({ isMobileMenuOpen, onToggleMobileMenu, theme, toggleThem
                 e.currentTarget.src = '/assets/images/nbtc-logo-dashboard.png';
               }
             }}
-            className="h-9 sm:h-12 lg:h-13 w-auto object-contain flex-shrink-0"
+            className="h-8 sm:h-10 lg:h-12 w-auto object-contain flex-shrink-0"
           />
-          <div className="flex items-baseline gap-2">
-            <span className="text-base sm:text-xl lg:text-2xl font-black tracking-wide text-slate-900 dark:text-white drop-shadow-sm whitespace-nowrap">
+          <div className="flex items-baseline gap-1.5 sm:gap-2">
+            <span className="text-sm sm:text-lg md:text-xl lg:text-2xl font-black tracking-wide text-slate-900 dark:text-white drop-shadow-sm whitespace-nowrap">
               NBTC MICROWAVE
             </span>
-            <div className="h-4 w-px bg-slate-300 dark:bg-slate-700 hidden md:block" />
-            <div className="hidden md:flex items-center gap-2">
-              <span className="text-xs font-bold tracking-[0.2em] text-blue-600 dark:text-cyan-400 whitespace-nowrap">
+            <div className="h-4 w-px bg-slate-300 dark:bg-slate-700 hidden sm:block" />
+            <div className="hidden sm:flex items-center gap-1.5 sm:gap-2">
+              <span className="text-[10px] sm:text-xs font-bold tracking-[0.18em] text-blue-600 dark:text-cyan-400 whitespace-nowrap">
                 CONTROL ROOM
               </span>
-              <span className="rounded-md bg-blue-100 dark:bg-blue-500/20 px-2 py-0.5 text-xs font-semibold text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-500/30 whitespace-nowrap">
+              <span className="rounded-md bg-blue-100 dark:bg-blue-500/20 px-1.5 sm:px-2 py-0.5 text-[10px] sm:text-xs font-semibold text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-500/30 whitespace-nowrap">
                 v{APP_VERSION}
               </span>
             </div>

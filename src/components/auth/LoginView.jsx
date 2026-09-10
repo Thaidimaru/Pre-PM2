@@ -40,7 +40,7 @@ export function LoginView({ onLoginSuccess, theme = 'light', toggleTheme }) {
         className="w-full max-w-md"
       >
         <GlassCard
-          className={`p-8 sm:p-10 transition-all duration-300 ${
+          className={`p-6 sm:p-8 lg:p-10 transition-all duration-300 ${
             isLight
               ? 'bg-white/70 backdrop-blur-2xl border border-white/60 shadow-[0_20px_60px_rgba(0,0,0,0.08)] text-slate-900'
               : 'border-blue-500/30'
@@ -49,7 +49,7 @@ export function LoginView({ onLoginSuccess, theme = 'light', toggleTheme }) {
         >
           {/* Brand Header & Theme Toggle */}
           <div className={`flex items-center justify-between pb-6 border-b ${isLight ? 'border-slate-200/80' : 'border-slate-800'}`}>
-            <div className="flex items-center gap-3.5">
+            <div className="flex items-center gap-2.5 sm:gap-3.5">
               <img
                 src={nbtcLogo}
                 alt="NBTC Logo"
@@ -58,19 +58,19 @@ export function LoginView({ onLoginSuccess, theme = 'light', toggleTheme }) {
                     e.currentTarget.src = '/assets/images/nbtc-logo-dashboard.png';
                   }
                 }}
-                className={`h-12 w-auto object-contain ${
+                className={`h-10 sm:h-12 w-auto object-contain flex-shrink-0 ${
                   isLight ? 'drop-shadow-sm' : 'drop-shadow-[0_0_10px_rgba(8,127,255,0.4)]'
                 }`}
               />
               <div className="flex flex-col">
-                <span className={`text-xl font-black whitespace-nowrap ${isLight ? 'text-slate-900' : 'text-white'}`}>
+                <span className={`text-base sm:text-xl font-black whitespace-nowrap ${isLight ? 'text-slate-900' : 'text-white'}`}>
                   NBTC MICROWAVE
                 </span>
-                <div className="flex items-center gap-2">
-                  <span className={`text-xs font-bold tracking-[0.2em] whitespace-nowrap ${isLight ? 'text-blue-600' : 'text-cyan-400'}`}>
+                <div className="flex items-center gap-1.5 sm:gap-2">
+                  <span className={`text-[10px] sm:text-xs font-bold tracking-[0.18em] whitespace-nowrap ${isLight ? 'text-blue-600' : 'text-cyan-400'}`}>
                     SURVEY CONTROL ROOM
                   </span>
-                  <span className={`rounded-md px-2 py-0.5 text-xs font-bold whitespace-nowrap ${
+                  <span className={`rounded-md px-1.5 sm:px-2 py-0.5 text-[10px] sm:text-xs font-bold whitespace-nowrap ${
                     isLight
                       ? 'bg-blue-50/80 text-blue-700 border border-blue-200/80'
                       : 'bg-blue-500/20 text-blue-300 border border-blue-500/30'
@@ -100,7 +100,7 @@ export function LoginView({ onLoginSuccess, theme = 'light', toggleTheme }) {
           </div>
 
           <div className="mt-6 mb-6">
-            <h1 className={`text-3xl font-extrabold tracking-normal leading-normal whitespace-nowrap ${isLight ? 'text-slate-900' : 'text-white'}`}>
+            <h1 className={`text-2xl sm:text-3xl font-extrabold tracking-normal leading-snug sm:whitespace-nowrap ${isLight ? 'text-slate-900' : 'text-white'}`}>
               {isLight ? 'เข้าสู่ระบบ' : <ShinyText>เข้าสู่ระบบ</ShinyText>}
             </h1>
             <p className={`mt-1.5 text-sm leading-relaxed ${isLight ? 'text-slate-700 font-medium' : 'text-slate-300'}`}>
