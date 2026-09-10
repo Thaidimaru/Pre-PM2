@@ -137,9 +137,14 @@ export const ReportPDF = React.forwardRef(({ surveys = [] }, ref) => {
             {surveys.length > 0 ? (
               surveys.map((survey, index) => {
                 const f = survey.fields || survey || {};
-                const recordId = survey.recordId || f.recordId || `-`;
                 const date = survey.savedAt
-                  ? new Date(survey.savedAt).toLocaleDateString('th-TH', { dateStyle: 'short', timeStyle: 'short' })
+                  ? (() => {
+                      try {
+                        return new Date(survey.savedAt).toLocaleString('th-TH', { dateStyle: 'short', timeStyle: 'short' });
+                      } catch (e) {
+                        return String(survey.savedAt);
+                      }
+                    })()
                   : f.visitDate || '-';
                 
                 const permit = f.permit || survey.permit || 'รอพิจารณา';

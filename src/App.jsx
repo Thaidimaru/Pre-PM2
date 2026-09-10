@@ -119,4 +119,62 @@ export function App() {
   );
 }
 
-export default App;
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+
+  static getDerivedStateFromError(error) {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error, errorInfo) {
+    console.error('App ErrorBoundary caught an error:', error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="min-h-screen flex flex-col items-center justify-center p-6 text-center bg-slate-50 text-slate-900">
+          <div className="max-w-md p-8 bg-white rounded-2xl shadow-xl border border-slate-200">
+            <h2 className="text-xl font-bold text-slate-900 mb-2">เกิดข้อผิดพลาดในการแสดงผล</h2>
+            <p className="text-sm text-slate-600 mb-6">
+              ระบบตรวจพบข้อผิดพลาด กรุณารีเฟรชหน้าเว็บ หรือล้างข้อมูลเซสชันเพื่อเริ่มใหม่
+            </p>
+            <div className="flex gap-3 justify-center">
+              <button
+                type="button"
+                onClick={() => window.location.reload()}
+                className="px-4 py-2 rounded-xl bg-blue-600 text-white font-semibold text-sm hover:bg-blue-700 transition-colors cursor-pointer"
+              >
+                รีเฟรชหน้าเว็บ
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  sessionStorage.clear();
+                  window.location.href = '/dashboard';
+                }}
+                className="px-4 py-2 rounded-xl bg-slate-100 text-slate-700 font-semibold text-sm hover:bg-slate-200 transition-colors cursor-pointer border border-slate-200"
+              >
+                ล้างเซสชันแล้วเข้าใหม่
+              </button>
+            </div>
+          </div>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
+export function AppWithErrorBoundary(props) {
+  return (
+    <ErrorBoundary>
+      <App {...props} />
+    </ErrorBoundary>
+  );
+}
+
+export default AppWithErrorBoundary;

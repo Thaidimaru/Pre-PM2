@@ -315,10 +315,14 @@ export function RecentSurveys({ recent = [], onNavigate }) {
                       )}
                     </td>
                     <td className="py-3 pl-3 text-right text-xs font-medium text-slate-300 whitespace-nowrap">
-                      {new Date(item.savedAt).toLocaleString('th-TH', {
-                        dateStyle: 'short',
-                        timeStyle: 'short'
-                      })}
+                      {item.savedAt ? (() => {
+                        try {
+                          const d = new Date(item.savedAt);
+                          return isNaN(d.getTime()) ? String(item.savedAt) : d.toLocaleString('th-TH', { dateStyle: 'short', timeStyle: 'short' });
+                        } catch (e) {
+                          return String(item.savedAt);
+                        }
+                      })() : '-'}
                     </td>
                     <td className="py-3 pl-2 text-center whitespace-nowrap">
                       <div className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-slate-800/80 text-slate-400 group-hover:bg-blue-600 group-hover:text-white transition-colors">
