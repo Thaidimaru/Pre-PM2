@@ -9,7 +9,7 @@ export function ShinyText({ children, className = '', shimmerWidth = 100 }) {
   return (
     <span
       className={cn(
-        'inline-block py-1 -my-1 [box-decoration-break:clone] [-webkit-box-decoration-break:clone] bg-clip-text text-transparent bg-[linear-gradient(110deg,#edf6ff_35%,#68e4e0_50%,#edf6ff_65%)] bg-[length:250%_100%] animate-shine font-bold tracking-normal leading-normal',
+        'inline-block py-1 -my-1 [box-decoration-break:clone] [-webkit-box-decoration-break:clone] bg-clip-text text-transparent bg-[linear-gradient(110deg,#0f172a_25%,#0284c7_45%,#0f172a_65%)] dark:bg-[linear-gradient(110deg,#edf6ff_35%,#68e4e0_50%,#edf6ff_65%)] bg-[length:250%_100%] animate-shine font-bold tracking-normal leading-normal',
         className
       )}
     >
