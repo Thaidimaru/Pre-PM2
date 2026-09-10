@@ -9,10 +9,10 @@ export function ProvinceChart({ provinces = [] }) {
     <GlassCard className="flex flex-col h-full" hoverEffect={false}>
       {/* Panel Title */}
       <div className="flex items-center gap-2 pb-4 border-b border-slate-800/80">
-        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-500/20 text-cyan-300">
-          <MapPin className="h-4 w-4" />
+        <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-500/20 text-cyan-300">
+          <MapPin className="h-5 w-5" />
         </div>
-        <h2 className="text-lg font-bold text-white tracking-normal leading-normal">
+        <h2 className="text-xl font-bold text-white tracking-normal leading-normal">
           สรุปผลการสำรวจรายจังหวัด
         </h2>
       </div>
@@ -63,7 +63,7 @@ export function ProvinceChart({ provinces = [] }) {
         {/* Province List Ranking */}
         <div className="lg:col-span-7 flex flex-col justify-between">
           <div className="overflow-hidden rounded-xl border border-slate-800/80 bg-slate-950/30">
-            <div className="grid grid-cols-12 gap-2 bg-slate-900/60 px-4 py-2.5 text-xs font-semibold text-slate-400 border-b border-slate-800/80">
+            <div className="grid grid-cols-12 gap-2 bg-slate-900/60 px-4 py-2.5 text-sm font-semibold text-slate-300 border-b border-slate-800/80">
               <span className="col-span-1">#</span>
               <span className="col-span-4">จังหวัด</span>
               <span className="col-span-5">สัดส่วน</span>
@@ -76,28 +76,28 @@ export function ProvinceChart({ provinces = [] }) {
                   return (
                     <div
                       key={prov.name}
-                      className="grid grid-cols-12 gap-2 items-center px-4 py-2 text-sm hover:bg-slate-800/30 transition-colors"
+                      className="grid grid-cols-12 gap-2 items-center px-4 py-2.5 text-base hover:bg-slate-800/30 transition-colors"
                     >
-                      <span className="col-span-1 text-slate-400 text-xs font-mono">{i + 1}.</span>
-                      <span className="col-span-4 font-medium text-slate-200 truncate" title={prov.name}>
+                      <span className="col-span-1 text-slate-400 text-sm font-mono">{i + 1}.</span>
+                      <span className="col-span-4 font-medium text-slate-100 truncate" title={prov.name}>
                         {prov.name}
                       </span>
                       <div className="col-span-5 flex items-center pr-2">
-                        <div className="h-2 w-full rounded-full bg-slate-800 overflow-hidden">
+                        <div className="h-2.5 w-full rounded-full bg-slate-800 overflow-hidden">
                           <div
                             className="h-full rounded-full bg-gradient-to-r from-blue-500 to-cyan-400 transition-all duration-700"
                             style={{ width: `${pct}%` }}
                           />
                         </div>
                       </div>
-                      <span className="col-span-2 text-right font-mono font-bold text-cyan-300">
+                      <span className="col-span-2 text-right font-mono font-bold text-cyan-300 text-base">
                         {prov.count.toLocaleString()}
                       </span>
                     </div>
                   );
                 })
               ) : (
-                <div className="py-12 text-center text-sm text-slate-500">
+                <div className="py-12 text-center text-base text-slate-400">
                   ยังไม่มีข้อมูลจังหวัด
                 </div>
               )}
@@ -105,7 +105,7 @@ export function ProvinceChart({ provinces = [] }) {
           </div>
 
           {/* Map Legend */}
-          <div className="flex items-center justify-center gap-6 pt-4 text-xs text-slate-400">
+          <div className="flex items-center justify-center gap-6 pt-4 text-sm text-slate-300">
             <div className="flex items-center gap-2">
               <span className="h-2.5 w-2.5 rounded-full bg-emerald-400 shadow-[0_0_6px_#00d49a]" />
               <span>อนุญาต</span>

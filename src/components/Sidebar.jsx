@@ -24,7 +24,7 @@ export function Sidebar({ currentPage, onNavigate, onLogout }) {
     <aside className="fixed left-0 top-[88px] z-30 flex h-[calc(100vh-88px)] w-64 flex-col justify-between border-r border-[rgba(28,139,255,0.22)] bg-[linear-gradient(180deg,rgba(2,15,35,0.95),rgba(2,11,27,0.98))] p-4 shadow-xl backdrop-blur-xl transition-all duration-300">
       <div className="space-y-6">
         <div>
-          <div className="px-3 pb-2 text-[11px] font-bold tracking-wider text-cyan-400 uppercase">
+          <div className="px-3 pb-2 text-xs font-bold tracking-wider text-cyan-400 uppercase">
             Control Center Menu
           </div>
           <nav className="space-y-1.5" aria-label="แถบเมนูหลัก">
@@ -45,7 +45,7 @@ export function Sidebar({ currentPage, onNavigate, onLogout }) {
                 >
                   <div
                     className={cn(
-                      'flex h-9 w-9 items-center justify-center rounded-lg transition-colors',
+                      'flex h-10 w-10 items-center justify-center rounded-lg transition-colors',
                       isActive
                         ? 'bg-blue-500/30 text-cyan-300'
                         : 'bg-slate-800/60 text-slate-400 group-hover:text-slate-200'
@@ -53,9 +53,9 @@ export function Sidebar({ currentPage, onNavigate, onLogout }) {
                   >
                     <Icon className="h-5 w-5" />
                   </div>
-                  <div className="flex flex-col leading-normal">
-                    <span className="text-sm font-semibold">{item.label}</span>
-                    <span className="text-[11px] text-slate-400 leading-normal">{item.sublabel}</span>
+                  <div className="flex flex-col leading-tight">
+                    <span className="text-base font-bold">{item.label}</span>
+                    <span className="text-xs text-slate-400 font-medium">{item.sublabel}</span>
                   </div>
 
                   {isActive && (
@@ -81,7 +81,7 @@ export function Sidebar({ currentPage, onNavigate, onLogout }) {
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-rose-500/20 text-rose-400 group-hover:text-rose-200">
               <LogOut className="h-4 w-4" />
             </div>
-            <span className="text-sm font-semibold">ออกจากระบบ</span>
+            <span className="text-base font-semibold">ออกจากระบบ</span>
           </button>
         </div>
       </div>
@@ -95,8 +95,8 @@ export function Sidebar({ currentPage, onNavigate, onLogout }) {
           <span className="h-4.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" style={{ animationDelay: '450ms' }} />
           <span className="h-5.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" style={{ animationDelay: '600ms' }} />
         </div>
-        <div className="text-xs font-bold tracking-wider text-slate-200">NBTC MICROWAVE</div>
-        <div className="text-[11px] text-slate-400">Pre-PM Survey v{APP_VERSION}</div>
+        <div className="text-sm font-bold tracking-wider text-slate-200">NBTC MICROWAVE</div>
+        <div className="text-xs text-slate-400 font-medium">Pre-PM Survey v{APP_VERSION}</div>
       </div>
     </aside>
   );

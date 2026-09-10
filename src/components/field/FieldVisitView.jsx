@@ -240,13 +240,13 @@ export function FieldVisitView() {
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Form Header */}
         <div className="rounded-2xl border border-blue-500/30 bg-gradient-to-r from-blue-950/60 via-slate-900/80 to-blue-950/60 p-6 shadow-2xl backdrop-blur-xl">
-          <div className="text-xs font-bold uppercase tracking-[0.2em] text-cyan-400">
+          <div className="text-sm font-bold uppercase tracking-[0.22em] text-cyan-400">
             FIELD VISIT / SITE RECORD
           </div>
-          <h1 className="mt-1 text-2xl font-extrabold tracking-normal leading-normal text-white lg:text-3xl">
+          <h1 className="mt-1 text-3xl font-black tracking-normal leading-normal text-white lg:text-4xl">
             <ShinyText>แบบบันทึกเข้าตรวจเยี่ยมเจ้าของพื้นที่</ShinyText>
           </h1>
-          <p className="mt-1 text-sm text-slate-400 leading-relaxed">
+          <p className="mt-1 text-base text-slate-300 leading-relaxed">
             บันทึกการขออนุญาตเข้าพื้นที่ สภาพอุปกรณ์ภาคสนาม และภาพถ่ายประกอบการทำงาน
           </p>
         </div>
@@ -254,17 +254,17 @@ export function FieldVisitView() {
         {/* 01 ข้อมูลสถานี */}
         <GlassCard hoverEffect={false} className="space-y-4">
           <div className="flex items-center gap-2.5 pb-3 border-b border-slate-800">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-500/20 text-cyan-400">
-              <RadioIcon className="h-4 w-4" />
+            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-500/20 text-cyan-400">
+              <RadioIcon className="h-5 w-5" />
             </div>
-            <h2 className="text-base font-bold text-white tracking-normal leading-normal">
+            <h2 className="text-xl font-bold text-white tracking-normal leading-normal">
               01 · ข้อมูลสถานี
             </h2>
           </div>
 
           <div className="space-y-4">
             <div>
-              <label htmlFor="station" className="block text-sm font-semibold text-slate-300 mb-1.5">
+              <label htmlFor="station" className="block text-base font-semibold text-slate-200 mb-1.5">
                 ชื่อสถานี <span className="text-rose-400">*</span>
               </label>
               <input
@@ -287,7 +287,7 @@ export function FieldVisitView() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label htmlFor="installationPlace" className="block text-sm font-semibold text-slate-300 mb-1.5">
+                <label htmlFor="installationPlace" className="block text-base font-semibold text-slate-200 mb-1.5">
                   สถานที่ติดตั้ง
                 </label>
                 <input
@@ -299,7 +299,7 @@ export function FieldVisitView() {
                 />
               </div>
               <div>
-                <label htmlFor="equipmentPlace" className="block text-sm font-semibold text-slate-300 mb-1.5">
+                <label htmlFor="equipmentPlace" className="block text-base font-semibold text-slate-200 mb-1.5">
                   สถานที่วางเครื่อง
                 </label>
                 <input
@@ -314,7 +314,7 @@ export function FieldVisitView() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label htmlFor="visitDate" className="block text-sm font-semibold text-slate-300 mb-1.5">
+                <label htmlFor="visitDate" className="block text-base font-semibold text-slate-200 mb-1.5">
                   วันที่เข้าพื้นที่
                 </label>
                 <input
@@ -326,7 +326,7 @@ export function FieldVisitView() {
                 />
               </div>
               <div>
-                <label htmlFor="visitTime" className="block text-sm font-semibold text-slate-300 mb-1.5">
+                <label htmlFor="visitTime" className="block text-base font-semibold text-slate-200 mb-1.5">
                   เวลาเข้าพื้นที่
                 </label>
                 <input
@@ -344,17 +344,17 @@ export function FieldVisitView() {
         {/* 02 ผู้ให้ข้อมูลในพื้นที่ */}
         <GlassCard hoverEffect={false} className="space-y-4">
           <div className="flex items-center gap-2.5 pb-3 border-b border-slate-800">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-500/20 text-cyan-400">
-              <User className="h-4 w-4" />
+            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-500/20 text-cyan-400">
+              <User className="h-5 w-5" />
             </div>
-            <h2 className="text-base font-bold text-white tracking-normal leading-normal">
+            <h2 className="text-xl font-bold text-white tracking-normal leading-normal">
               02 · ผู้ให้ข้อมูลในพื้นที่
             </h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label htmlFor="contactName" className="block text-sm font-semibold text-slate-300 mb-1.5">
+              <label htmlFor="contactName" className="block text-base font-semibold text-slate-200 mb-1.5">
                 ชื่อ - สกุล
               </label>
               <input
@@ -366,7 +366,7 @@ export function FieldVisitView() {
               />
             </div>
             <div>
-              <label htmlFor="contactPosition" className="block text-sm font-semibold text-slate-300 mb-1.5">
+              <label htmlFor="contactPosition" className="block text-base font-semibold text-slate-200 mb-1.5">
                 ตำแหน่ง
               </label>
               <input
@@ -378,7 +378,7 @@ export function FieldVisitView() {
               />
             </div>
             <div>
-              <label htmlFor="contactVillage" className="block text-sm font-semibold text-slate-300 mb-1.5">
+              <label htmlFor="contactVillage" className="block text-base font-semibold text-slate-200 mb-1.5">
                 หน่วยงาน / หมู่บ้าน
               </label>
               <input
@@ -390,7 +390,7 @@ export function FieldVisitView() {
               />
             </div>
             <div>
-              <label htmlFor="contactPhone" className="block text-sm font-semibold text-slate-300 mb-1.5">
+              <label htmlFor="contactPhone" className="block text-base font-semibold text-slate-200 mb-1.5">
                 เบอร์โทรศัพท์
               </label>
               <input
@@ -407,17 +407,17 @@ export function FieldVisitView() {
         {/* 03 การขออนุญาตเข้าพื้นที่ (Radix UI Radio Group) */}
         <GlassCard hoverEffect={false} className="space-y-4">
           <div className="flex items-center gap-2.5 pb-3 border-b border-slate-800">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-500/20 text-cyan-400">
-              <ShieldCheck className="h-4 w-4" />
+            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-500/20 text-cyan-400">
+              <ShieldCheck className="h-5 w-5" />
             </div>
-            <h2 className="text-base font-bold text-white tracking-normal leading-normal">
+            <h2 className="text-xl font-bold text-white tracking-normal leading-normal">
               03 · การขออนุญาตเข้าพื้นที่
             </h2>
           </div>
 
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-semibold text-slate-300 mb-2">
+              <label className="block text-base font-semibold text-slate-200 mb-2">
                 ได้รับอนุญาตให้ดำเนินการหรือไม่ <span className="text-rose-400">*</span>
               </label>
               <RadioGroup
@@ -427,23 +427,23 @@ export function FieldVisitView() {
               >
                 <label
                   htmlFor="permit-allow"
-                  className="flex items-center gap-2.5 rounded-xl border border-[rgba(115,149,174,0.25)] bg-[rgba(6,19,33,0.7)] px-5 py-3 text-sm font-medium text-slate-200 hover:border-emerald-500/40 cursor-pointer transition-colors"
+                  className="flex items-center gap-2.5 rounded-xl border border-[rgba(115,149,174,0.25)] bg-[rgba(6,19,33,0.7)] px-5 py-3 text-base font-medium text-slate-200 hover:border-emerald-500/40 cursor-pointer transition-colors"
                 >
                   <RadioGroupItem value="อนุญาต" id="permit-allow" />
-                  <span className="text-emerald-400 font-semibold">อนุญาต</span>
+                  <span className="text-emerald-400 font-bold">อนุญาต</span>
                 </label>
                 <label
                   htmlFor="permit-deny"
-                  className="flex items-center gap-2.5 rounded-xl border border-[rgba(115,149,174,0.25)] bg-[rgba(6,19,33,0.7)] px-5 py-3 text-sm font-medium text-slate-200 hover:border-rose-500/40 cursor-pointer transition-colors"
+                  className="flex items-center gap-2.5 rounded-xl border border-[rgba(115,149,174,0.25)] bg-[rgba(6,19,33,0.7)] px-5 py-3 text-base font-medium text-slate-200 hover:border-rose-500/40 cursor-pointer transition-colors"
                 >
                   <RadioGroupItem value="ไม่อนุญาต" id="permit-deny" />
-                  <span className="text-rose-400 font-semibold">ไม่อนุญาต</span>
+                  <span className="text-rose-400 font-bold">ไม่อนุญาต</span>
                 </label>
               </RadioGroup>
             </div>
 
             <div>
-              <label htmlFor="accessLimit" className="block text-sm font-semibold text-slate-300 mb-1.5">
+              <label htmlFor="accessLimit" className="block text-base font-semibold text-slate-200 mb-1.5">
                 ข้อจำกัดในการเข้าพื้นที่
               </label>
               <textarea
@@ -461,19 +461,19 @@ export function FieldVisitView() {
         {/* 04 สอบถามการใช้งาน (Radix UI Select) */}
         <GlassCard hoverEffect={false} className="space-y-4">
           <div className="flex items-center gap-2.5 pb-3 border-b border-slate-800">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-500/20 text-cyan-400">
-              <Zap className="h-4 w-4" />
+            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-500/20 text-cyan-400">
+              <Zap className="h-5 w-5" />
             </div>
-            <h2 className="text-base font-bold text-white tracking-normal leading-normal">
+            <h2 className="text-xl font-bold text-white tracking-normal leading-normal">
               04 · สอบถามการใช้งาน
             </h2>
           </div>
 
           <div className="space-y-4">
             <div className="overflow-hidden rounded-xl border border-slate-800 bg-slate-950/40">
-              <table className="w-full text-left text-sm">
+              <table className="w-full text-left text-base">
                 <thead>
-                  <tr className="border-b border-slate-800 bg-slate-900/60 text-xs font-semibold text-slate-400">
+                  <tr className="border-b border-slate-800 bg-slate-900/60 text-sm font-semibold text-slate-300">
                     <th className="px-4 py-3">หัวข้อการประเมิน</th>
                     <th className="px-4 py-3 w-48">ผลการตรวจสอบ</th>
                   </tr>
@@ -493,7 +493,7 @@ export function FieldVisitView() {
                           value={formData[key] || options[0]}
                           onValueChange={(val) => updateField(key, val)}
                         >
-                          <SelectTrigger className="h-9 text-sm">
+                          <SelectTrigger className="h-10 text-base">
                             <SelectValue placeholder="เลือกคำตอบ" />
                           </SelectTrigger>
                           <SelectContent>
@@ -512,7 +512,7 @@ export function FieldVisitView() {
             </div>
 
             <div>
-              <label htmlFor="userProblem" className="block text-sm font-semibold text-slate-300 mb-1.5">
+              <label htmlFor="userProblem" className="block text-base font-semibold text-slate-200 mb-1.5">
                 ปัญหาเพิ่มเติมที่ผู้ใช้งานแจ้ง
               </label>
               <textarea
@@ -529,17 +529,17 @@ export function FieldVisitView() {
         {/* 05 สภาพแวดล้อมหน้างาน */}
         <GlassCard hoverEffect={false} className="space-y-4">
           <div className="flex items-center gap-2.5 pb-3 border-b border-slate-800">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-500/20 text-cyan-400">
-              <TreePine className="h-4 w-4" />
+            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-500/20 text-cyan-400">
+              <TreePine className="h-5 w-5" />
             </div>
-            <h2 className="text-base font-bold text-white tracking-normal leading-normal">
+            <h2 className="text-xl font-bold text-white tracking-normal leading-normal">
               05 · สภาพแวดล้อมหน้างาน
             </h2>
           </div>
 
           <div className="space-y-4">
             <div>
-              <label htmlFor="siteCondition" className="block text-sm font-semibold text-slate-300 mb-1.5">
+              <label htmlFor="siteCondition" className="block text-base font-semibold text-slate-200 mb-1.5">
                 สภาพพื้นที่ติดตั้งอุปกรณ์
               </label>
               <textarea
@@ -552,7 +552,7 @@ export function FieldVisitView() {
             </div>
 
             <div>
-              <label htmlFor="antennaCondition" className="block text-sm font-semibold text-slate-300 mb-1.5">
+              <label htmlFor="antennaCondition" className="block text-base font-semibold text-slate-200 mb-1.5">
                 สภาพเสาอากาศและสายอากาศที่มองเห็นได้จากพื้น
               </label>
               <textarea
@@ -565,7 +565,7 @@ export function FieldVisitView() {
             </div>
 
             <div>
-              <label htmlFor="workObstacle" className="block text-sm font-semibold text-slate-300 mb-1.5">
+              <label htmlFor="workObstacle" className="block text-base font-semibold text-slate-200 mb-1.5">
                 อุปสรรคในการปฏิบัติงาน
               </label>
               <textarea
@@ -582,10 +582,10 @@ export function FieldVisitView() {
         {/* 06 ภาพถ่ายก่อนดำเนินงาน */}
         <GlassCard hoverEffect={false} className="space-y-4">
           <div className="flex items-center gap-2.5 pb-3 border-b border-slate-800">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-500/20 text-cyan-400">
-              <Camera className="h-4 w-4" />
+            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-500/20 text-cyan-400">
+              <Camera className="h-5 w-5" />
             </div>
-            <h2 className="text-base font-bold text-white tracking-normal leading-normal">
+            <h2 className="text-xl font-bold text-white tracking-normal leading-normal">
               06 · ภาพถ่ายก่อนดำเนินงาน
             </h2>
           </div>
@@ -594,23 +594,23 @@ export function FieldVisitView() {
             {/* Upload Drag & Drop Area */}
             <label
               htmlFor="photos-input"
-              className={`flex flex-col items-center justify-center rounded-xl border-2 border-dashed p-6 text-center transition-all duration-200 cursor-pointer ${
+              className={`flex flex-col items-center justify-center rounded-2xl border-2 border-dashed p-6 text-center transition-all duration-200 cursor-pointer ${
                 isCompressingPhotos
                   ? 'border-cyan-500/60 bg-cyan-950/30 animate-pulse'
                   : 'border-blue-500/30 bg-blue-950/20 hover:border-blue-500/60 hover:bg-blue-950/30'
               }`}
             >
               {isCompressingPhotos ? (
-                <Loader2 className="h-8 w-8 text-cyan-400 mb-2 animate-spin" />
+                <Loader2 className="h-9 w-9 text-cyan-400 mb-2 animate-spin" />
               ) : (
-                <UploadCloud className="h-8 w-8 text-cyan-400 mb-2" />
+                <UploadCloud className="h-9 w-9 text-cyan-400 mb-2" />
               )}
-              <div className="text-sm font-semibold text-slate-200">
+              <div className="text-base font-bold text-slate-100">
                 {isCompressingPhotos
                   ? 'กำลังปรับขนาดและบีบอัดรูปภาพอัตโนมัติ...'
                   : 'คลิกเพื่อเลือกภาพถ่ายหน้างาน (ระบบบีบอัดความละเอียดสูงอัตโนมัติ)'}
               </div>
-              <div className="text-xs text-slate-400 mt-1">
+              <div className="text-sm text-slate-300 mt-1">
                 รองรับไฟล์ภาพ JPG, PNG, WebP — ปรับขนาดอัตโนมัติเพื่อการส่งข้อมูลภาคสนามที่รวดเร็ว
               </div>
               <input
@@ -640,7 +640,7 @@ export function FieldVisitView() {
                     />
 
                     {/* Size badge */}
-                    <div className="absolute top-1.5 left-1.5 rounded bg-black/70 px-1.5 py-0.5 text-[10px] font-mono text-cyan-300 border border-cyan-500/30">
+                    <div className="absolute top-1.5 left-1.5 rounded-md bg-black/75 px-2 py-0.5 text-xs font-mono font-semibold text-cyan-300 border border-cyan-500/30">
                       {Math.round(photo.size / 1024)} KB
                     </div>
 
@@ -649,22 +649,22 @@ export function FieldVisitView() {
                       <button
                         type="button"
                         onClick={() => setActivePreviewPhoto(photo)}
-                        className="rounded-lg bg-blue-600/80 p-2 text-white hover:bg-blue-600 transition-colors"
+                        className="rounded-lg bg-blue-600/80 p-2 text-white hover:bg-blue-600 transition-colors cursor-pointer"
                         title="ดูภาพขนาดใหญ่"
                       >
-                        <ZoomIn className="h-4 w-4" />
+                        <ZoomIn className="h-4.5 w-4.5" />
                       </button>
                       <button
                         type="button"
                         onClick={() => handleRemovePhoto(idx)}
-                        className="rounded-lg bg-rose-600/80 p-2 text-white hover:bg-rose-600 transition-colors"
+                        className="rounded-lg bg-rose-600/80 p-2 text-white hover:bg-rose-600 transition-colors cursor-pointer"
                         title="ลบภาพนี้"
                       >
-                        <Trash2 className="h-4 w-4" />
+                        <Trash2 className="h-4.5 w-4.5" />
                       </button>
                     </div>
 
-                    <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 to-transparent p-1.5 text-[11px] text-slate-300 truncate">
+                    <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 to-transparent p-2 text-xs font-medium text-slate-200 truncate">
                       {photo.name}
                     </div>
                   </div>
@@ -677,17 +677,17 @@ export function FieldVisitView() {
         {/* 07 ยืนยันข้อมูล */}
         <GlassCard hoverEffect={false} className="space-y-4">
           <div className="flex items-center gap-2.5 pb-3 border-b border-slate-800">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-500/20 text-cyan-400">
-              <CheckSquare className="h-4 w-4" />
+            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-500/20 text-cyan-400">
+              <CheckSquare className="h-5 w-5" />
             </div>
-            <h2 className="text-base font-bold text-white tracking-normal leading-normal">
+            <h2 className="text-xl font-bold text-white tracking-normal leading-normal">
               07 · ยืนยันข้อมูล
             </h2>
           </div>
 
           <div className="space-y-4">
             <div>
-              <label htmlFor="summary" className="block text-sm font-semibold text-slate-300 mb-1.5">
+              <label htmlFor="summary" className="block text-base font-semibold text-slate-200 mb-1.5">
                 สรุปสิ่งที่ได้รับแจ้งจากเจ้าของพื้นที่
               </label>
               <textarea
@@ -701,7 +701,7 @@ export function FieldVisitView() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label htmlFor="informantName" className="block text-sm font-semibold text-slate-300 mb-1.5">
+                <label htmlFor="informantName" className="block text-base font-semibold text-slate-200 mb-1.5">
                   ชื่อผู้ให้ข้อมูล
                 </label>
                 <input
@@ -713,7 +713,7 @@ export function FieldVisitView() {
                 />
               </div>
               <div>
-                <label htmlFor="operatorName" className="block text-sm font-semibold text-slate-300 mb-1.5">
+                <label htmlFor="operatorName" className="block text-base font-semibold text-slate-200 mb-1.5">
                   ชื่อผู้ปฏิบัติงาน
                 </label>
                 <input
@@ -734,7 +734,7 @@ export function FieldVisitView() {
           whileTap={{ scale: 0.99 }}
           type="submit"
           disabled={isSubmitting}
-          className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 via-cyan-500 to-emerald-500 py-3.5 text-base font-bold tracking-normal leading-normal text-slate-950 shadow-lg shadow-blue-500/20 hover:shadow-cyan-500/30 transition-all disabled:opacity-60 cursor-pointer"
+          className="flex w-full items-center justify-center gap-2.5 rounded-xl bg-gradient-to-r from-blue-600 via-cyan-500 to-emerald-500 py-4 text-lg font-bold tracking-wide text-slate-950 shadow-lg shadow-blue-500/20 hover:shadow-cyan-500/30 transition-all disabled:opacity-60 cursor-pointer"
         >
           {isSubmitting ? (
             <>
@@ -752,7 +752,7 @@ export function FieldVisitView() {
         {/* Status Feedback Message */}
         {statusMessage.text && (
           <div
-            className={`flex items-center gap-2.5 rounded-xl border p-4 text-sm font-medium ${
+            className={`flex items-center gap-2.5 rounded-xl border p-4 text-base font-semibold ${
               statusMessage.type === 'success'
                 ? 'border-emerald-500/40 bg-emerald-950/40 text-emerald-300'
                 : statusMessage.type === 'error'

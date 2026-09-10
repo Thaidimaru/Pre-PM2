@@ -60,10 +60,10 @@ export function RecentSurveys({ recent = [], onNavigate }) {
         {/* Panel Title & Action */}
         <div className="flex items-center justify-between pb-4 border-b border-slate-800/80">
           <div className="flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-cyan-500/20 text-cyan-300">
-              <Clock className="h-4 w-4" />
+            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-cyan-500/20 text-cyan-300">
+              <Clock className="h-5 w-5" />
             </div>
-            <h2 className="text-lg font-bold text-white tracking-normal leading-normal">
+            <h2 className="text-xl font-bold text-white tracking-normal leading-normal">
               การสำรวจล่าสุด
             </h2>
           </div>
@@ -72,19 +72,19 @@ export function RecentSurveys({ recent = [], onNavigate }) {
             <button
               type="button"
               onClick={() => onNavigate('field')}
-              className="group inline-flex items-center gap-1.5 rounded-lg border border-blue-500/30 bg-blue-600/20 px-3 py-1.5 text-xs font-semibold text-blue-300 hover:bg-blue-600/30 hover:border-blue-500/50 hover:text-white transition-all duration-200 cursor-pointer"
+              className="group inline-flex items-center gap-1.5 rounded-xl border border-blue-500/30 bg-blue-600/20 px-3.5 py-1.5 text-sm font-semibold text-blue-300 hover:bg-blue-600/30 hover:border-blue-500/50 hover:text-white transition-all duration-200 cursor-pointer"
             >
               <span>บันทึกใหม่</span>
-              <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
             </button>
           )}
         </div>
 
         {/* Table Container */}
         <div className="overflow-x-auto pt-4">
-          <table className="w-full text-left text-sm">
+          <table className="w-full text-left text-base">
             <thead>
-              <tr className="border-b border-slate-800 text-xs font-semibold text-slate-400">
+              <tr className="border-b border-slate-800 text-sm font-semibold text-slate-300">
                 <th className="pb-2.5 pr-3">รหัสรายการ</th>
                 <th className="pb-2.5 px-3">สถานี</th>
                 <th className="pb-2.5 px-3">จังหวัด</th>
@@ -102,10 +102,10 @@ export function RecentSurveys({ recent = [], onNavigate }) {
                     onClick={() => handleOpenDetail(item)}
                     className="hover:bg-slate-800/40 transition-colors cursor-pointer group"
                   >
-                    <td className="py-3 pr-3 font-mono text-xs text-cyan-400 group-hover:underline">
+                    <td className="py-3 pr-3 font-mono text-sm text-cyan-400 group-hover:underline">
                       {item.recordId}
                     </td>
-                    <td className="py-3 px-3 font-medium text-slate-200">
+                    <td className="py-3 px-3 font-semibold text-slate-100">
                       {item.station}
                     </td>
                     <td className="py-3 px-3 text-slate-300">
@@ -116,23 +116,23 @@ export function RecentSurveys({ recent = [], onNavigate }) {
                     </td>
                     <td className="py-3 px-3 text-center">
                       {item.hasPhotos || (item.photoCount && item.photoCount > 0) ? (
-                        <span className="inline-flex items-center gap-1 rounded bg-blue-500/20 px-2 py-0.5 text-xs text-cyan-300 border border-blue-500/30">
-                          <Camera className="h-3 w-3" />
+                        <span className="inline-flex items-center gap-1 rounded-md bg-blue-500/20 px-2 py-0.5 text-xs font-semibold text-cyan-300 border border-blue-500/30">
+                          <Camera className="h-3.5 w-3.5" />
                           <span>{item.photoCount || 'มีภาพ'}</span>
                         </span>
                       ) : (
                         <span className="text-xs text-slate-500">-</span>
                       )}
                     </td>
-                    <td className="py-3 pl-3 text-right text-xs text-slate-400">
+                    <td className="py-3 pl-3 text-right text-xs font-medium text-slate-300">
                       {new Date(item.savedAt).toLocaleString('th-TH', {
                         dateStyle: 'short',
                         timeStyle: 'short'
                       })}
                     </td>
                     <td className="py-3 pl-2 text-center">
-                      <div className="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-slate-800/80 text-slate-400 group-hover:bg-blue-600 group-hover:text-white transition-colors">
-                        <Eye className="h-3.5 w-3.5" />
+                      <div className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-slate-800/80 text-slate-400 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                        <Eye className="h-4 w-4" />
                       </div>
                     </td>
                   </tr>
@@ -153,12 +153,12 @@ export function RecentSurveys({ recent = [], onNavigate }) {
       <Dialog open={Boolean(activeSurvey)} onOpenChange={(open) => !open && setActiveSurvey(null)}>
         <DialogContent className="max-w-2xl bg-slate-950/95 border-blue-500/40 p-6 text-slate-100 max-h-[85vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle className="flex items-center justify-between gap-3 text-lg font-bold text-white border-b border-slate-800 pb-3">
+            <DialogTitle className="flex items-center justify-between gap-3 text-xl font-bold text-white border-b border-slate-800 pb-3">
               <div className="flex items-center gap-2">
                 <Radio className="h-5 w-5 text-cyan-400" />
                 <span>รายละเอียดผลสำรวจสถานี</span>
               </div>
-              <span className="font-mono text-xs font-normal text-cyan-300 bg-blue-950/80 border border-blue-500/30 px-2 py-1 rounded">
+              <span className="font-mono text-xs font-semibold text-cyan-300 bg-blue-950/80 border border-blue-500/30 px-2.5 py-1 rounded-md">
                 {activeSurvey?.recordId}
               </span>
             </DialogTitle>
@@ -167,60 +167,60 @@ export function RecentSurveys({ recent = [], onNavigate }) {
           {isLoadingDetail ? (
             <div className="flex flex-col items-center justify-center py-12 gap-3">
               <Loader2 className="h-8 w-8 animate-spin text-cyan-400" />
-              <div className="text-sm text-slate-400">กำลังโหลดข้อมูลและรูปภาพ...</div>
+              <div className="text-base text-slate-400">กำลังโหลดข้อมูลและรูปภาพ...</div>
             </div>
           ) : (
             <div className="space-y-4 pt-2">
               {/* Station Info Banner */}
               <div className="rounded-xl border border-blue-500/20 bg-blue-950/30 p-4 space-y-2">
                 <div className="flex items-center justify-between flex-wrap gap-2">
-                  <div className="text-base font-bold text-white flex items-center gap-2">
-                    <MapPin className="h-4 w-4 text-cyan-400" />
+                  <div className="text-lg font-bold text-white flex items-center gap-2">
+                    <MapPin className="h-4.5 w-4.5 text-cyan-400" />
                     <span>{activeSurvey?.station}</span>
                   </div>
                   <div>{getBadge(activeSurvey?.permit)}</div>
                 </div>
-                <div className="text-xs text-slate-300 flex items-center gap-4 flex-wrap">
-                  <span>จังหวัด: <b className="text-white">{activeSurvey?.province}</b></span>
-                  <span>บันทึกเมื่อ: <b className="text-white">{activeSurvey ? new Date(activeSurvey.savedAt).toLocaleString('th-TH') : ''}</b></span>
+                <div className="text-sm text-slate-300 flex items-center gap-4 flex-wrap">
+                  <span>จังหวัด: <b className="text-white font-semibold">{activeSurvey?.province}</b></span>
+                  <span>บันทึกเมื่อ: <b className="text-white font-semibold">{activeSurvey ? new Date(activeSurvey.savedAt).toLocaleString('th-TH') : ''}</b></span>
                 </div>
               </div>
 
               {/* Form Fields Details (if loaded) */}
               {surveyDetail?.fields && (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs bg-slate-900/60 rounded-xl p-4 border border-slate-800">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm bg-slate-900/60 rounded-xl p-4 border border-slate-800">
                   <div>
-                    <span className="text-slate-400">สถานที่ติดตั้ง:</span>{' '}
+                    <span className="text-slate-400 font-medium">สถานที่ติดตั้ง:</span>{' '}
                     <span className="text-slate-200">{surveyDetail.fields.installationPlace || '-'}</span>
                   </div>
                   <div>
-                    <span className="text-slate-400">สถานที่วางเครื่อง:</span>{' '}
+                    <span className="text-slate-400 font-medium">สถานที่วางเครื่อง:</span>{' '}
                     <span className="text-slate-200">{surveyDetail.fields.equipmentPlace || '-'}</span>
                   </div>
                   <div>
-                    <span className="text-slate-400">ผู้ให้ข้อมูล:</span>{' '}
+                    <span className="text-slate-400 font-medium">ผู้ให้ข้อมูล:</span>{' '}
                     <span className="text-slate-200">{surveyDetail.fields.contactName || '-'} ({surveyDetail.fields.contactPosition || 'ไม่ระบุตำแหน่ง'})</span>
                   </div>
                   <div>
-                    <span className="text-slate-400">ผู้ปฏิบัติงาน:</span>{' '}
+                    <span className="text-slate-400 font-medium">ผู้ปฏิบัติงาน:</span>{' '}
                     <span className="text-slate-200">{surveyDetail.fields.operatorName || '-'}</span>
                   </div>
                   <div>
-                    <span className="text-slate-400">สภาพวิทยุ / สัญญาณ:</span>{' '}
+                    <span className="text-slate-400 font-medium">สภาพวิทยุ / สัญญาณ:</span>{' '}
                     <span className="text-slate-200">
                       {surveyDetail.fields.radioStatus || 'ปกติ'} (รับ: {surveyDetail.fields.receiveStatus || '-'}, ส่ง: {surveyDetail.fields.transmitStatus || '-'})
                     </span>
                   </div>
                   <div>
-                    <span className="text-slate-400">ระบบไฟฟ้า / แบตเตอรี่:</span>{' '}
+                    <span className="text-slate-400 font-medium">ระบบไฟฟ้า / แบตเตอรี่:</span>{' '}
                     <span className="text-slate-200">
                       ไฟ: {surveyDetail.fields.powerStatus || '-'}, แบต: {surveyDetail.fields.batteryStatus || '-'}
                     </span>
                   </div>
                   {surveyDetail.fields.summary && (
                     <div className="col-span-1 md:col-span-2 pt-2 border-t border-slate-800/80">
-                      <span className="text-slate-400 block mb-1">สรุปสิ่งที่ได้รับแจ้ง:</span>
-                      <p className="text-slate-200 bg-slate-950/60 p-2.5 rounded border border-slate-800">
+                      <span className="text-slate-400 block mb-1 font-medium">สรุปสิ่งที่ได้รับแจ้ง:</span>
+                      <p className="text-slate-100 bg-slate-950/60 p-3 rounded-lg border border-slate-800 leading-relaxed">
                         {surveyDetail.fields.summary}
                       </p>
                     </div>
@@ -230,8 +230,8 @@ export function RecentSurveys({ recent = [], onNavigate }) {
 
               {/* Photos Gallery */}
               <div>
-                <div className="flex items-center gap-2 mb-2 text-sm font-semibold text-cyan-300">
-                  <Camera className="h-4 w-4" />
+                <div className="flex items-center gap-2 mb-2.5 text-base font-bold text-cyan-300">
+                  <Camera className="h-4.5 w-4.5" />
                   <span>ภาพถ่ายก่อนดำเนินงาน ({surveyDetail?.photos?.length || 0} ภาพ)</span>
                 </div>
 
@@ -255,7 +255,7 @@ export function RecentSurveys({ recent = [], onNavigate }) {
                           <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                             <ZoomIn className="h-6 w-6 text-white" />
                           </div>
-                          <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 to-transparent p-1.5 text-[10px] text-slate-300 truncate">
+                          <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 to-transparent p-2 text-xs font-medium text-slate-200 truncate">
                             {p.name || `รูปที่ ${idx + 1}`}
                           </div>
                         </div>
