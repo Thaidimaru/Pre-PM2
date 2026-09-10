@@ -347,12 +347,48 @@ body {
   filter: grayscale(100%) contrast(150%) opacity(0.5) !important;
   mix-blend-mode: multiply !important;
 }
-[data-theme="light"] .lg\:col-span-5.bg-slate-950\/40 {
+[data-theme="light"] .lg\:col-span-5.bg-slate-950\/40,
+[data-theme="light"] .lg\:col-span-5.rounded-xl {
   background-color: #f8fafc !important;
   border-color: #e2e8f0 !important;
 }
 [data-theme="light"] .lg\:col-span-5 div[class*="radial-gradient"] {
   display: none !important;
+}
+
+/* Province Chart in Light Mode */
+[data-theme="light"] .lg\:col-span-7 .bg-slate-950\/30 {
+  background-color: #f8fafc !important;
+  border-color: #e2e8f0 !important;
+}
+[data-theme="light"] .lg\:col-span-7 .bg-slate-900\/60 {
+  background-color: #f1f5f9 !important;
+  border-color: #e2e8f0 !important;
+  color: #475569 !important;
+}
+[data-theme="light"] .lg\:col-span-7 .divide-slate-800\/40 > * {
+  border-color: #e2e8f0 !important;
+}
+[data-theme="light"] .lg\:col-span-7 .hover\:bg-slate-800\/30:hover {
+  background-color: #f1f5f9 !important;
+}
+
+/* ShinyText in Light Mode */
+[data-theme="light"] .animate-shine {
+  background-image: linear-gradient(110deg, #0f172a 35%, #0284c7 50%, #0f172a 65%) !important;
+}
+
+/* Refresh Button in Light Mode */
+[data-theme="light"] button:has(.lucide-refresh-cw) {
+  background-color: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  color: #334155 !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+}
+[data-theme="light"] button:has(.lucide-refresh-cw):hover {
+  background-color: #f8fafc !important;
+  color: #0f172a !important;
+  border-color: #94a3b8 !important;
 }
 
 /* Donut Chart Center */
