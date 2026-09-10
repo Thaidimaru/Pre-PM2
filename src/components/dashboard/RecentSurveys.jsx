@@ -261,7 +261,7 @@ export function RecentSurveys({ recent = [], onNavigate }) {
               type="button"
               onClick={handleExportPDF}
               disabled={isExporting}
-              className="group inline-flex items-center gap-1.5 rounded-xl border border-rose-200 dark:border-rose-500/30 bg-rose-50 hover:bg-rose-100 dark:bg-rose-600/20 dark:hover:bg-rose-600/30 px-3.5 py-1.5 text-sm font-semibold text-rose-700 dark:text-rose-300 hover:text-rose-900 dark:hover:text-white transition-all duration-200 cursor-pointer whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed shadow-xs"
+              className="group inline-flex items-center gap-1.5 rounded-xl border border-rose-200/80 dark:border-rose-500/30 bg-rose-50/75 hover:bg-rose-100/90 dark:bg-rose-600/20 dark:hover:bg-rose-600/30 backdrop-blur-sm px-3.5 py-1.5 text-sm font-bold text-rose-700 dark:text-rose-300 hover:text-rose-900 dark:hover:text-white transition-all duration-200 cursor-pointer whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed shadow-xs"
               title="ออกรายงานเอกสาร PDF"
             >
               {isExporting ? (
@@ -277,7 +277,7 @@ export function RecentSurveys({ recent = [], onNavigate }) {
               type="button"
               onClick={handleExportExcel}
               disabled={isExportingExcel}
-              className="group inline-flex items-center gap-1.5 rounded-xl border border-emerald-200 dark:border-emerald-500/30 bg-emerald-50 hover:bg-emerald-100 dark:bg-emerald-600/20 dark:hover:bg-emerald-600/30 px-3.5 py-1.5 text-sm font-semibold text-emerald-700 dark:text-emerald-300 hover:text-emerald-900 dark:hover:text-white transition-all duration-200 cursor-pointer whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed shadow-xs"
+              className="group inline-flex items-center gap-1.5 rounded-xl border border-emerald-200/80 dark:border-emerald-500/30 bg-emerald-50/75 hover:bg-emerald-100/90 dark:bg-emerald-600/20 dark:hover:bg-emerald-600/30 backdrop-blur-sm px-3.5 py-1.5 text-sm font-bold text-emerald-700 dark:text-emerald-300 hover:text-emerald-900 dark:hover:text-white transition-all duration-200 cursor-pointer whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed shadow-xs"
               title="ส่งออกไฟล์ตาราง Excel (.xlsx)"
             >
               {isExportingExcel ? (
@@ -293,7 +293,7 @@ export function RecentSurveys({ recent = [], onNavigate }) {
               <button
                 type="button"
                 onClick={() => onNavigate('field')}
-                className="group inline-flex items-center gap-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white px-3.5 py-1.5 text-sm font-semibold transition-all duration-200 cursor-pointer whitespace-nowrap flex-shrink-0 shadow-xs hover:shadow-md hover:shadow-blue-500/25"
+                className="group inline-flex items-center gap-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white px-3.5 py-1.5 text-sm font-bold transition-all duration-200 cursor-pointer whitespace-nowrap flex-shrink-0 shadow-xs hover:shadow-md hover:shadow-blue-500/25"
               >
                 <span>บันทึกใหม่</span>
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
@@ -307,7 +307,7 @@ export function RecentSurveys({ recent = [], onNavigate }) {
         <div className="overflow-x-auto pt-4">
           <table className="w-full text-left text-base">
             <thead>
-              <tr className="border-b border-slate-200 dark:border-slate-800 text-sm font-semibold text-slate-600 dark:text-slate-300 bg-slate-50/80 dark:bg-transparent">
+              <tr className="border-b border-slate-200/80 dark:border-slate-800 text-sm font-bold text-slate-800 dark:text-slate-200 bg-slate-100/70 dark:bg-transparent backdrop-blur-sm">
                 <th className="py-2.5 pr-3 pl-2 whitespace-nowrap">รหัสรายการ</th>
                 <th className="py-2.5 px-3 whitespace-nowrap">สถานี</th>
                 <th className="py-2.5 px-3 whitespace-nowrap">จังหวัด</th>
@@ -317,21 +317,21 @@ export function RecentSurveys({ recent = [], onNavigate }) {
                 <th className="py-2.5 pl-2 pr-2 text-center whitespace-nowrap">ดู</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100 dark:divide-slate-800/50">
+            <tbody className="divide-y divide-slate-200/60 dark:divide-slate-800/50">
               {safeRecent.length > 0 ? (
                 safeRecent.map((item) => (
                   <tr
                     key={item.recordId}
                     onClick={() => handleOpenDetail(item)}
-                    className="hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors cursor-pointer group"
+                    className="hover:bg-blue-50/45 dark:hover:bg-slate-800/40 backdrop-blur-sm transition-colors cursor-pointer group"
                   >
                     <td className="py-3 pr-3 pl-2 font-mono text-sm text-blue-600 dark:text-cyan-400 group-hover:underline whitespace-nowrap font-bold">
                       {item.recordId}
                     </td>
-                    <td className="py-3 px-3 font-semibold text-slate-800 dark:text-slate-100 whitespace-nowrap">
+                    <td className="py-3 px-3 font-bold text-slate-900 dark:text-slate-100 whitespace-nowrap">
                       {item.station}
                     </td>
-                    <td className="py-3 px-3 text-slate-600 dark:text-slate-300 whitespace-nowrap">
+                    <td className="py-3 px-3 font-medium text-slate-700 dark:text-slate-300 whitespace-nowrap">
                       {item.province}
                     </td>
                     <td className="py-3 px-3 text-center whitespace-nowrap">
@@ -339,7 +339,7 @@ export function RecentSurveys({ recent = [], onNavigate }) {
                     </td>
                     <td className="py-3 px-3 text-center whitespace-nowrap">
                       {item.hasPhotos || (item.photoCount && item.photoCount > 0) ? (
-                        <span className="inline-flex items-center gap-1 rounded-md bg-blue-50 dark:bg-blue-500/20 px-2 py-0.5 text-xs font-semibold text-blue-700 dark:text-cyan-300 border border-blue-200 dark:border-blue-500/30 whitespace-nowrap">
+                        <span className="inline-flex items-center gap-1 rounded-md bg-blue-50/80 dark:bg-blue-500/20 px-2 py-0.5 text-xs font-bold text-blue-700 dark:text-cyan-300 border border-blue-200/80 dark:border-blue-500/30 whitespace-nowrap">
                           <Camera className="h-3.5 w-3.5" />
                           <span>{item.photoCount || 'มีภาพ'}</span>
                         </span>
@@ -347,11 +347,11 @@ export function RecentSurveys({ recent = [], onNavigate }) {
                         <span className="text-xs text-slate-400 dark:text-slate-500 whitespace-nowrap">-</span>
                       )}
                     </td>
-                    <td className="py-3 pl-3 text-right text-xs font-medium text-slate-500 dark:text-slate-300 whitespace-nowrap">
+                    <td className="py-3 pl-3 text-right text-xs font-semibold text-slate-600 dark:text-slate-300 whitespace-nowrap">
                       {formatDateSafe(item.savedAt)}
                     </td>
                     <td className="py-3 pl-2 pr-2 text-center whitespace-nowrap">
-                      <div className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-800/80 text-slate-500 dark:text-slate-400 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                      <div className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-slate-100/80 dark:bg-slate-800/80 text-slate-600 dark:text-slate-400 group-hover:bg-blue-600 group-hover:text-white transition-colors">
                         <Eye className="h-4 w-4" />
                       </div>
                     </td>
@@ -371,14 +371,14 @@ export function RecentSurveys({ recent = [], onNavigate }) {
 
       {/* Survey Detail Dialog */}
       <Dialog open={Boolean(activeSurvey)} onOpenChange={(open) => !open && setActiveSurvey(null)}>
-        <DialogContent className="max-w-2xl bg-white dark:bg-slate-950/95 border border-slate-200 dark:border-blue-500/40 p-6 text-slate-800 dark:text-slate-100 max-h-[85vh] overflow-y-auto shadow-2xl">
+        <DialogContent className="max-w-2xl bg-white/85 dark:bg-slate-950/90 backdrop-blur-2xl border border-white/60 dark:border-blue-500/40 p-6 text-slate-900 dark:text-slate-100 max-h-[85vh] overflow-y-auto shadow-2xl">
           <DialogHeader>
-            <DialogTitle className="flex items-center justify-between gap-3 text-xl font-bold text-slate-900 dark:text-white border-b border-slate-200 dark:border-slate-800 pb-3">
+            <DialogTitle className="flex items-center justify-between gap-3 text-xl font-bold text-slate-900 dark:text-white border-b border-slate-200/80 dark:border-slate-800 pb-3">
               <div className="flex items-center gap-2">
                 <Radio className="h-5 w-5 text-blue-600 dark:text-cyan-400" />
                 <span>รายละเอียดผลสำรวจสถานี</span>
               </div>
-              <span className="font-mono text-xs font-semibold text-blue-700 dark:text-cyan-300 bg-blue-50 dark:bg-blue-950/80 border border-blue-200 dark:border-blue-500/30 px-2.5 py-1 rounded-md">
+              <span className="font-mono text-xs font-bold text-blue-700 dark:text-cyan-300 bg-blue-50/80 dark:bg-blue-950/80 border border-blue-200/80 dark:border-blue-500/30 px-2.5 py-1 rounded-md">
                 {activeSurvey?.recordId}
               </span>
             </DialogTitle>
@@ -387,12 +387,12 @@ export function RecentSurveys({ recent = [], onNavigate }) {
           {isLoadingDetail ? (
             <div className="flex flex-col items-center justify-center py-12 gap-3">
               <Loader2 className="h-8 w-8 animate-spin text-blue-600 dark:text-cyan-400" />
-              <div className="text-base text-slate-500 dark:text-slate-400">กำลังโหลดข้อมูลและรูปภาพ...</div>
+              <div className="text-base text-slate-600 dark:text-slate-400 font-medium">กำลังโหลดข้อมูลและรูปภาพ...</div>
             </div>
           ) : (
             <div className="space-y-4 pt-2">
               {/* Station Info Banner */}
-              <div className="rounded-xl border border-blue-200/90 dark:border-blue-500/20 bg-blue-50/70 dark:bg-blue-950/30 p-4 space-y-2 shadow-xs">
+              <div className="rounded-xl border border-blue-200/80 dark:border-blue-500/20 bg-blue-50/70 dark:bg-blue-950/30 backdrop-blur-md p-4 space-y-2 shadow-xs">
                 <div className="flex items-center justify-between flex-wrap gap-2">
                   <div className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
                     <MapPin className="h-4.5 w-4.5 text-blue-600 dark:text-cyan-400" />
@@ -400,47 +400,47 @@ export function RecentSurveys({ recent = [], onNavigate }) {
                   </div>
                   <div>{getBadge(activeSurvey?.permit)}</div>
                 </div>
-                <div className="text-sm text-slate-600 dark:text-slate-300 flex items-center gap-4 flex-wrap">
-                  <span>จังหวัด: <b className="text-slate-900 dark:text-white font-semibold">{activeSurvey?.province}</b></span>
-                  <span>บันทึกเมื่อ: <b className="text-slate-900 dark:text-white font-semibold">{formatDateSafe(activeSurvey?.savedAt)}</b></span>
+                <div className="text-sm text-slate-700 dark:text-slate-300 flex items-center gap-4 flex-wrap">
+                  <span>จังหวัด: <b className="text-slate-900 dark:text-white font-bold">{activeSurvey?.province}</b></span>
+                  <span>บันทึกเมื่อ: <b className="text-slate-900 dark:text-white font-bold">{formatDateSafe(activeSurvey?.savedAt)}</b></span>
                 </div>
               </div>
 
               {/* Form Fields Details (if loaded) */}
               {surveyDetail?.fields && (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm bg-slate-50 dark:bg-slate-900/60 rounded-xl p-4 border border-slate-200 dark:border-slate-800 shadow-xs">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm bg-white/60 dark:bg-slate-900/60 backdrop-blur-md rounded-xl p-4 border border-slate-200/80 dark:border-slate-800 shadow-xs">
                   <div>
-                    <span className="text-slate-500 dark:text-slate-400 font-medium">สถานที่ติดตั้ง:</span>{' '}
-                    <span className="text-slate-800 dark:text-slate-200 font-medium">{surveyDetail.fields.installationPlace || '-'}</span>
+                    <span className="text-slate-600 dark:text-slate-400 font-semibold">สถานที่ติดตั้ง:</span>{' '}
+                    <span className="text-slate-900 dark:text-slate-200 font-bold">{surveyDetail.fields.installationPlace || '-'}</span>
                   </div>
                   <div>
-                    <span className="text-slate-500 dark:text-slate-400 font-medium">สถานที่วางเครื่อง:</span>{' '}
-                    <span className="text-slate-800 dark:text-slate-200 font-medium">{surveyDetail.fields.equipmentPlace || '-'}</span>
+                    <span className="text-slate-600 dark:text-slate-400 font-semibold">สถานที่วางเครื่อง:</span>{' '}
+                    <span className="text-slate-900 dark:text-slate-200 font-bold">{surveyDetail.fields.equipmentPlace || '-'}</span>
                   </div>
                   <div>
-                    <span className="text-slate-500 dark:text-slate-400 font-medium">ผู้ให้ข้อมูล:</span>{' '}
-                    <span className="text-slate-800 dark:text-slate-200 font-medium">{surveyDetail.fields.contactName || '-'} ({surveyDetail.fields.contactPosition || 'ไม่ระบุตำแหน่ง'})</span>
+                    <span className="text-slate-600 dark:text-slate-400 font-semibold">ผู้ให้ข้อมูล:</span>{' '}
+                    <span className="text-slate-900 dark:text-slate-200 font-bold">{surveyDetail.fields.contactName || '-'} ({surveyDetail.fields.contactPosition || 'ไม่ระบุตำแหน่ง'})</span>
                   </div>
                   <div>
-                    <span className="text-slate-500 dark:text-slate-400 font-medium">ผู้ปฏิบัติงาน:</span>{' '}
-                    <span className="text-slate-800 dark:text-slate-200 font-medium">{surveyDetail.fields.operatorName || '-'}</span>
+                    <span className="text-slate-600 dark:text-slate-400 font-semibold">ผู้ปฏิบัติงาน:</span>{' '}
+                    <span className="text-slate-900 dark:text-slate-200 font-bold">{surveyDetail.fields.operatorName || '-'}</span>
                   </div>
                   <div>
-                    <span className="text-slate-500 dark:text-slate-400 font-medium">สภาพวิทยุ / การสนทนา:</span>{' '}
-                    <span className="text-slate-800 dark:text-slate-200 font-medium">
+                    <span className="text-slate-600 dark:text-slate-400 font-semibold">สภาพวิทยุ / การสนทนา:</span>{' '}
+                    <span className="text-slate-900 dark:text-slate-200 font-medium">
                       ภาพรวม: {surveyDetail.fields.radioStatus || 'ปกติ'}, รับสัญญาณ: {surveyDetail.fields.receiveStatus || 'ปกติ'}, สนทนา: {surveyDetail.fields.transmitStatus || 'ปกติ'}
                     </span>
                   </div>
                   <div>
-                    <span className="text-slate-500 dark:text-slate-400 font-medium">ระบบไฟฟ้า / สำรองไฟ:</span>{' '}
-                    <span className="text-slate-800 dark:text-slate-200 font-medium">
+                    <span className="text-slate-600 dark:text-slate-400 font-semibold">ระบบไฟฟ้า / สำรองไฟ:</span>{' '}
+                    <span className="text-slate-900 dark:text-slate-200 font-medium">
                       ระบบไฟฟ้า: {surveyDetail.fields.powerStatus || 'ปกติ'}, ระบบสำรองไฟ: {surveyDetail.fields.batteryStatus || 'ปกติ'}
                     </span>
                   </div>
                   {surveyDetail.fields.summary && (
-                    <div className="col-span-1 md:col-span-2 pt-2 border-t border-slate-200 dark:border-slate-800/80">
-                      <span className="text-slate-500 dark:text-slate-400 block mb-1 font-medium">สรุปสิ่งที่ได้รับแจ้ง:</span>
-                      <p className="text-slate-800 dark:text-slate-100 bg-white dark:bg-slate-950/60 p-3 rounded-lg border border-slate-200 dark:border-slate-800 leading-relaxed">
+                    <div className="col-span-1 md:col-span-2 pt-2 border-t border-slate-200/80 dark:border-slate-800/80">
+                      <span className="text-slate-600 dark:text-slate-400 block mb-1 font-semibold">สรุปสิ่งที่ได้รับแจ้ง:</span>
+                      <p className="text-slate-900 dark:text-slate-100 bg-white/60 dark:bg-slate-950/60 backdrop-blur-sm p-3 rounded-lg border border-slate-200/80 dark:border-slate-800 leading-relaxed font-medium">
                         {surveyDetail.fields.summary}
                       </p>
                     </div>

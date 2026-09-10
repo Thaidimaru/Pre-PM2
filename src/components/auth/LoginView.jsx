@@ -42,13 +42,13 @@ export function LoginView({ onLoginSuccess, theme = 'light', toggleTheme }) {
         <GlassCard
           className={`p-8 sm:p-10 transition-all duration-300 ${
             isLight
-              ? 'bg-white/95 border-slate-200/90 shadow-2xl shadow-slate-300/40 text-slate-900'
+              ? 'bg-white/70 backdrop-blur-2xl border border-white/60 shadow-[0_20px_60px_rgba(0,0,0,0.08)] text-slate-900'
               : 'border-blue-500/30'
           }`}
           hoverEffect={false}
         >
           {/* Brand Header & Theme Toggle */}
-          <div className={`flex items-center justify-between pb-6 border-b ${isLight ? 'border-slate-200' : 'border-slate-800'}`}>
+          <div className={`flex items-center justify-between pb-6 border-b ${isLight ? 'border-slate-200/80' : 'border-slate-800'}`}>
             <div className="flex items-center gap-3.5">
               <img
                 src={nbtcLogo}
@@ -70,9 +70,9 @@ export function LoginView({ onLoginSuccess, theme = 'light', toggleTheme }) {
                   <span className={`text-xs font-bold tracking-[0.2em] whitespace-nowrap ${isLight ? 'text-blue-600' : 'text-cyan-400'}`}>
                     SURVEY CONTROL ROOM
                   </span>
-                  <span className={`rounded-md px-2 py-0.5 text-xs font-semibold whitespace-nowrap ${
+                  <span className={`rounded-md px-2 py-0.5 text-xs font-bold whitespace-nowrap ${
                     isLight
-                      ? 'bg-blue-50 text-blue-700 border border-blue-200'
+                      ? 'bg-blue-50/80 text-blue-700 border border-blue-200/80'
                       : 'bg-blue-500/20 text-blue-300 border border-blue-500/30'
                   }`}>
                     v{APP_VERSION}
@@ -90,7 +90,7 @@ export function LoginView({ onLoginSuccess, theme = 'light', toggleTheme }) {
                 aria-label={isLight ? 'สลับเป็นโหมดกลางคืน' : 'สลับเป็นโหมดกลางวัน'}
                 className={`flex h-9 w-9 items-center justify-center rounded-xl transition-all duration-200 cursor-pointer flex-shrink-0 ${
                   isLight
-                    ? 'bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-200 hover:text-slate-900'
+                    ? 'bg-white/60 backdrop-blur-md text-slate-800 hover:bg-white/80 border border-slate-200/80 hover:text-slate-950'
                     : 'bg-blue-500/20 text-blue-300 hover:bg-blue-500/30 border border-blue-500/30 hover:text-blue-100'
                 }`}
               >
@@ -103,7 +103,7 @@ export function LoginView({ onLoginSuccess, theme = 'light', toggleTheme }) {
             <h1 className={`text-3xl font-extrabold tracking-normal leading-normal whitespace-nowrap ${isLight ? 'text-slate-900' : 'text-white'}`}>
               {isLight ? 'เข้าสู่ระบบ' : <ShinyText>เข้าสู่ระบบ</ShinyText>}
             </h1>
-            <p className={`mt-1.5 text-sm leading-relaxed ${isLight ? 'text-slate-600' : 'text-slate-300'}`}>
+            <p className={`mt-1.5 text-sm leading-relaxed ${isLight ? 'text-slate-700 font-medium' : 'text-slate-300'}`}>
               กรุณากรอกรหัสผ่านเพื่อเข้าใช้งาน Dashboard ศูนย์ควบคุม และแบบบันทึกการสำรวจ Field Visit
             </p>
           </div>
@@ -113,7 +113,7 @@ export function LoginView({ onLoginSuccess, theme = 'light', toggleTheme }) {
             <div>
               <label
                 htmlFor="login-password"
-                className={`block text-base font-semibold mb-1.5 ${isLight ? 'text-slate-700' : 'text-slate-200'}`}
+                className={`block text-base font-bold mb-1.5 ${isLight ? 'text-slate-800' : 'text-slate-200'}`}
               >
                 รหัสผ่านสำหรับเข้าใช้งาน
               </label>
@@ -133,7 +133,7 @@ export function LoginView({ onLoginSuccess, theme = 'light', toggleTheme }) {
                   autoFocus
                   className={`w-full rounded-xl pl-11 pr-12 py-3 text-base transition-all focus:outline-none focus:ring-2 ${
                     isLight
-                      ? 'border border-slate-300 bg-white text-slate-900 placeholder:text-slate-400 focus:border-blue-600 focus:ring-blue-500/20 shadow-sm'
+                      ? 'border border-slate-200/80 bg-white/55 backdrop-blur-md text-slate-900 placeholder:text-slate-400 focus:bg-white/80 focus:border-blue-600 focus:ring-blue-500/20 shadow-sm font-medium'
                       : 'border border-[rgba(115,149,174,0.3)] bg-[rgba(6,19,33,0.85)] text-white placeholder:text-slate-500 focus:border-blue-500 focus:ring-blue-500/40'
                   }`}
                 />

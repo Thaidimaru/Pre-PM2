@@ -59,7 +59,7 @@ export function DashboardView({ onNavigate }) {
           <h1 className="mt-1 text-xl sm:text-3xl lg:text-4xl font-black tracking-normal leading-normal text-slate-900 dark:text-white sm:whitespace-nowrap">
             <ShinyText>ศูนย์ควบคุมผลสำรวจสถานี (Pre-PM)</ShinyText>
           </h1>
-          <p className="mt-1 text-base text-slate-600 dark:text-slate-300 leading-relaxed">
+          <p className="mt-1 text-base text-slate-700 dark:text-slate-200 font-medium leading-relaxed">
             ติดตามความคืบหน้าการลงพื้นที่ตรวจเยี่ยมเจ้าของพื้นที่สถานีวิทยุคมนาคม NBTC Microwave แบบเรียลไทม์
           </p>
         </div>
@@ -69,7 +69,7 @@ export function DashboardView({ onNavigate }) {
             type="button"
             onClick={loadData}
             disabled={isLoading}
-            className="flex items-center gap-2 rounded-xl border border-slate-200 dark:border-slate-700/80 bg-white dark:bg-slate-800/50 px-4 py-2.5 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white transition-all disabled:opacity-50 cursor-pointer whitespace-nowrap shadow-xs"
+            className="flex items-center gap-2 rounded-xl border border-slate-200/80 dark:border-slate-700/80 bg-white/60 dark:bg-slate-800/50 backdrop-blur-md px-4 py-2.5 text-sm font-semibold text-slate-800 dark:text-slate-200 hover:bg-white/85 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white transition-all disabled:opacity-50 cursor-pointer whitespace-nowrap shadow-xs"
             title="รีเฟรชข้อมูล"
           >
             <RefreshCw className={`h-4 w-4 ${isLoading ? 'animate-spin text-blue-600 dark:text-cyan-400' : 'text-slate-500 dark:text-slate-400'}`} />

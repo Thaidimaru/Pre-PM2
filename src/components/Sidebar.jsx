@@ -99,12 +99,12 @@ export function Sidebar({ currentPage, onNavigate, onLogout, theme, toggleTheme,
             <button
               type="button"
               onClick={toggleTheme}
-              className="group flex w-full items-center gap-3 rounded-xl border border-blue-500/20 px-3.5 py-2.5 text-left text-blue-700 dark:text-blue-300 hover:bg-blue-50 dark:hover:bg-blue-500/10 hover:border-blue-500/40 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 cursor-pointer"
+              className="group flex w-full items-center gap-3 rounded-xl border border-blue-500/20 bg-white/40 dark:bg-transparent backdrop-blur-md px-3.5 py-2.5 text-left text-blue-700 dark:text-blue-300 hover:bg-white/70 dark:hover:bg-blue-500/10 hover:border-blue-500/40 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 cursor-pointer"
             >
               <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-100 dark:bg-blue-500/20 text-blue-600 dark:text-blue-400 flex-shrink-0">
                 {theme === 'light' ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
               </div>
-              <span className="text-base font-semibold">
+              <span className="text-base font-bold">
                 {theme === 'light' ? 'โหมดกลางคืน' : 'โหมดกลางวัน'}
               </span>
             </button>
@@ -113,20 +113,20 @@ export function Sidebar({ currentPage, onNavigate, onLogout, theme, toggleTheme,
           <button
             type="button"
             onClick={onLogout}
-            className="group flex w-full items-center gap-3 rounded-xl border border-rose-500/20 px-3.5 py-2.5 text-left text-rose-700 dark:text-rose-300 hover:bg-rose-50 dark:hover:bg-rose-500/10 hover:border-rose-500/40 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500 cursor-pointer"
+            className="group flex w-full items-center gap-3 rounded-xl border border-rose-500/20 bg-white/40 dark:bg-transparent backdrop-blur-md px-3.5 py-2.5 text-left text-rose-700 dark:text-rose-300 hover:bg-white/70 dark:hover:bg-rose-500/10 hover:border-rose-500/40 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500 cursor-pointer"
           >
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-rose-100 dark:bg-rose-500/20 text-rose-600 dark:text-rose-400 flex-shrink-0">
               <LogOut className="h-4 w-4" />
             </div>
-            <span className="text-base font-semibold">ออกจากระบบ</span>
+            <span className="text-base font-bold">ออกจากระบบ</span>
           </button>
         </div>
       </div>
 
       {/* Footer Version Tag */}
-      <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/60 p-3 text-center">
-        <div className="text-xs font-bold text-slate-700 dark:text-slate-300">NBTC Microwave Pre-PM</div>
-        <div className="text-[11px] font-medium text-slate-500 dark:text-slate-400 mt-0.5">Control Room v{APP_VERSION}</div>
+      <div className="rounded-xl border border-slate-200/80 dark:border-slate-800 bg-white/55 dark:bg-slate-900/60 backdrop-blur-md p-3 text-center">
+        <div className="text-xs font-bold text-slate-800 dark:text-slate-200">NBTC Microwave Pre-PM</div>
+        <div className="text-[11px] font-semibold text-slate-600 dark:text-slate-400 mt-0.5">Control Room v{APP_VERSION}</div>
       </div>
     </div>
   );

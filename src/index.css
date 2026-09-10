@@ -43,45 +43,50 @@
   color-scheme: light;
   --font-gui: "TH Sarabun New", "THSarabunNew", "Sarabun", "Prompt", "Noto Sans Thai", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Leelawadee UI", "Thonburi", system-ui, sans-serif;
 
-  /* Modern Luminous Light Canvas Background */
-  --theme-bg: #f8fafc;
-  --theme-bg-gradient: radial-gradient(at 100% 0%, rgba(224, 242, 254, 0.45) 0px, transparent 50%), radial-gradient(at 0% 100%, rgba(238, 242, 255, 0.45) 0px, transparent 50%), #f8fafc;
+  /* Luminous Light Canvas Background with Ambient Aura Mesh */
+  --theme-bg: #f1f5f9;
+  --theme-bg-gradient: radial-gradient(at 0% 0%, rgba(186, 230, 253, 0.5) 0px, transparent 50%),
+                       radial-gradient(at 100% 0%, rgba(199, 210, 254, 0.5) 0px, transparent 50%),
+                       radial-gradient(at 50% 50%, rgba(240, 249, 255, 0.65) 0px, transparent 60%),
+                       radial-gradient(at 80% 100%, rgba(224, 231, 255, 0.5) 0px, transparent 50%),
+                       radial-gradient(at 10% 90%, rgba(207, 250, 254, 0.45) 0px, transparent 50%),
+                       #f1f5f9;
   --theme-text: #0f172a;
-  --theme-text-muted: #475569;
-  --theme-text-dim: #64748b;
+  --theme-text-muted: #334155;
+  --theme-text-dim: #475569;
 
-  /* Navbar */
-  --theme-navbar-bg: rgba(255, 255, 255, 0.88);
-  --theme-navbar-border: rgba(226, 232, 240, 0.85);
+  /* Navbar: Semi-transparent frosted glass */
+  --theme-navbar-bg: rgba(255, 255, 255, 0.72);
+  --theme-navbar-border: rgba(226, 232, 240, 0.8);
 
-  /* Sidebar */
-  --theme-sidebar-bg: rgba(255, 255, 255, 0.94);
-  --theme-sidebar-border: rgba(226, 232, 240, 0.85);
+  /* Sidebar: Semi-transparent frosted glass */
+  --theme-sidebar-bg: rgba(255, 255, 255, 0.76);
+  --theme-sidebar-border: rgba(226, 232, 240, 0.8);
 
-  /* Cards / Surface */
-  --theme-glass-bg: rgba(255, 255, 255, 0.95);
-  --theme-glass-border: rgba(226, 232, 240, 0.85);
-  --theme-glass-border-hover: rgba(148, 163, 184, 0.4);
-  --theme-glass-shadow: 0 1px 3px rgba(0, 0, 0, 0.03), 0 8px 24px -4px rgba(15, 23, 42, 0.05);
-  --theme-card-bg: #ffffff;
-  --theme-card-shadow-hover: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 16px 32px -4px rgba(15, 23, 42, 0.08);
+  /* Cards / Surface: Semi-transparent frosted glass (NEVER solid/opaque) */
+  --theme-glass-bg: rgba(255, 255, 255, 0.68);
+  --theme-glass-border: rgba(255, 255, 255, 0.85);
+  --theme-glass-border-hover: rgba(148, 163, 184, 0.5);
+  --theme-glass-shadow: 0 8px 32px 0 rgba(15, 23, 42, 0.06), 0 2px 8px -1px rgba(15, 23, 42, 0.04), inset 0 1px 1px 0 rgba(255, 255, 255, 0.9);
+  --theme-card-bg: rgba(255, 255, 255, 0.70);
+  --theme-card-shadow-hover: 0 16px 40px -4px rgba(15, 23, 42, 0.1), 0 6px 16px -2px rgba(15, 23, 42, 0.06);
 
-  /* Inputs */
-  --theme-input-bg: #ffffff;
-  --theme-input-border: #cbd5e1;
+  /* Inputs: Semi-transparent frosted */
+  --theme-input-bg: rgba(255, 255, 255, 0.55);
+  --theme-input-border: rgba(203, 213, 225, 0.85);
 
-  /* Table */
-  --theme-table-head-bg: #f8fafc;
-  --theme-table-row-hover: rgba(241, 245, 249, 0.8);
-  --theme-table-divider: #f1f5f9;
+  /* Table: Semi-transparent */
+  --theme-table-head-bg: rgba(241, 245, 249, 0.7);
+  --theme-table-row-hover: rgba(224, 242, 254, 0.45);
+  --theme-table-divider: rgba(226, 232, 240, 0.7);
 
   /* Scrollbar */
-  --theme-scrollbar-track: #f8fafc;
-  --theme-scrollbar-thumb: #cbd5e1;
-  --theme-scrollbar-thumb-hover: #94a3b8;
+  --theme-scrollbar-track: rgba(241, 245, 249, 0.6);
+  --theme-scrollbar-thumb: rgba(148, 163, 184, 0.6);
+  --theme-scrollbar-thumb-hover: rgba(100, 116, 139, 0.8);
 
-  /* Dialog */
-  --theme-dialog-bg: #ffffff;
+  /* Dialog: Semi-transparent frosted glass */
+  --theme-dialog-bg: rgba(255, 255, 255, 0.82);
 }
 
 /* ============================
@@ -141,19 +146,24 @@ body {
 
 .glass-panel {
   background: var(--theme-glass-bg);
-  border-color: var(--theme-glass-border);
+  border: 1px solid var(--theme-glass-border);
   box-shadow: var(--theme-glass-shadow);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
 }
 
 .glass-card {
   background: var(--theme-card-bg);
   border: 1px solid var(--theme-glass-border);
   box-shadow: var(--theme-glass-shadow);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
 }
 
 [data-theme="light"] body {
   background-color: var(--theme-bg);
   background-image: var(--theme-bg-gradient);
+  background-attachment: fixed;
   color: var(--theme-text);
 }
 
@@ -161,12 +171,16 @@ body {
   background: var(--theme-glass-bg);
   border-color: var(--theme-glass-border);
   box-shadow: var(--theme-glass-shadow);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
 }
 
 [data-theme="light"] .glass-card {
   background: var(--theme-card-bg);
   border-color: var(--theme-glass-border);
   box-shadow: var(--theme-glass-shadow);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
 }
 
 [data-theme="light"] .glass-card:hover {
@@ -336,60 +350,74 @@ body {
 /* ----------------------------
    Dashboard Cards & Charts
    ---------------------------- */
-/* Panel icon boxes */
+/* Panel icon boxes in Light Mode */
 [data-theme="light"] .glass-card .bg-blue-500\/20,
 [data-theme="light"] .glass-card .bg-cyan-500\/20,
 [data-theme="light"] .glass-card .bg-purple-500\/20 {
-  background-color: #eff6ff !important;
-  color: #2563eb !important;
+  background-color: rgba(239, 246, 255, 0.75) !important;
+  color: #0284c7 !important;
+  border: 1px solid rgba(186, 230, 253, 0.8) !important;
+  backdrop-filter: blur(8px) !important;
 }
 
-/* FORTH / SaaS KPI Cards in Light Mode */
+/* Semi-transparent Frosted KPI Cards in Light Mode (No solid opaque blocks) */
 [data-theme="light"] .kpi-card-blue {
-  background: linear-gradient(180deg, rgba(239, 246, 255, 0.5) 0%, #ffffff 100%) !important;
-  border: 1px solid rgba(191, 219, 254, 0.8) !important;
+  background: linear-gradient(135deg, rgba(239, 246, 255, 0.72) 0%, rgba(219, 234, 254, 0.45) 100%) !important;
+  border: 1px solid rgba(191, 219, 254, 0.85) !important;
   border-left: 4px solid #2563eb !important;
-  box-shadow: 0 1px 3px rgba(37, 99, 235, 0.04), 0 8px 20px -4px rgba(37, 99, 235, 0.06) !important;
+  box-shadow: 0 8px 28px -2px rgba(37, 99, 235, 0.07), inset 0 1px 1px rgba(255, 255, 255, 0.9) !important;
+  backdrop-filter: blur(16px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
 }
 [data-theme="light"] .kpi-card-purple {
-  background: linear-gradient(180deg, rgba(250, 245, 255, 0.5) 0%, #ffffff 100%) !important;
-  border: 1px solid rgba(233, 213, 255, 0.8) !important;
+  background: linear-gradient(135deg, rgba(250, 245, 255, 0.72) 0%, rgba(243, 232, 255, 0.45) 100%) !important;
+  border: 1px solid rgba(233, 213, 255, 0.85) !important;
   border-left: 4px solid #7c3aed !important;
-  box-shadow: 0 1px 3px rgba(124, 58, 237, 0.04), 0 8px 20px -4px rgba(124, 58, 237, 0.06) !important;
+  box-shadow: 0 8px 28px -2px rgba(124, 58, 237, 0.07), inset 0 1px 1px rgba(255, 255, 255, 0.9) !important;
+  backdrop-filter: blur(16px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
 }
 [data-theme="light"] .kpi-card-emerald {
-  background: linear-gradient(180deg, rgba(240, 253, 244, 0.5) 0%, #ffffff 100%) !important;
-  border: 1px solid rgba(187, 247, 208, 0.8) !important;
+  background: linear-gradient(135deg, rgba(240, 253, 244, 0.72) 0%, rgba(220, 252, 231, 0.45) 100%) !important;
+  border: 1px solid rgba(187, 247, 208, 0.85) !important;
   border-left: 4px solid #059669 !important;
-  box-shadow: 0 1px 3px rgba(16, 185, 129, 0.04), 0 8px 20px -4px rgba(16, 185, 129, 0.06) !important;
+  box-shadow: 0 8px 28px -2px rgba(16, 185, 129, 0.07), inset 0 1px 1px rgba(255, 255, 255, 0.9) !important;
+  backdrop-filter: blur(16px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
 }
 [data-theme="light"] .kpi-card-rose {
-  background: linear-gradient(180deg, rgba(255, 241, 242, 0.5) 0%, #ffffff 100%) !important;
-  border: 1px solid rgba(254, 205, 211, 0.8) !important;
+  background: linear-gradient(135deg, rgba(255, 241, 242, 0.72) 0%, rgba(255, 228, 230, 0.45) 100%) !important;
+  border: 1px solid rgba(254, 205, 211, 0.85) !important;
   border-left: 4px solid #e11d48 !important;
-  box-shadow: 0 1px 3px rgba(225, 29, 72, 0.04), 0 8px 20px -4px rgba(225, 29, 72, 0.06) !important;
+  box-shadow: 0 8px 28px -2px rgba(225, 29, 72, 0.07), inset 0 1px 1px rgba(255, 255, 255, 0.9) !important;
+  backdrop-filter: blur(16px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
 }
 
 /* KPI Icon Circles in Light Mode */
 [data-theme="light"] .kpi-icon-blue {
-  background-color: #dbeafe !important;
+  background-color: rgba(219, 234, 254, 0.8) !important;
   color: #1d4ed8 !important;
-  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.15) !important;
+  box-shadow: 0 2px 10px rgba(37, 99, 235, 0.18) !important;
+  backdrop-filter: blur(8px) !important;
 }
 [data-theme="light"] .kpi-icon-purple {
-  background-color: #f3e8ff !important;
+  background-color: rgba(243, 232, 255, 0.8) !important;
   color: #6d28d9 !important;
-  box-shadow: 0 2px 8px rgba(124, 58, 237, 0.15) !important;
+  box-shadow: 0 2px 10px rgba(124, 58, 237, 0.18) !important;
+  backdrop-filter: blur(8px) !important;
 }
 [data-theme="light"] .kpi-icon-emerald {
-  background-color: #d1fae5 !important;
+  background-color: rgba(209, 250, 229, 0.8) !important;
   color: #047857 !important;
-  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.15) !important;
+  box-shadow: 0 2px 10px rgba(16, 185, 129, 0.18) !important;
+  backdrop-filter: blur(8px) !important;
 }
 [data-theme="light"] .kpi-icon-rose {
-  background-color: #ffe4e6 !important;
+  background-color: rgba(255, 228, 230, 0.8) !important;
   color: #be123c !important;
-  box-shadow: 0 2px 8px rgba(225, 29, 72, 0.15) !important;
+  box-shadow: 0 2px 10px rgba(225, 29, 72, 0.18) !important;
+  backdrop-filter: blur(8px) !important;
 }
 
 /* Dark Mode Fallbacks for KPI Cards */
@@ -405,148 +433,175 @@ body {
 
 /* Thailand Map Silhouette in Light Mode */
 [data-theme="light"] img[alt*="แผนที่ประเทศไทย"] {
-  filter: contrast(108%) brightness(0.96) opacity(0.88) !important;
+  filter: contrast(108%) brightness(0.96) opacity(0.92) !important;
   mix-blend-mode: normal !important;
 }
 [data-theme="light"] .lg\:col-span-5.bg-slate-950\/40,
 [data-theme="light"] .lg\:col-span-5.rounded-xl {
-  background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%) !important;
-  border: 1px solid #e2e8f0 !important;
+  background: rgba(255, 255, 255, 0.45) !important;
+  border: 1px solid rgba(226, 232, 240, 0.8) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
 }
 [data-theme="light"] .lg\:col-span-5 div[class*="radial-gradient"] {
   background: radial-gradient(ellipse at center, rgba(37, 99, 235, 0.08), transparent 70%) !important;
   display: block !important;
 }
 
-/* Province Chart in Light Mode */
+/* Province Chart Rankings in Light Mode */
 [data-theme="light"] .lg\:col-span-7 .bg-slate-950\/30 {
-  background-color: #ffffff !important;
-  border: 1px solid #e2e8f0 !important;
+  background-color: rgba(255, 255, 255, 0.55) !important;
+  border: 1px solid rgba(226, 232, 240, 0.85) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
 }
 [data-theme="light"] .lg\:col-span-7 .bg-slate-900\/60 {
-  background-color: #f8fafc !important;
-  border-bottom: 1px solid #e2e8f0 !important;
-  color: #475569 !important;
+  background-color: rgba(241, 245, 249, 0.70) !important;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.85) !important;
+  color: #0f172a !important;
+  font-weight: 700 !important;
+  backdrop-filter: blur(8px) !important;
 }
 [data-theme="light"] .lg\:col-span-7 .divide-slate-800\/40 > * {
-  border-color: #f1f5f9 !important;
+  border-color: rgba(226, 232, 240, 0.7) !important;
 }
 [data-theme="light"] .lg\:col-span-7 .hover\:bg-slate-800\/30:hover {
-  background-color: #f8fafc !important;
+  background-color: rgba(224, 242, 254, 0.45) !important;
+  backdrop-filter: blur(8px) !important;
 }
 [data-theme="light"] .lg\:col-span-7 .bg-slate-800 {
-  background-color: #e2e8f0 !important;
+  background-color: rgba(203, 213, 225, 0.8) !important;
 }
 
-/* ShinyText in Light Mode */
+/* ShinyText in Light Mode: High contrast dark sapphire shimmer */
 [data-theme="light"] .animate-shine {
-  background-image: linear-gradient(110deg, #0f172a 30%, #2563eb 50%, #0f172a 70%) !important;
+  background-image: linear-gradient(110deg, #0f172a 25%, #0284c7 45%, #0f172a 65%) !important;
 }
 
-/* Refresh Button in Light Mode */
+/* Refresh Button in Light Mode: Semi-transparent Frosted */
 [data-theme="light"] button:has(.lucide-refresh-cw) {
-  background-color: #ffffff !important;
-  border-color: #cbd5e1 !important;
-  color: #334155 !important;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04) !important;
+  background-color: rgba(255, 255, 255, 0.65) !important;
+  border: 1px solid rgba(203, 213, 225, 0.85) !important;
+  color: #0f172a !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04) !important;
 }
 [data-theme="light"] button:has(.lucide-refresh-cw):hover {
-  background-color: #f8fafc !important;
-  color: #0f172a !important;
-  border-color: #94a3b8 !important;
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  border-color: #0284c7 !important;
+  color: #0284c7 !important;
 }
 
-/* Donut Chart Center */
+/* Donut Chart Center: Semi-transparent */
 [data-theme="light"] .survey-donut-center {
-  background-color: #ffffff !important;
-  border: 2px solid #f1f5f9 !important;
-  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.05), 0 2px 8px rgba(0, 0, 0, 0.03) !important;
+  background-color: rgba(255, 255, 255, 0.78) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.9) !important;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.06), inset 0 1px 2px rgba(255, 255, 255, 0.9) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
 }
 [data-theme="light"] .survey-donut-center .text-white {
   color: #0f172a !important;
 }
 [data-theme="light"] .survey-donut-center .text-slate-300 {
-  color: #64748b !important;
+  color: #475569 !important;
+  font-weight: 600 !important;
 }
 
-/* Breakdown Pills in Donut Chart */
+/* Breakdown Pills in Donut Chart: Semi-transparent */
 [data-theme="light"] .bg-emerald-950\/20 {
-  background-color: #f0fdf4 !important;
-  border: 1px solid #bbf7d0 !important;
+  background-color: rgba(240, 253, 244, 0.75) !important;
+  border: 1px solid rgba(187, 247, 208, 0.9) !important;
+  backdrop-filter: blur(12px) !important;
 }
 [data-theme="light"] .bg-emerald-950\/20 .text-slate-200 {
-  color: #166534 !important;
+  color: #065f46 !important;
 }
 [data-theme="light"] .bg-rose-950\/20 {
-  background-color: #fff1f2 !important;
-  border: 1px solid #fecdd3 !important;
+  background-color: rgba(255, 241, 242, 0.75) !important;
+  border: 1px solid rgba(254, 205, 211, 0.9) !important;
+  backdrop-filter: blur(12px) !important;
 }
 [data-theme="light"] .bg-rose-950\/20 .text-slate-200 {
   color: #9f1239 !important;
 }
 [data-theme="light"] .bg-purple-950\/20 {
-  background-color: #faf5ff !important;
-  border: 1px solid #e9d5ff !important;
+  background-color: rgba(250, 245, 255, 0.75) !important;
+  border: 1px solid rgba(233, 213, 255, 0.9) !important;
+  backdrop-filter: blur(12px) !important;
 }
 [data-theme="light"] .bg-purple-950\/20 .text-slate-200 {
   color: #6b21a8 !important;
 }
 
 /* ----------------------------
-   Recent Surveys Table & Buttons
+   Recent Surveys Table & Buttons (Semi-transparent)
    ---------------------------- */
 [data-theme="light"] table thead tr {
-  background-color: #f8fafc !important;
-  border-bottom: 1px solid #e2e8f0 !important;
-  color: #475569 !important;
+  background-color: rgba(241, 245, 249, 0.70) !important;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.85) !important;
+  color: #0f172a !important;
+  font-weight: 700 !important;
+  backdrop-filter: blur(12px) !important;
 }
 [data-theme="light"] table tbody tr {
-  border-bottom: 1px solid #f1f5f9 !important;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.7) !important;
 }
 [data-theme="light"] table tbody tr:hover {
-  background-color: #f8fafc !important;
+  background-color: rgba(224, 242, 254, 0.45) !important;
+  backdrop-filter: blur(8px) !important;
 }
 [data-theme="light"] table tbody td.text-cyan-400 {
-  color: #2563eb !important;
+  color: #0284c7 !important;
 }
 [data-theme="light"] table tbody td.text-slate-100 {
   color: #0f172a !important;
+  font-weight: 600 !important;
 }
 [data-theme="light"] table tbody td.text-slate-300 {
-  color: #475569 !important;
+  color: #334155 !important;
+  font-weight: 500 !important;
 }
 [data-theme="light"] table tbody td .bg-slate-800\/80 {
-  background-color: #f1f5f9 !important;
-  color: #64748b !important;
+  background-color: rgba(241, 245, 249, 0.8) !important;
+  color: #475569 !important;
+  border: 1px solid rgba(203, 213, 225, 0.7) !important;
+  backdrop-filter: blur(8px) !important;
 }
 [data-theme="light"] table tbody td .bg-slate-800\/80:hover {
   background-color: #2563eb !important;
   color: #ffffff !important;
+  border-color: #2563eb !important;
 }
 
-/* Status Badges */
+/* Status Badges in Light Mode: Semi-transparent */
 [data-theme="light"] .bg-emerald-500\/15 {
-  background-color: #f0fdf4 !important;
-  border-color: #bbf7d0 !important;
+  background-color: rgba(240, 253, 244, 0.8) !important;
+  border-color: rgba(187, 247, 208, 0.9) !important;
   color: #15803d !important;
+  backdrop-filter: blur(8px) !important;
 }
 [data-theme="light"] .bg-rose-500\/15 {
-  background-color: #fff1f2 !important;
-  border-color: #fecdd3 !important;
+  background-color: rgba(255, 241, 242, 0.8) !important;
+  border-color: rgba(254, 205, 211, 0.9) !important;
   color: #be123c !important;
+  backdrop-filter: blur(8px) !important;
 }
 [data-theme="light"] .bg-purple-500\/15 {
-  background-color: #faf5ff !important;
-  border-color: #e9d5ff !important;
+  background-color: rgba(250, 245, 255, 0.8) !important;
+  border-color: rgba(233, 213, 255, 0.9) !important;
   color: #7e22ce !important;
+  backdrop-filter: blur(8px) !important;
 }
 
-/* Action Buttons */
+/* Action Buttons: Semi-transparent */
 [data-theme="light"] button.border-rose-500\/30 {
-  background-color: #fff1f2 !important;
-  border: 1px solid #fecdd3 !important;
+  background-color: rgba(255, 241, 242, 0.75) !important;
+  border: 1px solid rgba(254, 205, 211, 0.9) !important;
   color: #be123c !important;
-  box-shadow: 0 1px 2px rgba(225, 29, 72, 0.03) !important;
+  backdrop-filter: blur(12px) !important;
+  box-shadow: 0 1px 3px rgba(225, 29, 72, 0.05) !important;
 }
 [data-theme="light"] button.border-rose-500\/30:hover {
   background-color: #e11d48 !important;
@@ -554,10 +609,11 @@ body {
   color: #ffffff !important;
 }
 [data-theme="light"] button.border-emerald-500\/30 {
-  background-color: #f0fdf4 !important;
-  border: 1px solid #bbf7d0 !important;
+  background-color: rgba(240, 253, 244, 0.75) !important;
+  border: 1px solid rgba(187, 247, 208, 0.9) !important;
   color: #15803d !important;
-  box-shadow: 0 1px 2px rgba(16, 185, 129, 0.03) !important;
+  backdrop-filter: blur(12px) !important;
+  box-shadow: 0 1px 3px rgba(16, 185, 129, 0.05) !important;
 }
 [data-theme="light"] button.border-emerald-500\/30:hover {
   background-color: #15803d !important;
@@ -576,179 +632,209 @@ body {
 }
 
 /* ----------------------------
-   Inputs & Form Controls
+   Inputs & Form Controls (Semi-transparent, never opaque)
    ---------------------------- */
-[data-theme="light"] input,
+[data-theme="light"] input:not([type="checkbox"]):not([type="radio"]),
 [data-theme="light"] textarea,
 [data-theme="light"] select {
-  background-color: #ffffff !important;
-  border-color: #cbd5e1 !important;
+  background-color: rgba(255, 255, 255, 0.58) !important;
+  border-color: rgba(203, 213, 225, 0.85) !important;
   color: #0f172a !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02) !important;
 }
-[data-theme="light"] input:focus,
+[data-theme="light"] input:not([type="checkbox"]):not([type="radio"]):focus,
 [data-theme="light"] textarea:focus,
 [data-theme="light"] select:focus {
-  border-color: #2563eb !important;
-  outline: 2px solid rgba(37, 99, 235, 0.18) !important;
+  background-color: rgba(255, 255, 255, 0.85) !important;
+  border-color: #0284c7 !important;
+  outline: 2px solid rgba(2, 132, 199, 0.2) !important;
 }
 [data-theme="light"] input::placeholder,
 [data-theme="light"] textarea::placeholder {
-  color: #94a3b8 !important;
+  color: #64748b !important;
 }
 
 /* Borders & Dividers */
 [data-theme="light"] .border-slate-800,
 [data-theme="light"] .border-slate-800\/80,
 [data-theme="light"] .border-slate-800\/50 {
-  border-color: #e2e8f0 !important;
+  border-color: rgba(226, 232, 240, 0.85) !important;
 }
 [data-theme="light"] .divide-slate-800\/50 > :not([hidden]) ~ :not([hidden]) {
-  border-color: #f1f5f9 !important;
+  border-color: rgba(226, 232, 240, 0.7) !important;
 }
 
 /* ----------------------------
-   Modal Dialogs & Popups
+   Modal Dialogs & Popups (Semi-transparent Frosted Glass)
    ---------------------------- */
 [data-theme="light"] [role="dialog"] {
-  background-color: #ffffff !important;
-  border: 1px solid #e2e8f0 !important;
+  background-color: rgba(255, 255, 255, 0.82) !important;
+  border: 1px solid rgba(255, 255, 255, 0.85) !important;
   color: #0f172a !important;
-  box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.15) !important;
+  backdrop-filter: blur(24px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+  box-shadow: 0 25px 60px -12px rgba(15, 23, 42, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.9) !important;
 }
 [data-theme="light"] [role="dialog"] .bg-slate-950\/95 {
-  background-color: #ffffff !important;
+  background-color: transparent !important;
 }
 [data-theme="light"] [role="dialog"] .bg-blue-950\/30 {
-  background-color: #f0f9ff !important;
-  border-color: #bae6fd !important;
+  background-color: rgba(239, 246, 255, 0.7) !important;
+  border-color: rgba(191, 219, 254, 0.8) !important;
+  backdrop-filter: blur(12px) !important;
 }
 [data-theme="light"] [role="dialog"] .bg-blue-950\/80 {
-  background-color: #dbeafe !important;
-  border-color: #bfdbfe !important;
+  background-color: rgba(219, 234, 254, 0.8) !important;
+  border-color: rgba(191, 219, 254, 0.9) !important;
   color: #1d4ed8 !important;
+  backdrop-filter: blur(12px) !important;
 }
 [data-theme="light"] [role="dialog"] .bg-slate-900\/60 {
-  background-color: #f8fafc !important;
-  border-color: #e2e8f0 !important;
+  background-color: rgba(248, 250, 252, 0.7) !important;
+  border-color: rgba(226, 232, 240, 0.85) !important;
+  backdrop-filter: blur(12px) !important;
 }
 [data-theme="light"] [role="dialog"] .bg-slate-950\/60 {
-  background-color: #ffffff !important;
-  border-color: #e2e8f0 !important;
-  color: #1e293b !important;
+  background-color: rgba(255, 255, 255, 0.65) !important;
+  border-color: rgba(226, 232, 240, 0.85) !important;
+  color: #0f172a !important;
+  backdrop-filter: blur(8px) !important;
 }
 [data-theme="light"] [role="dialog"] .text-white {
   color: #0f172a !important;
 }
 [data-theme="light"] [role="dialog"] .text-slate-100 {
-  color: #1e293b !important;
+  color: #0f172a !important;
 }
 [data-theme="light"] [role="dialog"] .text-slate-300 {
-  color: #475569 !important;
+  color: #334155 !important;
 }
 [data-theme="light"] [role="dialog"] .text-slate-400 {
-  color: #64748b !important;
+  color: #475569 !important;
 }
 
-/* Radix Select Dropdown */
+/* Radix Select Dropdown: Semi-transparent */
 [data-theme="light"] [data-radix-popper-content-wrapper] [role="listbox"] {
-  background-color: #ffffff !important;
-  border: 1px solid #cbd5e1 !important;
+  background-color: rgba(255, 255, 255, 0.85) !important;
+  border: 1px solid rgba(226, 232, 240, 0.85) !important;
   color: #0f172a !important;
-  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.1) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  box-shadow: 0 16px 36px -5px rgba(15, 23, 42, 0.12) !important;
 }
 [data-theme="light"] [data-radix-popper-content-wrapper] [role="option"] {
-  color: #1e293b !important;
+  color: #0f172a !important;
 }
 [data-theme="light"] [data-radix-popper-content-wrapper] [role="option"]:hover,
 [data-theme="light"] [data-radix-popper-content-wrapper] [role="option"][data-highlighted] {
-  background-color: #eff6ff !important;
-  color: #2563eb !important;
+  background-color: rgba(239, 246, 255, 0.8) !important;
+  color: #0284c7 !important;
 }
 
 /* ----------------------------
-   Field Visit Form in Light Mode
+   Field Visit Form in Light Mode (Semi-transparent Frosted Glass)
    ---------------------------- */
 [data-theme="light"] .field-visit-header {
-  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%) !important;
-  border: 1px solid #e2e8f0 !important;
-  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.04), 0 2px 6px -1px rgba(15, 23, 42, 0.02) !important;
+  background: rgba(255, 255, 255, 0.70) !important;
+  border: 1px solid rgba(255, 255, 255, 0.85) !important;
+  box-shadow: 0 8px 32px -4px rgba(15, 23, 42, 0.06), inset 0 1px 1px rgba(255, 255, 255, 0.9) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
 }
 
 [data-theme="light"] .field-visit-header h1,
 [data-theme="light"] .field-visit-header .animate-shine {
   color: #0f172a !important;
-  background-image: linear-gradient(110deg, #0f172a 35%, #2563eb 50%, #0f172a 65%) !important;
+  background-image: linear-gradient(110deg, #0f172a 25%, #0284c7 45%, #0f172a 65%) !important;
 }
 
 [data-theme="light"] .field-visit-header p {
-  color: #475569 !important;
+  color: #334155 !important;
+  font-weight: 500 !important;
 }
 
 [data-theme="light"] .field-visit-header .header-tag {
-  color: #2563eb !important;
+  color: #0284c7 !important;
 }
 
-/* Radix Combobox / Select Trigger */
+/* Radix Combobox / Select Trigger: Semi-transparent */
 [data-theme="light"] button[role="combobox"] {
-  background-color: #ffffff !important;
-  border-color: #cbd5e1 !important;
+  background-color: rgba(255, 255, 255, 0.60) !important;
+  border: 1px solid rgba(203, 213, 225, 0.85) !important;
   color: #0f172a !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02) !important;
 }
 
 [data-theme="light"] button[role="combobox"]:hover {
-  background-color: #f8fafc !important;
-  border-color: #94a3b8 !important;
+  background-color: rgba(255, 255, 255, 0.85) !important;
+  border-color: #0284c7 !important;
 }
 
 [data-theme="light"] button[role="combobox"] span {
   color: #0f172a !important;
+  font-weight: 600 !important;
 }
 
-/* Assessment Table */
+/* Assessment Table: Semi-transparent */
 [data-theme="light"] .assessment-table-container {
-  background-color: #ffffff !important;
-  border-color: #e2e8f0 !important;
+  background-color: rgba(255, 255, 255, 0.55) !important;
+  border: 1px solid rgba(226, 232, 240, 0.85) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
 }
 
 [data-theme="light"] .assessment-table-container table {
-  background-color: #ffffff !important;
+  background-color: transparent !important;
+}
+
+[data-theme="light"] .assessment-table-container table thead tr {
+  background-color: rgba(241, 245, 249, 0.70) !important;
 }
 
 [data-theme="light"] .assessment-table-container table tbody tr {
-  background-color: #ffffff !important;
-  border-color: #f1f5f9 !important;
+  background-color: rgba(255, 255, 255, 0.40) !important;
+  border-color: rgba(226, 232, 240, 0.7) !important;
 }
 
 [data-theme="light"] .assessment-table-container table tbody tr:hover {
-  background-color: #f8fafc !important;
+  background-color: rgba(224, 242, 254, 0.45) !important;
 }
 
 [data-theme="light"] .assessment-table-container table tbody td {
-  color: #1e293b !important;
+  color: #0f172a !important;
+  font-weight: 500 !important;
 }
 
-/* Permit Radio Buttons */
+/* Permit Radio Buttons: Semi-transparent */
 [data-theme="light"] .permit-radio-allow[data-checked="false"],
 [data-theme="light"] .permit-radio-deny[data-checked="false"] {
-  background-color: #ffffff !important;
-  border-color: #e2e8f0 !important;
-  color: #475569 !important;
+  background-color: rgba(255, 255, 255, 0.55) !important;
+  border: 1px solid rgba(203, 213, 225, 0.85) !important;
+  color: #334155 !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
 }
 
 [data-theme="light"] .permit-radio-allow[data-checked="true"] {
-  background-color: #ecfdf5 !important;
-  border-color: #10b981 !important;
+  background-color: rgba(236, 253, 245, 0.85) !important;
+  border: 1.5px solid #10b981 !important;
   color: #065f46 !important;
-  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.15) !important;
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.2) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
 }
 
 [data-theme="light"] .permit-radio-deny[data-checked="true"] {
-  background-color: #fff1f2 !important;
-  border-color: #f43f5e !important;
+  background-color: rgba(255, 241, 242, 0.85) !important;
+  border: 1.5px solid #f43f5e !important;
   color: #9f1239 !important;
-  box-shadow: 0 2px 8px rgba(244, 63, 94, 0.15) !important;
+  box-shadow: 0 4px 14px rgba(244, 63, 94, 0.2) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
 }
 
 html {

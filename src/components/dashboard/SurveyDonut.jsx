@@ -35,49 +35,49 @@ export function SurveyDonut({ stats = {} }) {
           className="relative flex h-40 w-40 items-center justify-center rounded-full p-3 shadow-md dark:shadow-[0_0_20px_rgba(0,0,0,0.4)] flex-shrink-0"
           style={{ background: donutGradient }}
         >
-          <div className="survey-donut-center flex h-28 w-28 flex-col items-center justify-center rounded-full bg-white dark:bg-[#051326] shadow-xs dark:shadow-inner border border-slate-100 dark:border-slate-800">
+          <div className="survey-donut-center flex h-28 w-28 flex-col items-center justify-center rounded-full bg-white/80 dark:bg-[#051326] shadow-xs dark:shadow-inner border border-white/80 dark:border-slate-800 backdrop-blur-md">
             <span className="text-3xl font-black text-slate-900 dark:text-white tracking-tight whitespace-nowrap">
               {allowedPct.toFixed(1)}%
             </span>
-            <span className="text-xs font-semibold text-slate-500 dark:text-slate-300 whitespace-nowrap">อนุญาต</span>
+            <span className="text-xs font-bold text-slate-600 dark:text-slate-300 whitespace-nowrap">อนุญาต</span>
           </div>
         </div>
 
         {/* Breakdown details */}
         <div className="flex w-full flex-col gap-3 sm:max-w-[210px]">
           {/* Allowed */}
-          <div className="flex items-center justify-between rounded-xl border border-emerald-200/90 dark:border-emerald-500/20 bg-emerald-50/70 dark:bg-emerald-950/20 px-3.5 py-2.5 whitespace-nowrap shadow-xs">
+          <div className="flex items-center justify-between rounded-xl border border-emerald-200/90 dark:border-emerald-500/20 bg-emerald-50/75 dark:bg-emerald-950/20 backdrop-blur-sm px-3.5 py-2.5 whitespace-nowrap shadow-xs">
             <div className="flex items-center gap-2">
               <span className="h-2.5 w-2.5 rounded-full bg-emerald-500 shadow-[0_0_6px_#00d49a] flex-shrink-0" />
-              <span className="text-sm font-bold text-emerald-900 dark:text-slate-200 whitespace-nowrap">อนุญาต</span>
+              <span className="text-sm font-bold text-emerald-950 dark:text-slate-200 whitespace-nowrap">อนุญาต</span>
             </div>
             <div className="flex items-baseline gap-1.5 whitespace-nowrap">
-              <span className="text-base font-mono font-bold text-emerald-600 dark:text-emerald-400">{allowed.toLocaleString()}</span>
-              <span className="text-xs text-emerald-700/80 dark:text-slate-400 font-semibold">({allowedPct.toFixed(0)}%)</span>
+              <span className="text-base font-mono font-bold text-emerald-700 dark:text-emerald-400">{allowed.toLocaleString()}</span>
+              <span className="text-xs text-emerald-800 dark:text-slate-400 font-bold">({allowedPct.toFixed(0)}%)</span>
             </div>
           </div>
 
           {/* Denied */}
-          <div className="flex items-center justify-between rounded-xl border border-rose-200/90 dark:border-rose-500/20 bg-rose-50/70 dark:bg-rose-950/20 px-3.5 py-2.5 whitespace-nowrap shadow-xs">
+          <div className="flex items-center justify-between rounded-xl border border-rose-200/90 dark:border-rose-500/20 bg-rose-50/75 dark:bg-rose-950/20 backdrop-blur-sm px-3.5 py-2.5 whitespace-nowrap shadow-xs">
             <div className="flex items-center gap-2">
               <span className="h-2.5 w-2.5 rounded-full bg-rose-500 shadow-[0_0_6px_#ff4f67] flex-shrink-0" />
-              <span className="text-sm font-bold text-rose-900 dark:text-slate-200 whitespace-nowrap">ไม่อนุญาต</span>
+              <span className="text-sm font-bold text-rose-950 dark:text-slate-200 whitespace-nowrap">ไม่อนุญาต</span>
             </div>
             <div className="flex items-baseline gap-1.5 whitespace-nowrap">
-              <span className="text-base font-mono font-bold text-rose-600 dark:text-rose-400">{denied.toLocaleString()}</span>
-              <span className="text-xs text-rose-700/80 dark:text-slate-400 font-semibold">({deniedPct.toFixed(0)}%)</span>
+              <span className="text-base font-mono font-bold text-rose-700 dark:text-rose-400">{denied.toLocaleString()}</span>
+              <span className="text-xs text-rose-800 dark:text-slate-400 font-bold">({deniedPct.toFixed(0)}%)</span>
             </div>
           </div>
 
           {/* Pending */}
-          <div className="flex items-center justify-between rounded-xl border border-purple-200/90 dark:border-purple-500/20 bg-purple-50/70 dark:bg-purple-950/20 px-3.5 py-2.5 whitespace-nowrap shadow-xs">
+          <div className="flex items-center justify-between rounded-xl border border-purple-200/90 dark:border-purple-500/20 bg-purple-50/75 dark:bg-purple-950/20 backdrop-blur-sm px-3.5 py-2.5 whitespace-nowrap shadow-xs">
             <div className="flex items-center gap-2">
               <span className="h-2.5 w-2.5 rounded-full bg-purple-500 shadow-[0_0_6px_#8b5cf6] flex-shrink-0" />
-              <span className="text-sm font-bold text-purple-900 dark:text-slate-200 whitespace-nowrap">รอพิจารณา</span>
+              <span className="text-sm font-bold text-purple-950 dark:text-slate-200 whitespace-nowrap">รอพิจารณา</span>
             </div>
             <div className="flex items-baseline gap-1.5 whitespace-nowrap">
-              <span className="text-base font-mono font-bold text-purple-600 dark:text-purple-400">{pending.toLocaleString()}</span>
-              <span className="text-xs text-purple-700/80 dark:text-slate-400 font-semibold">({pendingPct.toFixed(0)}%)</span>
+              <span className="text-base font-mono font-bold text-purple-700 dark:text-purple-400">{pending.toLocaleString()}</span>
+              <span className="text-xs text-purple-800 dark:text-slate-400 font-bold">({pendingPct.toFixed(0)}%)</span>
             </div>
           </div>
         </div>

@@ -21,13 +21,13 @@ export function ProvinceChart({ provinces = [] }) {
       {/* Map & Province Breakdown Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 pt-5 flex-1">
         {/* Thailand Map & Radar Pulses */}
-        <div className="lg:col-span-5 relative flex items-center justify-center min-h-[300px] rounded-xl border border-slate-200/90 dark:border-slate-800/80 bg-slate-50/70 dark:bg-slate-950/40 p-4 overflow-hidden">
+        <div className="lg:col-span-5 relative flex items-center justify-center min-h-[300px] rounded-xl border border-slate-200/80 dark:border-slate-800/80 bg-white/45 dark:bg-slate-950/40 backdrop-blur-md p-4 overflow-hidden">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-900/10 dark:from-blue-900/20 to-transparent pointer-events-none" />
           <img
             src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Thailand_provinces_th.svg"
             alt="แผนที่ประเทศไทยแบ่งจังหวัด"
             loading="lazy"
-            className="h-full max-h-[340px] w-auto object-contain filter contrast-105 opacity-85 dark:grayscale dark:invert dark:contrast-125 dark:brightness-110 dark:mix-blend-screen drop-shadow-sm dark:drop-shadow-md"
+            className="h-full max-h-[340px] w-auto object-contain filter contrast-105 opacity-90 dark:grayscale dark:invert dark:contrast-125 dark:brightness-110 dark:mix-blend-screen drop-shadow-sm dark:drop-shadow-md"
           />
 
           {/* Pulsing Radar Markers */}
@@ -63,24 +63,24 @@ export function ProvinceChart({ provinces = [] }) {
 
         {/* Province List Ranking */}
         <div className="lg:col-span-7 flex flex-col justify-between">
-          <div className="overflow-hidden rounded-xl border border-slate-200 dark:border-slate-800/80 bg-white dark:bg-slate-950/30 shadow-xs">
-            <div className="grid grid-cols-12 gap-2 bg-slate-50/90 dark:bg-slate-900/60 px-4 py-2.5 text-sm font-semibold text-slate-600 dark:text-slate-300 border-b border-slate-200 dark:border-slate-800/80">
+          <div className="overflow-hidden rounded-xl border border-slate-200/80 dark:border-slate-800/80 bg-white/55 dark:bg-slate-950/30 backdrop-blur-md shadow-xs">
+            <div className="grid grid-cols-12 gap-2 bg-slate-100/70 dark:bg-slate-900/60 backdrop-blur-sm px-4 py-2.5 text-sm font-bold text-slate-800 dark:text-slate-200 border-b border-slate-200/80 dark:border-slate-800/80">
               <span className="col-span-1">#</span>
               <span className="col-span-4">จังหวัด</span>
               <span className="col-span-5">สัดส่วน</span>
               <span className="col-span-2 text-right">รวม</span>
             </div>
-            <div className="max-h-[300px] overflow-y-auto divide-y divide-slate-100 dark:divide-slate-800/40">
+            <div className="max-h-[300px] overflow-y-auto divide-y divide-slate-200/60 dark:divide-slate-800/40">
               {safeProvinces.length > 0 ? (
                 safeProvinces.map((prov, i) => {
                   const pct = Math.max(10, Math.min(100, (prov.count / maxProvinceCount) * 100));
                   return (
                     <div
                       key={prov.name}
-                      className="grid grid-cols-12 gap-2 items-center px-4 py-2.5 text-base hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors"
+                      className="grid grid-cols-12 gap-2 items-center px-4 py-2.5 text-base hover:bg-blue-50/45 dark:hover:bg-slate-800/30 transition-colors"
                     >
-                      <span className="col-span-1 text-slate-400 text-sm font-mono">{i + 1}.</span>
-                      <span className="col-span-4 font-medium text-slate-800 dark:text-slate-100 truncate" title={prov.name}>
+                      <span className="col-span-1 text-slate-500 dark:text-slate-400 text-sm font-mono font-semibold">{i + 1}.</span>
+                      <span className="col-span-4 font-bold text-slate-900 dark:text-slate-100 truncate" title={prov.name}>
                         {prov.name}
                       </span>
                       <div className="col-span-5 flex items-center pr-2">

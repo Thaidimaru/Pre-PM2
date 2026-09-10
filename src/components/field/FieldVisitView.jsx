@@ -240,14 +240,14 @@ export function FieldVisitView() {
     >
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Form Header */}
-        <div className="field-visit-header rounded-2xl border border-slate-200 dark:border-blue-500/30 bg-white dark:bg-gradient-to-r dark:from-blue-950/60 dark:via-slate-900/80 dark:to-blue-950/60 p-6 shadow-sm dark:shadow-2xl backdrop-blur-xl transition-all">
+        <div className="field-visit-header rounded-2xl border border-white/60 dark:border-blue-500/30 bg-white/70 dark:bg-gradient-to-r dark:from-blue-950/60 dark:via-slate-900/80 dark:to-blue-950/60 p-6 shadow-sm dark:shadow-2xl backdrop-blur-xl transition-all">
           <div className="header-tag text-sm font-bold uppercase tracking-[0.22em] text-blue-600 dark:text-cyan-400 whitespace-nowrap">
             FIELD VISIT / SITE RECORD
           </div>
           <h1 className="mt-1 text-2xl sm:text-3xl lg:text-4xl font-black tracking-normal leading-normal text-slate-900 dark:text-white whitespace-nowrap">
             <ShinyText>แบบบันทึกเข้าตรวจเยี่ยมเจ้าของพื้นที่</ShinyText>
           </h1>
-          <p className="mt-1 text-base text-slate-600 dark:text-slate-300 leading-relaxed">
+          <p className="mt-1 text-base text-slate-700 dark:text-slate-200 font-medium leading-relaxed">
             บันทึกการขออนุญาตเข้าพื้นที่ สภาพอุปกรณ์ภาคสนาม และภาพถ่ายประกอบการทำงาน
           </p>
         </div>
@@ -275,7 +275,7 @@ export function FieldVisitView() {
                 placeholder="พิมพ์เพื่อค้นหาชื่อสถานี..."
                 value={formData.station || ''}
                 onChange={(e) => updateField('station', e.target.value)}
-                className="w-full rounded-xl border border-slate-200 dark:border-[rgba(115,149,174,0.25)] bg-slate-50/60 dark:bg-[rgba(6,19,33,0.7)] px-4 py-2.5 text-base text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:bg-white focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 dark:focus:ring-blue-500/40 transition-colors shadow-xs dark:shadow-none"
+                className="w-full rounded-xl border border-slate-200/80 dark:border-[rgba(115,149,174,0.25)] bg-white/55 dark:bg-[rgba(6,19,33,0.7)] backdrop-blur-md px-4 py-2.5 text-base text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:bg-white/80 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 dark:focus:ring-blue-500/40 transition-colors shadow-xs dark:shadow-none"
               />
               <datalist id="stations-list">
                 {stations.map((s, idx) => (
@@ -296,7 +296,7 @@ export function FieldVisitView() {
                   type="text"
                   value={formData.installationPlace || ''}
                   onChange={(e) => updateField('installationPlace', e.target.value)}
-                  className="w-full rounded-xl border border-slate-200 dark:border-[rgba(115,149,174,0.25)] bg-slate-50/60 dark:bg-[rgba(6,19,33,0.7)] px-4 py-2.5 text-base text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:bg-white focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 dark:focus:ring-blue-500/40 transition-colors shadow-xs dark:shadow-none"
+                  className="w-full rounded-xl border border-slate-200/80 dark:border-[rgba(115,149,174,0.25)] bg-white/55 dark:bg-[rgba(6,19,33,0.7)] backdrop-blur-md px-4 py-2.5 text-base text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:bg-white/80 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 dark:focus:ring-blue-500/40 transition-colors shadow-xs dark:shadow-none"
                 />
               </div>
               <div>
@@ -308,7 +308,7 @@ export function FieldVisitView() {
                   type="text"
                   value={formData.equipmentPlace || ''}
                   onChange={(e) => updateField('equipmentPlace', e.target.value)}
-                  className="w-full rounded-xl border border-slate-200 dark:border-[rgba(115,149,174,0.25)] bg-slate-50/60 dark:bg-[rgba(6,19,33,0.7)] px-4 py-2.5 text-base text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:bg-white focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 dark:focus:ring-blue-500/40 transition-colors shadow-xs dark:shadow-none"
+                  className="w-full rounded-xl border border-slate-200/80 dark:border-[rgba(115,149,174,0.25)] bg-white/55 dark:bg-[rgba(6,19,33,0.7)] backdrop-blur-md px-4 py-2.5 text-base text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:bg-white/80 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 dark:focus:ring-blue-500/40 transition-colors shadow-xs dark:shadow-none"
                 />
               </div>
             </div>
@@ -323,7 +323,7 @@ export function FieldVisitView() {
                   type="date"
                   value={formData.visitDate || ''}
                   onChange={(e) => updateField('visitDate', e.target.value)}
-                  className="w-full rounded-xl border border-slate-200 dark:border-[rgba(115,149,174,0.25)] bg-slate-50/60 dark:bg-[rgba(6,19,33,0.7)] px-4 py-2.5 text-base text-slate-900 dark:text-white focus:bg-white focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 dark:focus:ring-blue-500/40 transition-colors shadow-xs dark:shadow-none"
+                  className="w-full rounded-xl border border-slate-200/80 dark:border-[rgba(115,149,174,0.25)] bg-white/55 dark:bg-[rgba(6,19,33,0.7)] backdrop-blur-md px-4 py-2.5 text-base text-slate-900 dark:text-white focus:bg-white/80 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 dark:focus:ring-blue-500/40 transition-colors shadow-xs dark:shadow-none"
                 />
               </div>
               <div>
@@ -335,7 +335,7 @@ export function FieldVisitView() {
                   type="time"
                   value={formData.visitTime || ''}
                   onChange={(e) => updateField('visitTime', e.target.value)}
-                  className="w-full rounded-xl border border-slate-200 dark:border-[rgba(115,149,174,0.25)] bg-slate-50/60 dark:bg-[rgba(6,19,33,0.7)] px-4 py-2.5 text-base text-slate-900 dark:text-white focus:bg-white focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 dark:focus:ring-blue-500/40 transition-colors shadow-xs dark:shadow-none"
+                  className="w-full rounded-xl border border-slate-200/80 dark:border-[rgba(115,149,174,0.25)] bg-white/55 dark:bg-[rgba(6,19,33,0.7)] backdrop-blur-md px-4 py-2.5 text-base text-slate-900 dark:text-white focus:bg-white/80 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 dark:focus:ring-blue-500/40 transition-colors shadow-xs dark:shadow-none"
                 />
               </div>
             </div>
@@ -363,7 +363,7 @@ export function FieldVisitView() {
                 type="text"
                 value={formData.contactName || ''}
                 onChange={(e) => updateField('contactName', e.target.value)}
-                className="w-full rounded-xl border border-slate-200 dark:border-[rgba(115,149,174,0.25)] bg-slate-50/60 dark:bg-[rgba(6,19,33,0.7)] px-4 py-2.5 text-base text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:bg-white focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 dark:focus:ring-blue-500/40 transition-colors shadow-xs dark:shadow-none"
+                className="w-full rounded-xl border border-slate-200/80 dark:border-[rgba(115,149,174,0.25)] bg-white/55 dark:bg-[rgba(6,19,33,0.7)] backdrop-blur-md px-4 py-2.5 text-base text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:bg-white/80 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 dark:focus:ring-blue-500/40 transition-colors shadow-xs dark:shadow-none"
               />
             </div>
             <div>
@@ -375,7 +375,7 @@ export function FieldVisitView() {
                 type="text"
                 value={formData.contactPosition || ''}
                 onChange={(e) => updateField('contactPosition', e.target.value)}
-                className="w-full rounded-xl border border-slate-200 dark:border-[rgba(115,149,174,0.25)] bg-slate-50/60 dark:bg-[rgba(6,19,33,0.7)] px-4 py-2.5 text-base text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:bg-white focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 dark:focus:ring-blue-500/40 transition-colors shadow-xs dark:shadow-none"
+                className="w-full rounded-xl border border-slate-200/80 dark:border-[rgba(115,149,174,0.25)] bg-white/55 dark:bg-[rgba(6,19,33,0.7)] backdrop-blur-md px-4 py-2.5 text-base text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:bg-white/80 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 dark:focus:ring-blue-500/40 transition-colors shadow-xs dark:shadow-none"
               />
             </div>
             <div>
@@ -387,7 +387,7 @@ export function FieldVisitView() {
                 type="text"
                 value={formData.contactVillage || ''}
                 onChange={(e) => updateField('contactVillage', e.target.value)}
-                className="w-full rounded-xl border border-slate-200 dark:border-[rgba(115,149,174,0.25)] bg-slate-50/60 dark:bg-[rgba(6,19,33,0.7)] px-4 py-2.5 text-base text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:bg-white focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 dark:focus:ring-blue-500/40 transition-colors shadow-xs dark:shadow-none"
+                className="w-full rounded-xl border border-slate-200/80 dark:border-[rgba(115,149,174,0.25)] bg-white/55 dark:bg-[rgba(6,19,33,0.7)] backdrop-blur-md px-4 py-2.5 text-base text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:bg-white/80 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 dark:focus:ring-blue-500/40 transition-colors shadow-xs dark:shadow-none"
               />
             </div>
             <div>
@@ -399,7 +399,7 @@ export function FieldVisitView() {
                 type="tel"
                 value={formData.contactPhone || ''}
                 onChange={(e) => updateField('contactPhone', e.target.value)}
-                className="w-full rounded-xl border border-slate-200 dark:border-[rgba(115,149,174,0.25)] bg-slate-50/60 dark:bg-[rgba(6,19,33,0.7)] px-4 py-2.5 text-base text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:bg-white focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 dark:focus:ring-blue-500/40 transition-colors shadow-xs dark:shadow-none"
+                className="w-full rounded-xl border border-slate-200/80 dark:border-[rgba(115,149,174,0.25)] bg-white/55 dark:bg-[rgba(6,19,33,0.7)] backdrop-blur-md px-4 py-2.5 text-base text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:bg-white/80 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 dark:focus:ring-blue-500/40 transition-colors shadow-xs dark:shadow-none"
               />
             </div>
           </div>
@@ -430,10 +430,10 @@ export function FieldVisitView() {
                   htmlFor="permit-allow"
                   data-checked={formData.permit === 'อนุญาต'}
                   className={cn(
-                    "permit-radio-allow flex items-center gap-3 rounded-xl border px-5 py-3 text-base font-semibold cursor-pointer transition-all duration-200 whitespace-nowrap shadow-xs select-none",
+                    "permit-radio-allow flex items-center gap-3 rounded-xl border px-5 py-3 text-base font-semibold cursor-pointer transition-all duration-200 whitespace-nowrap shadow-xs select-none backdrop-blur-md",
                     formData.permit === 'อนุญาต'
-                      ? "border-emerald-500 bg-emerald-50 text-emerald-800 ring-2 ring-emerald-500/20 dark:bg-emerald-950/40 dark:border-emerald-500/60 dark:text-emerald-300 dark:ring-0"
-                      : "border-slate-200 bg-white hover:bg-slate-50 text-slate-600 dark:border-slate-800 dark:bg-slate-900/60 dark:hover:bg-slate-800/60 dark:text-slate-400"
+                      ? "border-emerald-500 bg-emerald-50/80 text-emerald-950 ring-2 ring-emerald-500/20 dark:bg-emerald-950/40 dark:border-emerald-500/60 dark:text-emerald-300 dark:ring-0"
+                      : "border-slate-200/80 bg-white/55 hover:bg-white/75 text-slate-800 dark:border-slate-800 dark:bg-slate-900/60 dark:hover:bg-slate-800/60 dark:text-slate-400"
                   )}
                 >
                   <RadioGroupItem value="อนุญาต" id="permit-allow" />
@@ -441,7 +441,7 @@ export function FieldVisitView() {
                     "font-bold whitespace-nowrap",
                     formData.permit === 'อนุญาต'
                       ? "text-emerald-700 dark:text-emerald-400"
-                      : "text-slate-600 dark:text-slate-400"
+                      : "text-slate-700 dark:text-slate-400"
                   )}>
                     อนุญาต
                   </span>
@@ -450,10 +450,10 @@ export function FieldVisitView() {
                   htmlFor="permit-deny"
                   data-checked={formData.permit === 'ไม่อนุญาต'}
                   className={cn(
-                    "permit-radio-deny flex items-center gap-3 rounded-xl border px-5 py-3 text-base font-semibold cursor-pointer transition-all duration-200 whitespace-nowrap shadow-xs select-none",
+                    "permit-radio-deny flex items-center gap-3 rounded-xl border px-5 py-3 text-base font-semibold cursor-pointer transition-all duration-200 whitespace-nowrap shadow-xs select-none backdrop-blur-md",
                     formData.permit === 'ไม่อนุญาต'
-                      ? "border-rose-500 bg-rose-50 text-rose-800 ring-2 ring-rose-500/20 dark:bg-rose-950/40 dark:border-rose-500/60 dark:text-rose-300 dark:ring-0"
-                      : "border-slate-200 bg-white hover:bg-slate-50 text-slate-600 dark:border-slate-800 dark:bg-slate-900/60 dark:hover:bg-slate-800/60 dark:text-slate-400"
+                      ? "border-rose-500 bg-rose-50/80 text-rose-950 ring-2 ring-rose-500/20 dark:bg-rose-950/40 dark:border-rose-500/60 dark:text-rose-300 dark:ring-0"
+                      : "border-slate-200/80 bg-white/55 hover:bg-white/75 text-slate-800 dark:border-slate-800 dark:bg-slate-900/60 dark:hover:bg-slate-800/60 dark:text-slate-400"
                   )}
                 >
                   <RadioGroupItem value="ไม่อนุญาต" id="permit-deny" />
@@ -461,7 +461,7 @@ export function FieldVisitView() {
                     "font-bold whitespace-nowrap",
                     formData.permit === 'ไม่อนุญาต'
                       ? "text-rose-700 dark:text-rose-400"
-                      : "text-slate-600 dark:text-slate-400"
+                      : "text-slate-700 dark:text-slate-400"
                   )}>
                     ไม่อนุญาต
                   </span>
@@ -479,7 +479,7 @@ export function FieldVisitView() {
                 value={formData.accessLimit || ''}
                 onChange={(e) => updateField('accessLimit', e.target.value)}
                 placeholder="ระบุข้อจำกัดหรือเงื่อนไขเพิ่มเติม (ถ้ามี)..."
-                className="w-full rounded-xl border border-slate-200 dark:border-[rgba(115,149,174,0.25)] bg-slate-50/60 dark:bg-[rgba(6,19,33,0.7)] px-4 py-2.5 text-base text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:bg-white focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 dark:focus:ring-blue-500/40 resize-y transition-colors shadow-xs dark:shadow-none"
+                className="w-full rounded-xl border border-slate-200/80 dark:border-[rgba(115,149,174,0.25)] bg-white/55 dark:bg-[rgba(6,19,33,0.7)] backdrop-blur-md px-4 py-2.5 text-base text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:bg-white/80 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 dark:focus:ring-blue-500/40 resize-y transition-colors shadow-xs dark:shadow-none"
               />
             </div>
           </div>
@@ -487,8 +487,8 @@ export function FieldVisitView() {
 
         {/* 04 สอบถามการใช้งาน (Radix UI Select) */}
         <GlassCard hoverEffect={false} className="space-y-4">
-          <div className="flex items-center gap-2.5 pb-3 border-b border-slate-200 dark:border-slate-800">
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-50 dark:bg-blue-500/20 text-blue-600 dark:text-cyan-400 flex-shrink-0">
+          <div className="flex items-center gap-2.5 pb-3 border-b border-slate-200/80 dark:border-slate-800">
+            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-50/80 dark:bg-blue-500/20 text-blue-600 dark:text-cyan-400 flex-shrink-0">
               <Zap className="h-5 w-5" />
             </div>
             <h2 className="text-xl font-bold text-slate-900 dark:text-white tracking-normal leading-normal whitespace-nowrap">
@@ -497,7 +497,7 @@ export function FieldVisitView() {
           </div>
 
           <div className="space-y-4">
-            <div className="assessment-table-container overflow-hidden rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950/40 shadow-xs">
+            <div className="assessment-table-container overflow-hidden rounded-xl border border-slate-200/80 dark:border-slate-800 bg-white/55 dark:bg-slate-950/40 backdrop-blur-md shadow-xs">
               <table className="w-full text-left text-base">
                 <thead>
                   <tr className="border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/60 text-sm font-semibold text-slate-700 dark:text-slate-300">
@@ -547,7 +547,7 @@ export function FieldVisitView() {
                 rows={2}
                 value={formData.userProblem || ''}
                 onChange={(e) => updateField('userProblem', e.target.value)}
-                className="w-full rounded-xl border border-slate-200 dark:border-[rgba(115,149,174,0.25)] bg-slate-50/60 dark:bg-[rgba(6,19,33,0.7)] px-4 py-2.5 text-base text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:bg-white focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 dark:focus:ring-blue-500/40 resize-y transition-colors shadow-xs dark:shadow-none"
+                className="w-full rounded-xl border border-slate-200/80 dark:border-[rgba(115,149,174,0.25)] bg-white/55 dark:bg-[rgba(6,19,33,0.7)] backdrop-blur-md px-4 py-2.5 text-base text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:bg-white/80 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 dark:focus:ring-blue-500/40 resize-y transition-colors shadow-xs dark:shadow-none"
               />
             </div>
           </div>
@@ -574,7 +574,7 @@ export function FieldVisitView() {
                 rows={2}
                 value={formData.siteCondition || ''}
                 onChange={(e) => updateField('siteCondition', e.target.value)}
-                className="w-full rounded-xl border border-slate-200 dark:border-[rgba(115,149,174,0.25)] bg-slate-50/60 dark:bg-[rgba(6,19,33,0.7)] px-4 py-2.5 text-base text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:bg-white focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 dark:focus:ring-blue-500/40 resize-y transition-colors shadow-xs dark:shadow-none"
+                className="w-full rounded-xl border border-slate-200/80 dark:border-[rgba(115,149,174,0.25)] bg-white/55 dark:bg-[rgba(6,19,33,0.7)] backdrop-blur-md px-4 py-2.5 text-base text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:bg-white/80 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 dark:focus:ring-blue-500/40 resize-y transition-colors shadow-xs dark:shadow-none"
               />
             </div>
 
@@ -587,7 +587,7 @@ export function FieldVisitView() {
                 rows={2}
                 value={formData.antennaCondition || ''}
                 onChange={(e) => updateField('antennaCondition', e.target.value)}
-                className="w-full rounded-xl border border-slate-200 dark:border-[rgba(115,149,174,0.25)] bg-slate-50/60 dark:bg-[rgba(6,19,33,0.7)] px-4 py-2.5 text-base text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:bg-white focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 dark:focus:ring-blue-500/40 resize-y transition-colors shadow-xs dark:shadow-none"
+                className="w-full rounded-xl border border-slate-200/80 dark:border-[rgba(115,149,174,0.25)] bg-white/55 dark:bg-[rgba(6,19,33,0.7)] backdrop-blur-md px-4 py-2.5 text-base text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:bg-white/80 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 dark:focus:ring-blue-500/40 resize-y transition-colors shadow-xs dark:shadow-none"
               />
             </div>
 
@@ -600,7 +600,7 @@ export function FieldVisitView() {
                 rows={2}
                 value={formData.workObstacle || ''}
                 onChange={(e) => updateField('workObstacle', e.target.value)}
-                className="w-full rounded-xl border border-slate-200 dark:border-[rgba(115,149,174,0.25)] bg-slate-50/60 dark:bg-[rgba(6,19,33,0.7)] px-4 py-2.5 text-base text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:bg-white focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 dark:focus:ring-blue-500/40 resize-y transition-colors shadow-xs dark:shadow-none"
+                className="w-full rounded-xl border border-slate-200/80 dark:border-[rgba(115,149,174,0.25)] bg-white/55 dark:bg-[rgba(6,19,33,0.7)] backdrop-blur-md px-4 py-2.5 text-base text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:bg-white/80 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 dark:focus:ring-blue-500/40 resize-y transition-colors shadow-xs dark:shadow-none"
               />
             </div>
           </div>
@@ -721,7 +721,7 @@ export function FieldVisitView() {
                 rows={3}
                 value={formData.summary || ''}
                 onChange={(e) => updateField('summary', e.target.value)}
-                className="w-full rounded-xl border border-slate-200 dark:border-[rgba(115,149,174,0.25)] bg-slate-50/60 dark:bg-[rgba(6,19,33,0.7)] px-4 py-2.5 text-base text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:bg-white focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 dark:focus:ring-blue-500/40 resize-y transition-colors shadow-xs dark:shadow-none"
+                className="w-full rounded-xl border border-slate-200/80 dark:border-[rgba(115,149,174,0.25)] bg-white/55 dark:bg-[rgba(6,19,33,0.7)] backdrop-blur-md px-4 py-2.5 text-base text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:bg-white/80 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 dark:focus:ring-blue-500/40 resize-y transition-colors shadow-xs dark:shadow-none"
               />
             </div>
 
@@ -735,7 +735,7 @@ export function FieldVisitView() {
                   type="text"
                   value={formData.informantName || ''}
                   onChange={(e) => updateField('informantName', e.target.value)}
-                  className="w-full rounded-xl border border-slate-200 dark:border-[rgba(115,149,174,0.25)] bg-slate-50/60 dark:bg-[rgba(6,19,33,0.7)] px-4 py-2.5 text-base text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:bg-white focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 dark:focus:ring-blue-500/40 transition-colors shadow-xs dark:shadow-none"
+                  className="w-full rounded-xl border border-slate-200/80 dark:border-[rgba(115,149,174,0.25)] bg-white/55 dark:bg-[rgba(6,19,33,0.7)] backdrop-blur-md px-4 py-2.5 text-base text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:bg-white/80 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 dark:focus:ring-blue-500/40 transition-colors shadow-xs dark:shadow-none"
                 />
               </div>
               <div>
@@ -747,7 +747,7 @@ export function FieldVisitView() {
                   type="text"
                   value={formData.operatorName || ''}
                   onChange={(e) => updateField('operatorName', e.target.value)}
-                  className="w-full rounded-xl border border-slate-200 dark:border-[rgba(115,149,174,0.25)] bg-slate-50/60 dark:bg-[rgba(6,19,33,0.7)] px-4 py-2.5 text-base text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:bg-white focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 dark:focus:ring-blue-500/40 transition-colors shadow-xs dark:shadow-none"
+                  className="w-full rounded-xl border border-slate-200/80 dark:border-[rgba(115,149,174,0.25)] bg-white/55 dark:bg-[rgba(6,19,33,0.7)] backdrop-blur-md px-4 py-2.5 text-base text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:bg-white/80 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 dark:focus:ring-blue-500/40 transition-colors shadow-xs dark:shadow-none"
                 />
               </div>
             </div>
@@ -802,9 +802,9 @@ export function FieldVisitView() {
         open={Boolean(activePreviewPhoto)}
         onOpenChange={(open) => !open && setActivePreviewPhoto(null)}
       >
-        <DialogContent className="max-w-2xl bg-white dark:bg-slate-950/95 border-slate-200 dark:border-blue-500/40 p-4">
+        <DialogContent className="max-w-2xl bg-white/85 dark:bg-slate-950/90 backdrop-blur-2xl border border-white/60 dark:border-blue-500/40 p-4">
           <DialogHeader>
-            <DialogTitle className="text-sm font-medium text-slate-800 dark:text-slate-300 truncate">
+            <DialogTitle className="text-sm font-bold text-slate-900 dark:text-slate-200 truncate">
               {activePreviewPhoto?.name}
             </DialogTitle>
           </DialogHeader>
