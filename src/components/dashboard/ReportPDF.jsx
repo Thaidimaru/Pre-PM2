@@ -140,7 +140,7 @@ export const ReportPDF = React.forwardRef(({ surveys = [] }, ref) => {
                 const date = survey.savedAt
                   ? (() => {
                       try {
-                        return new Date(survey.savedAt).toLocaleString('th-TH', { dateStyle: 'short', timeStyle: 'short' });
+                        return new Date(survey.savedAt).toLocaleString('th-TH', { year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' });
                       } catch (e) {
                         return String(survey.savedAt);
                       }

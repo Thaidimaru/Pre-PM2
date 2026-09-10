@@ -318,7 +318,7 @@ export function RecentSurveys({ recent = [], onNavigate }) {
                       {item.savedAt ? (() => {
                         try {
                           const d = new Date(item.savedAt);
-                          return isNaN(d.getTime()) ? String(item.savedAt) : d.toLocaleString('th-TH', { dateStyle: 'short', timeStyle: 'short' });
+                          return isNaN(d.getTime()) ? String(item.savedAt) : d.toLocaleString('th-TH', { year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' });
                         } catch (e) {
                           return String(item.savedAt);
                         }
