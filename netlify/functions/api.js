@@ -299,7 +299,8 @@ exports.handler = async (event) => {
     const query = event.queryStringParameters || {};
 
     if (event.httpMethod === "POST" && route === "login") {
-      const payload = JSON.parse(event.body || "{}");
+      let payload = {};
+      try { payload = JSON.parse(event.body || "{}"); } catch {}
       if (payload.password !== readPassword()) {
         return json(401, { error: "invalid_password", message: "รหัสผ่านไม่ถูกต้อง" });
       }
@@ -391,7 +392,8 @@ exports.handler = async (event) => {
     }
 
     if (event.httpMethod === "POST" && route === "save") {
-      const payload = JSON.parse(event.body || "{}");
+      let payload = {};
+      try { payload = JSON.parse(event.body || "{}"); } catch {}
       const fields = payload.fields && typeof payload.fields === "object" ? payload.fields : {};
       const photos = Array.isArray(payload.photos) ? payload.photos : [];
       const sanitizedPhotos = photos.map((photo) => ({
