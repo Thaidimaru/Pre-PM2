@@ -107,10 +107,10 @@ export function FieldVisitView() {
   const [formData, setFormData] = useState({
     permit: 'อนุญาต',
     radioStatus: 'ปกติ',
-    receiveStatus: 'ไม่พบ',
-    transmitStatus: 'ไม่พบ',
-    powerStatus: 'ไม่มี',
-    batteryStatus: 'ไม่มี'
+    receiveStatus: 'ปกติ',
+    transmitStatus: 'ปกติ',
+    powerStatus: 'ปกติ',
+    batteryStatus: 'ปกติ'
   });
   const [selectedPhotos, setSelectedPhotos] = useState([]);
   const [isCompressingPhotos, setIsCompressingPhotos] = useState(false);
@@ -214,10 +214,10 @@ export function FieldVisitView() {
       setFormData({
         permit: 'อนุญาต',
         radioStatus: 'ปกติ',
-        receiveStatus: 'ไม่พบ',
-        transmitStatus: 'ไม่พบ',
-        powerStatus: 'ไม่มี',
-        batteryStatus: 'ไม่มี'
+        receiveStatus: 'ปกติ',
+        transmitStatus: 'ปกติ',
+        powerStatus: 'ปกติ',
+        batteryStatus: 'ปกติ'
       });
       setSelectedPhotos([]);
     } catch (err) {
@@ -480,11 +480,11 @@ export function FieldVisitView() {
                 </thead>
                 <tbody className="divide-y divide-slate-800/50">
                   {[
-                    ['radioStatus', 'สามารถใช้งานเครื่องวิทยุได้ตามปกติ', ['ปกติ', 'ไม่ปกติ']],
-                    ['receiveStatus', 'พบปัญหาการรับสัญญาณ', ['ไม่พบ', 'พบ']],
-                    ['transmitStatus', 'พบปัญหาการส่งสัญญาณ', ['ไม่พบ', 'พบ']],
-                    ['powerStatus', 'ระบบไฟฟ้ามีปัญหาหรือไม่', ['ไม่มี', 'มี']],
-                    ['batteryStatus', 'แบตเตอรี่สำรองมีปัญหาหรือไม่', ['ไม่มี', 'มี']]
+                    ['radioStatus', 'ภาพรวมเครื่องวิทยุ', ['ปกติ', 'ไม่ปกติ']],
+                    ['receiveStatus', 'การรับสัญญาณ', ['ปกติ', 'ไม่ปกติ']],
+                    ['transmitStatus', 'ทดสอบการสนทนา', ['ปกติ', 'ไม่ปกติ']],
+                    ['powerStatus', 'การทำงานของระบบไฟฟ้า', ['ปกติ', 'ไม่ปกติ']],
+                    ['batteryStatus', 'การทำงานของระบบสำรองไฟ', ['ปกติ', 'ไม่ปกติ']]
                   ].map(([key, label, options]) => (
                     <tr key={key} className="hover:bg-slate-800/30">
                       <td className="px-4 py-3 font-medium text-slate-200 leading-normal whitespace-nowrap">{label}</td>
@@ -594,11 +594,10 @@ export function FieldVisitView() {
             {/* Upload Drag & Drop Area */}
             <label
               htmlFor="photos-input"
-              className={`flex flex-col items-center justify-center rounded-2xl border-2 border-dashed p-6 text-center transition-all duration-200 cursor-pointer ${
-                isCompressingPhotos
-                  ? 'border-cyan-500/60 bg-cyan-950/30 animate-pulse'
-                  : 'border-blue-500/30 bg-blue-950/20 hover:border-blue-500/60 hover:bg-blue-950/30'
-              }`}
+              className={`flex flex-col items-center justify-center rounded-2xl border-2 border-dashed p-6 text-center transition-all duration-200 cursor-pointer ${isCompressingPhotos
+                ? 'border-cyan-500/60 bg-cyan-950/30 animate-pulse'
+                : 'border-blue-500/30 bg-blue-950/20 hover:border-blue-500/60 hover:bg-blue-950/30'
+                }`}
             >
               {isCompressingPhotos ? (
                 <Loader2 className="h-9 w-9 text-cyan-400 mb-2 animate-spin" />
@@ -752,13 +751,12 @@ export function FieldVisitView() {
         {/* Status Feedback Message */}
         {statusMessage.text && (
           <div
-            className={`flex items-center gap-2.5 rounded-xl border p-4 text-base font-semibold ${
-              statusMessage.type === 'success'
-                ? 'border-emerald-500/40 bg-emerald-950/40 text-emerald-300'
-                : statusMessage.type === 'error'
+            className={`flex items-center gap-2.5 rounded-xl border p-4 text-base font-semibold ${statusMessage.type === 'success'
+              ? 'border-emerald-500/40 bg-emerald-950/40 text-emerald-300'
+              : statusMessage.type === 'error'
                 ? 'border-rose-500/40 bg-rose-950/40 text-rose-300'
                 : 'border-blue-500/40 bg-blue-950/40 text-blue-300'
-            }`}
+              }`}
           >
             {statusMessage.type === 'success' ? (
               <CheckCircle2 className="h-5 w-5 flex-shrink-0 text-emerald-400" />

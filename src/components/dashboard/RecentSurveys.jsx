@@ -206,15 +206,15 @@ export function RecentSurveys({ recent = [], onNavigate }) {
                     <span className="text-slate-200">{surveyDetail.fields.operatorName || '-'}</span>
                   </div>
                   <div>
-                    <span className="text-slate-400 font-medium">สภาพวิทยุ / สัญญาณ:</span>{' '}
+                    <span className="text-slate-400 font-medium">สภาพวิทยุ / การสนทนา:</span>{' '}
                     <span className="text-slate-200">
-                      {surveyDetail.fields.radioStatus || 'ปกติ'} (รับ: {surveyDetail.fields.receiveStatus || '-'}, ส่ง: {surveyDetail.fields.transmitStatus || '-'})
+                      ภาพรวม: {surveyDetail.fields.radioStatus || 'ปกติ'}, รับสัญญาณ: {surveyDetail.fields.receiveStatus || 'ปกติ'}, สนทนา: {surveyDetail.fields.transmitStatus || 'ปกติ'}
                     </span>
                   </div>
                   <div>
-                    <span className="text-slate-400 font-medium">ระบบไฟฟ้า / แบตเตอรี่:</span>{' '}
+                    <span className="text-slate-400 font-medium">ระบบไฟฟ้า / สำรองไฟ:</span>{' '}
                     <span className="text-slate-200">
-                      ไฟ: {surveyDetail.fields.powerStatus || '-'}, แบต: {surveyDetail.fields.batteryStatus || '-'}
+                      ระบบไฟฟ้า: {surveyDetail.fields.powerStatus || 'ปกติ'}, ระบบสำรองไฟ: {surveyDetail.fields.batteryStatus || 'ปกติ'}
                     </span>
                   </div>
                   {surveyDetail.fields.summary && (
