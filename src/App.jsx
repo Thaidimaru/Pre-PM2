@@ -70,7 +70,7 @@ export function App() {
 
   if (!token) {
     return (
-      <div 
+      <div
         className="relative min-h-screen text-slate-100 flex flex-col justify-center transition-colors duration-300"
         style={{ background: 'var(--theme-bg-gradient)' }}
       >
@@ -81,7 +81,7 @@ export function App() {
   }
 
   return (
-    <div 
+    <div
       className="relative min-h-screen text-slate-100 transition-colors duration-300"
       style={{ background: 'var(--theme-bg-gradient)' }}
     >
