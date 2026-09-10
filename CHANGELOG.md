@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.1] - 2026-09-10
+
+### Changed
+- **Typography & Font Family**: Updated primary font family across the application to **"TH Sarabun New"** (with aliases for `THSarabunNew` and Google Fonts `Sarabun`). Added `@font-face` definitions for local font detection and cloud fallback, and adjusted base font scale to 17px for optimal readability of Thai government standard typography.
+
 ## [2.1.0] - 2026-09-10
 
 ### Fixed & Enhanced
