@@ -33,6 +33,75 @@ import {
 } from '@/components/ui/dialog';
 import { fetchStations, submitSurvey } from '@/lib/api';
 
+// Client-side image compression: Scales high-res camera photos down to 1600px max dimension
+// and encodes to JPEG 0.8 to keep total payload safely below Vercel's 4.5 MB request body limit.
+function compressImage(file, maxDimension = 1600, quality = 0.8) {
+  return new Promise((resolve) => {
+    if (!file.type.startsWith('image/') || file.type === 'image/svg+xml') {
+      const reader = new FileReader();
+      reader.onload = () => {
+        resolve({
+          name: file.name,
+          size: file.size,
+          type: file.type || 'image/jpeg',
+          previewUrl: reader.result,
+          base64Data: (reader.result || '').split(',')[1] || '',
+        });
+      };
+      reader.readAsDataURL(file);
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onload = () => {
+        let { width, height } = img;
+        if (width > maxDimension || height > maxDimension) {
+          if (width > height) {
+            height = Math.round((height * maxDimension) / width);
+            width = maxDimension;
+          } else {
+            width = Math.round((width * maxDimension) / height);
+            height = maxDimension;
+          }
+        }
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, width, height);
+
+        const compressedDataUrl = canvas.toDataURL('image/jpeg', quality);
+        const base64Data = compressedDataUrl.split(',')[1];
+        const compressedBytes = Math.round((base64Data.length * 3) / 4);
+
+        resolve({
+          name: file.name.replace(/\.[^/.]+$/, '') + '.jpg',
+          type: 'image/jpeg',
+          originalSize: file.size,
+          size: compressedBytes,
+          previewUrl: compressedDataUrl,
+          base64Data,
+        });
+      };
+      img.onerror = () => {
+        const rawBase64 = (reader.result || '').split(',')[1] || '';
+        resolve({
+          name: file.name,
+          type: file.type || 'image/jpeg',
+          originalSize: file.size,
+          size: file.size,
+          previewUrl: reader.result,
+          base64Data: rawBase64,
+        });
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
 export function FieldVisitView() {
   const [stations, setStations] = useState([]);
   const [formData, setFormData] = useState({
@@ -44,6 +113,7 @@ export function FieldVisitView() {
     batteryStatus: 'ไม่มี'
   });
   const [selectedPhotos, setSelectedPhotos] = useState([]);
+  const [isCompressingPhotos, setIsCompressingPhotos] = useState(false);
   const [statusMessage, setStatusMessage] = useState({ text: '', type: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [activePreviewPhoto, setActivePreviewPhoto] = useState(null);
@@ -88,6 +158,9 @@ export function FieldVisitView() {
     if (activeStation) {
       setFormData((prev) => ({
         ...prev,
+        province: activeStation.province || prev.province || '',
+        district: activeStation.district || prev.district || '',
+        subdistrict: activeStation.subdistrict || prev.subdistrict || '',
         installationPlace: activeStation.installationPlace || prev.installationPlace || '',
         equipmentPlace: activeStation.equipmentPlace || prev.equipmentPlace || '',
         contactName: activeStation.contactName || prev.contactName || '',
@@ -96,29 +169,21 @@ export function FieldVisitView() {
     }
   }, [activeStation]);
 
-  // Handle photo selection & base64 conversion
-  const handlePhotoSelect = (e) => {
+  // Handle photo selection with client-side high performance compression
+  const handlePhotoSelect = async (e) => {
     const files = Array.from(e.target.files || []);
     if (!files.length) return;
 
-    files.forEach((file) => {
-      const reader = new FileReader();
-      reader.onload = () => {
-        setSelectedPhotos((prev) => [
-          ...prev,
-          {
-            name: file.name,
-            size: file.size,
-            type: file.type || 'image/jpeg',
-            previewUrl: reader.result,
-            base64Data: reader.result.split(',')[1]
-          }
-        ]);
-      };
-      reader.readAsDataURL(file);
-    });
-
-    if (fileInputRef.current) fileInputRef.current.value = '';
+    setIsCompressingPhotos(true);
+    try {
+      const compressedList = await Promise.all(files.map((file) => compressImage(file)));
+      setSelectedPhotos((prev) => [...prev, ...compressedList]);
+    } catch (err) {
+      console.error('Photo optimization error:', err);
+    } finally {
+      setIsCompressingPhotos(false);
+      if (fileInputRef.current) fileInputRef.current.value = '';
+    }
   };
 
   const handleRemovePhoto = (index) => {
@@ -529,14 +594,24 @@ export function FieldVisitView() {
             {/* Upload Drag & Drop Area */}
             <label
               htmlFor="photos-input"
-              className="flex flex-col items-center justify-center rounded-xl border-2 border-dashed border-blue-500/30 bg-blue-950/20 p-6 text-center hover:border-blue-500/60 hover:bg-blue-950/30 cursor-pointer transition-all duration-200"
+              className={`flex flex-col items-center justify-center rounded-xl border-2 border-dashed p-6 text-center transition-all duration-200 cursor-pointer ${
+                isCompressingPhotos
+                  ? 'border-cyan-500/60 bg-cyan-950/30 animate-pulse'
+                  : 'border-blue-500/30 bg-blue-950/20 hover:border-blue-500/60 hover:bg-blue-950/30'
+              }`}
             >
-              <UploadCloud className="h-8 w-8 text-cyan-400 mb-2" />
+              {isCompressingPhotos ? (
+                <Loader2 className="h-8 w-8 text-cyan-400 mb-2 animate-spin" />
+              ) : (
+                <UploadCloud className="h-8 w-8 text-cyan-400 mb-2" />
+              )}
               <div className="text-sm font-semibold text-slate-200">
-                คลิกเพื่อเลือกภาพถ่ายหน้างาน (สามารถเลือกพร้อมกันได้หลายภาพ)
+                {isCompressingPhotos
+                  ? 'กำลังปรับขนาดและบีบอัดรูปภาพอัตโนมัติ...'
+                  : 'คลิกเพื่อเลือกภาพถ่ายหน้างาน (ระบบบีบอัดความละเอียดสูงอัตโนมัติ)'}
               </div>
               <div className="text-xs text-slate-400 mt-1">
-                รองรับไฟล์ JPG, PNG, WebP
+                รองรับไฟล์ภาพ JPG, PNG, WebP — ปรับขนาดอัตโนมัติเพื่อการส่งข้อมูลภาคสนามที่รวดเร็ว
               </div>
               <input
                 ref={fileInputRef}
@@ -544,6 +619,7 @@ export function FieldVisitView() {
                 type="file"
                 multiple
                 accept="image/*"
+                disabled={isCompressingPhotos}
                 onChange={handlePhotoSelect}
                 className="sr-only"
               />
@@ -562,6 +638,11 @@ export function FieldVisitView() {
                       alt={photo.name}
                       className="h-full w-full object-cover"
                     />
+
+                    {/* Size badge */}
+                    <div className="absolute top-1.5 left-1.5 rounded bg-black/70 px-1.5 py-0.5 text-[10px] font-mono text-cyan-300 border border-cyan-500/30">
+                      {Math.round(photo.size / 1024)} KB
+                    </div>
 
                     {/* Overlay controls */}
                     <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">

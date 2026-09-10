@@ -96,3 +96,29 @@ export async function submitSurvey(token, fields, photos) {
   }
   return res.json();
 }
+
+export async function fetchSurveys(token) {
+  const res = await fetch('/api/surveys', {
+    headers: { Authorization: `Bearer ${token}` }
+  });
+  if (!res.ok) {
+    throw new Error(`Failed to fetch surveys (status ${res.status})`);
+  }
+  return res.json();
+}
+
+export async function fetchSurveyDetail(token, recordId) {
+  const res = await fetch(`/api/survey?id=${encodeURIComponent(recordId)}`, {
+    headers: { Authorization: `Bearer ${token}` }
+  });
+  if (!res.ok) {
+    throw new Error(`Failed to fetch survey detail (status ${res.status})`);
+  }
+  return res.json();
+}
+
+export async function fetchStorageStatus() {
+  const res = await fetch('/api/status', { cache: 'no-store' }).catch(() => null);
+  if (!res || !res.ok) return null;
+  return res.json();
+}

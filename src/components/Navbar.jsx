@@ -55,13 +55,18 @@ export function Navbar() {
 
         {/* Live System Strip */}
         <div className="hidden md:flex items-center gap-4 text-sm text-slate-300">
-          {/* Online status indicator */}
+          {/* Online & Storage status indicator */}
           <div className="flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-950/40 px-3 py-1 text-emerald-300">
             <span className="relative flex h-2.5 w-2.5">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
               <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500" />
             </span>
-            <span className="text-xs font-medium">ระบบทำงานปกติ</span>
+            <span className="text-xs font-medium">ระบบพร้อมใช้งาน</span>
+          </div>
+
+          <div className="hidden lg:flex items-center gap-1.5 rounded-full border border-cyan-500/30 bg-cyan-950/40 px-3 py-1 text-cyan-300 text-xs">
+            <Radio className="h-3 w-3 text-cyan-400" />
+            <span>จุดเก็บข้อมูล: Cloud Blob</span>
           </div>
 
           <div className="h-6 w-px bg-slate-700/60" />

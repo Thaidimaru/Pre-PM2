@@ -4,6 +4,9 @@ async function getRawBody(req) {
   if (req.body) {
     return typeof req.body === "string" ? req.body : JSON.stringify(req.body);
   }
+  if (typeof req.on !== "function") {
+    return "";
+  }
   return new Promise((resolve) => {
     let data = "";
     req.on("data", (chunk) => {
@@ -23,11 +26,19 @@ module.exports = async (req, res) => {
     const parsedUrl = new URL(req.url, `https://${req.headers.host || "localhost"}`);
     const route = parsedUrl.searchParams.get("route") || req.query?.route || parsedUrl.pathname.split("/").filter(Boolean).pop() || "";
     const body = await getRawBody(req);
+    const queryStringParameters = {};
+    for (const [k, v] of parsedUrl.searchParams.entries()) {
+      queryStringParameters[k] = v;
+    }
+    if (req.query) {
+      Object.assign(queryStringParameters, req.query);
+    }
 
     const event = {
       httpMethod: req.method,
       path: `/${route}`,
       headers: req.headers,
+      queryStringParameters,
       body,
     };
 
@@ -39,7 +50,11 @@ module.exports = async (req, res) => {
       }
     }
 
-    res.status(result.statusCode).send(result.body);
+    if (result.isBase64Encoded && result.body) {
+      res.status(result.statusCode).send(Buffer.from(result.body, "base64"));
+    } else {
+      res.status(result.statusCode).send(result.body);
+    }
   } catch (error) {
     console.error("Vercel API Handler Error:", error);
     res.status(500).json({ error: "server_error", message: error?.message || "Internal server error" });

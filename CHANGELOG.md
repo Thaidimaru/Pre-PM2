@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.0] - 2026-09-10
+
+### Fixed & Enhanced
+- **Client-Side High-Res Photo Compression**: Integrated automatic client-side canvas image optimization scaling camera photos to 1600px max dimension at 0.8 JPEG quality. Reduces mobile photo uploads from 4–10 MB to 150–300 KB, preventing Vercel `413 FUNCTION_PAYLOAD_TOO_LARGE` errors.
+- **Station Location Auto-Fill**: Auto-populates `province`, `district`, and `subdistrict` into survey form when selecting any station.
+- **Cloud Survey & Photo Retrieval APIs**: Added `GET /api/surveys`, `GET /api/survey?id=...`, `GET /api/photos`, and `GET /api/status` across both Vercel Serverless (`netlify/functions/api.js`, `api/handler.js`) and standalone Python (`database.py`).
+- **Complete OneDrive Photo Syncing**: Updated `sync_onedrive.py` to auto-login, fetch all cloud survey records and photos, and download them organized by station directory into the company OneDrive folder (`NBTC Microwave\Photo\Pre_PM`).
+- **Dashboard Survey Details & Photo Gallery Modal**: Upgraded `RecentSurveys` component allowing one-click inspection of survey fields, checklist items, and high-resolution photo gallery with zoom modal.
+- **Database Schema Auto-Initialization**: Ensured `export_photos.py` automatically initializes SQLite schema if tables are not yet created, preventing `no such table` runtime exceptions.
+
 ## [2.0.9] - 2026-09-09
 
 ### Added

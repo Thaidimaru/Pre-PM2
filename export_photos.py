@@ -32,6 +32,11 @@ def export_photos(output_dir: Path = DEFAULT_OUTPUT_DIR, by_folder: bool = True)
     conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
 
+    # Ensure schema exists before querying
+    cursor.execute("CREATE TABLE IF NOT EXISTS surveys (id INTEGER PRIMARY KEY, record_id TEXT UNIQUE, saved_at TEXT, fields_json TEXT)")
+    cursor.execute("CREATE TABLE IF NOT EXISTS survey_photos (id INTEGER PRIMARY KEY, survey_id INTEGER, name TEXT, content_type TEXT, data BLOB)")
+    conn.commit()
+
     try:
         query = """
             SELECT 

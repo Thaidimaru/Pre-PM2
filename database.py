@@ -277,10 +277,32 @@ class DatabaseService:
                 "denied": denied
             },
             "provinces": top_provinces,
-            "recent": recent
-        }
-
     @classmethod
+    def get_surveys(cls) -> list:
+        """Return all survey records with fields and photos."""
+        with cls.connect() as conn:
+            survey_rows = conn.execute("SELECT id, record_id, saved_at, fields_json FROM surveys ORDER BY saved_at DESC").fetchall()
+            surveys = []
+            for s in survey_rows:
+                try:
+                    fields = json.loads(s["fields_json"])
+                except Exception:
+                    fields = {}
+                photos = []
+                photo_rows = conn.execute("SELECT name, content_type, data FROM survey_photos WHERE survey_id = ?", (s["id"],)).fetchall()
+                for p in photo_rows:
+                    photos.append({
+                        "name": p["name"],
+                        "type": p["content_type"],
+                        "data": base64.b64encode(p["data"]).decode("ascii") if p["data"] else ""
+                    })
+                surveys.append({
+                    "recordId": s["record_id"],
+                    "savedAt": s["saved_at"],
+                    "fields": fields,
+                    "photos": photos
+                })
+            return surveys
     def save_survey(cls, fields: dict, photos: list) -> str:
         """Save survey record to SQLite, store photos, and create backup JSON."""
         timestamp = dt.datetime.now().strftime("%Y%m%d-%H%M%S")
@@ -424,6 +446,48 @@ class SurveyRequestHandler(BaseHTTPRequestHandler):
                 return
             stations = DatabaseService.get_stations()
             self.send_json_response(200, {"stations": stations})
+            return
+
+        # 4.1 API: All surveys
+        if parsed_path in ("/surveys", "/api/surveys"):
+            auth_header = self.headers.get("Authorization", "")
+            if not auth_service.is_authorized(auth_header):
+                self.send_json_response(401, {"error": "Unauthorized"})
+                return
+            surveys = DatabaseService.get_surveys()
+            self.send_json_response(200, {"surveys": surveys})
+            return
+
+        # 4.2 API: Single survey detail
+        if parsed_path in ("/survey", "/api/survey"):
+            auth_header = self.headers.get("Authorization", "")
+            if not auth_service.is_authorized(auth_header):
+                self.send_json_response(401, {"error": "Unauthorized"})
+                return
+            from urllib.parse import parse_qs, urlparse
+            query = parse_qs(urlparse(self.path).query)
+            record_id = (query.get("id") or query.get("recordId") or [""])[0]
+            surveys = DatabaseService.get_surveys()
+            survey = next((s for s in surveys if s["recordId"] == record_id), None)
+            if not survey:
+                self.send_json_response(404, {"error": "Survey not found"})
+                return
+            self.send_json_response(200, {"survey": survey})
+            return
+
+        # 4.3 API: Status
+        if parsed_path in ("/status", "/api/status"):
+            stations = DatabaseService.get_stations()
+            with DatabaseService.connect() as conn:
+                survey_count = conn.execute("SELECT COUNT(*) FROM surveys").fetchone()[0]
+            self.send_json_response(200, {
+                "status": "ok",
+                "storage": "sqlite_local",
+                "isPersistent": True,
+                "totalSurveys": survey_count,
+                "totalStations": len(stations),
+                "timestamp": dt.datetime.now(dt.timezone.utc).isoformat()
+            })
             return
 
         # 5. Not Found

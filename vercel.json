@@ -13,9 +13,15 @@
     { "source": "/api/database", "destination": "/api/handler?route=database" },
     { "source": "/api/save", "destination": "/api/handler?route=save" },
     { "source": "/api/dashboard", "destination": "/api/handler?route=dashboard" },
+    { "source": "/api/surveys", "destination": "/api/handler?route=surveys" },
+    { "source": "/api/survey", "destination": "/api/handler?route=survey" },
+    { "source": "/api/photos", "destination": "/api/handler?route=photos" },
+    { "source": "/api/status", "destination": "/api/handler?route=status" },
+    { "source": "/photos/:path*", "destination": "/api/handler?route=photos" },
     { "source": "/login", "destination": "/api/handler?route=login" },
     { "source": "/database", "destination": "/api/handler?route=database" },
     { "source": "/save", "destination": "/api/handler?route=save" },
+    { "source": "/surveys", "destination": "/api/handler?route=surveys" },
     { "source": "/dashboard", "destination": "/index.html" },
     { "source": "/((?!api/).*)", "destination": "/index.html" }
   ]

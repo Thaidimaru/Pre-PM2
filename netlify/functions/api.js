@@ -270,12 +270,21 @@ async function getDashboardData() {
       station: station?.village || fields.station || fields.stationSelect || "ไม่ระบุสถานี",
       province: station?.province || fields.province || "ไม่ระบุจังหวัด",
       permit: fields.permit === "on" ? "อนุญาต" : fields.permit || "ยังไม่ระบุ",
+      hasPhotos: Array.isArray(survey.photos) && survey.photos.length > 0,
+      photoCount: Array.isArray(survey.photos) ? survey.photos.length : 0,
+      operatorName: fields.operatorName || fields.informantName || fields.contactName || "",
     };
   });
+
+  const storageTier = hasVercelBlob() ? "Vercel Blob (Cloud)" : (getBlobStore() ? "Netlify Blobs" : "Memory Cache");
 
   return {
     updatedAt: new Date().toISOString(),
     stats: { surveys: surveys.length, stations: stations.length, allowed, denied },
+    storage: {
+      tier: storageTier,
+      isPersistent: Boolean(hasVercelBlob() || getBlobStore()),
+    },
     provinces: [...provinceCounts.entries()]
       .sort((a, b) => b[1] - a[1])
       .slice(0, 8)
@@ -287,6 +296,7 @@ async function getDashboardData() {
 exports.handler = async (event) => {
   try {
     const route = (event.path || "").split("/").filter(Boolean).pop() || "";
+    const query = event.queryStringParameters || {};
 
     if (event.httpMethod === "POST" && route === "login") {
       const payload = JSON.parse(event.body || "{}");
@@ -300,12 +310,77 @@ exports.handler = async (event) => {
       return json(200, await getDashboardData());
     }
 
+    if (event.httpMethod === "GET" && (route === "status" || route === "storage")) {
+      const surveys = await getAllSurveys();
+      const stations = await getStations();
+      return json(200, {
+        status: "ok",
+        storage: hasVercelBlob() ? "vercel_blob" : (getBlobStore() ? "netlify_blobs" : "memory"),
+        isPersistent: Boolean(hasVercelBlob() || getBlobStore()),
+        totalSurveys: surveys.length,
+        totalStations: stations.length,
+        timestamp: new Date().toISOString(),
+      });
+    }
+
     if (!isAuthorized(event)) {
       return json(401, { error: "unauthorized", message: "กรุณาเข้าสู่ระบบก่อนใช้งาน" });
     }
 
     if (event.httpMethod === "GET" && route === "database") {
       return json(200, { stations: await getStations() });
+    }
+
+    if (event.httpMethod === "GET" && route === "surveys") {
+      const surveys = await getAllSurveys();
+      return json(200, { surveys });
+    }
+
+    if (event.httpMethod === "GET" && route === "survey") {
+      const id = query.id || query.recordId || "";
+      if (!id) {
+        return json(400, { error: "missing_id", message: "กรุณาระบุรหัสรายการ id" });
+      }
+      const surveys = await getAllSurveys();
+      const survey = surveys.find((s) => s.recordId === id);
+      if (!survey) {
+        return json(404, { error: "not_found", message: "ไม่พบข้อมูลการสำรวจที่ระบุ" });
+      }
+      return json(200, { survey });
+    }
+
+    if (event.httpMethod === "GET" && (route === "photos" || route.startsWith("photos"))) {
+      const id = query.id || query.recordId || "";
+      const photoIdx = parseInt(query.index || query.photo || "0", 10);
+      const photoName = query.name || "";
+
+      const surveys = await getAllSurveys();
+      const survey = id ? surveys.find((s) => s.recordId === id) : null;
+      if (!survey) {
+        return json(404, { error: "survey_not_found", message: "ไม่พบรายการสำรวจ" });
+      }
+      const photos = Array.isArray(survey.photos) ? survey.photos : [];
+      let photo = null;
+      if (photoName) {
+        photo = photos.find((p) => p.name === photoName);
+      }
+      if (!photo && photos.length > 0) {
+        photo = photos[photoIdx] || photos[0];
+      }
+      if (!photo || !photo.data) {
+        return json(404, { error: "photo_not_found", message: "ไม่พบภาพถ่าย" });
+      }
+
+      return {
+        statusCode: 200,
+        headers: {
+          "Content-Type": photo.type || "image/jpeg",
+          "Content-Disposition": `inline; filename="${photo.name || "photo.jpg"}"`,
+          "Cache-Control": "public, max-age=86400",
+        },
+        body: photo.data,
+        isBase64Encoded: true,
+      };
     }
 
     if (event.httpMethod === "POST" && route === "save") {
