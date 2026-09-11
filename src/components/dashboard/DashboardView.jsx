@@ -57,7 +57,7 @@ export function DashboardView({ onNavigate }) {
             <span>Operational Telemetry & Control</span>
           </div>
           <h1 className="mt-1 text-xl sm:text-3xl lg:text-4xl font-black tracking-normal leading-normal text-slate-900 dark:text-white sm:whitespace-nowrap">
-            <ShinyText>ศูนย์ควบคุมผลสำรวจสถานี (Pre-PM)</ShinyText>
+            <ShinyText>ศูนย์ควบคุมผลตรวจเยี่ยมเจ้าของพื้นที่ (Pre-PM)</ShinyText>
           </h1>
           <p className="mt-1 text-base text-slate-700 dark:text-slate-200 font-medium leading-relaxed">
             ติดตามความคืบหน้าการลงพื้นที่ตรวจเยี่ยมเจ้าของพื้นที่สถานีวิทยุคมนาคม NBTC Microwave แบบเรียลไทม์
