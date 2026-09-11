@@ -1,9 +1,10 @@
 {
   "name": "survey-control-room",
-  "version": "2.6.4",
+  "version": "2.6.5",
   "private": true,
   "scripts": {
     "dev": "vite",
+    "prebuild": "node -e \"try{require('child_process').execSync('chmod +x node_modules/.bin/*')}catch(e){}\"",
     "build": "vite build",
     "preview": "vite preview",
     "start": "node server.js",
@@ -11,6 +12,10 @@
     "export:onedrive": "python export_photos.py",
     "sync:onedrive": "python sync_onedrive.py"
   },
+  "onlyBuiltDependencies": [
+    "esbuild",
+    "core-js"
+  ],
   "dependencies": {
     "@netlify/blobs": "^8.2.0",
     "@radix-ui/react-dialog": "^1.1.23",
