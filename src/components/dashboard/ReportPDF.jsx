@@ -25,16 +25,45 @@ export const ReportPDF = React.forwardRef(({ surveys = [] }, ref) => {
   const deniedPct = totalCount > 0 ? Math.round((deniedCount / totalCount) * 100) : 0;
   const pendingPct = totalCount > 0 ? Math.round((pendingCount / totalCount) * 100) : 0;
 
-  // Helper to split long record IDs cleanly onto 2 lines to prevent ugly breaks
+  // Helper to split long record IDs cleanly onto 2 lines to prevent overlapping or ugly line breaks
   const formatRecordIdParts = (id) => {
     if (!id) return { p1: '-', p2: '' };
-    const str = String(id);
-    if (str.startsWith('PM-') && str.length > 16) {
+    const str = String(id).trim();
+
+    // Format: PM-20260910-1751380-5bde
+    if (str.startsWith('PM-')) {
+      const parts = str.split('-');
+      if (parts.length >= 3) {
+        return {
+          p1: `${parts[0]}-${parts[1]}`,
+          p2: parts.slice(2).join('-'),
+        };
+      }
+    }
+
+    // Format: PM202609110614344b476 (21 chars: PM + YYYYMMDD + HHMMSS + 4 hex)
+    if (str.startsWith('PM') && str.length >= 18) {
+      const datePart = str.slice(0, 10); // PM20260911
+      const rest = str.slice(10);        // 0614344b476
+      let formattedRest = rest;
+      if (rest.length === 11) {
+        formattedRest = `${rest.slice(0, 6)}-${rest.slice(6)}`; // 061434-4b476
+      }
       return {
-        p1: str.slice(0, 11), // e.g. PM-20260910
-        p2: str.slice(11),   // e.g. 1751380-5bde
+        p1: datePart,
+        p2: formattedRest,
       };
     }
+
+    // General fallback for long IDs (> 13 chars)
+    if (str.length > 13) {
+      const mid = Math.ceil(str.length / 2);
+      return {
+        p1: str.slice(0, mid),
+        p2: str.slice(mid),
+      };
+    }
+
     return { p1: str, p2: '' };
   };
 
@@ -212,13 +241,17 @@ export const ReportPDF = React.forwardRef(({ surveys = [] }, ref) => {
                       {index + 1}
                     </td>
 
-                    {/* Record ID (Clean 2-line monospace) & Date */}
-                    <td style={{ padding: '8px 6px', verticalAlign: 'top' }}>
-                      <div style={{ fontFamily: 'Consolas, Monaco, monospace', fontWeight: '700', color: '#0284c7', fontSize: '9.5px', lineHeight: 1.25 }}>
-                        <div>{p1}</div>
-                        {p2 && <div style={{ color: '#0369a1', fontSize: '9px' }}>{p2}</div>}
+                    {/* Record ID (Clean 2-line monospace, non-overlapping) & Date */}
+                    <td style={{ padding: '8px 6px', verticalAlign: 'top', width: '20%' }}>
+                      <div style={{ fontFamily: 'Consolas, Monaco, monospace', fontWeight: '700', color: '#0284c7', fontSize: '9.5px', lineHeight: 1.35 }}>
+                        <div style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{p1}</div>
+                        {p2 && (
+                          <div style={{ color: '#0369a1', fontSize: '8.5px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', marginTop: '1.5px' }}>
+                            {p2}
+                          </div>
+                        )}
                       </div>
-                      <div style={{ color: '#64748b', fontSize: '9px', fontWeight: '500', marginTop: '3px' }}>
+                      <div style={{ color: '#64748b', fontSize: '8.5px', fontWeight: '500', marginTop: '4px', whiteSpace: 'nowrap' }}>
                         {date}
                       </div>
                     </td>
