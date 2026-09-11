@@ -25,7 +25,7 @@ export const ReportPDF = React.forwardRef(({ surveys = [] }, ref) => {
   const deniedPct = totalCount > 0 ? Math.round((deniedCount / totalCount) * 100) : 0;
   const pendingPct = totalCount > 0 ? Math.round((pendingCount / totalCount) * 100) : 0;
 
-  // Helper to split long record IDs cleanly onto 2 lines to prevent overlapping or ugly line breaks
+  // Helper to split long record IDs cleanly onto 2 balanced lines to prevent overlapping or ugly line breaks
   const formatRecordIdParts = (id) => {
     if (!id) return { p1: '-', p2: '' };
     const str = String(id).trim();
@@ -41,22 +41,22 @@ export const ReportPDF = React.forwardRef(({ surveys = [] }, ref) => {
       }
     }
 
-    // Format: PM202609110614344b476 (21 chars: PM + YYYYMMDD + HHMMSS + 4 hex)
-    if (str.startsWith('PM') && str.length >= 18) {
-      const datePart = str.slice(0, 10); // PM20260911
-      const rest = str.slice(10);        // 0614344b476
-      let formattedRest = rest;
-      if (rest.length === 11) {
-        formattedRest = `${rest.slice(0, 6)}-${rest.slice(6)}`; // 061434-4b476
+    // Format: PM202609110624260e68c or PM202609110614344b476
+    if (str.startsWith('PM') && str.length >= 14) {
+      const datePart = str.slice(2, 10); // e.g. 20260911
+      const rest = str.slice(10);        // e.g. 0624260e68c
+      let p2Formatted = rest;
+      if (rest.length >= 8) {
+        p2Formatted = `${rest.slice(0, 6)}-${rest.slice(6)}`; // 062426-0e68c
       }
       return {
-        p1: datePart,
-        p2: formattedRest,
+        p1: `PM-${datePart}`,
+        p2: p2Formatted,
       };
     }
 
-    // General fallback for long IDs (> 13 chars)
-    if (str.length > 13) {
+    // General fallback for long IDs (> 12 chars)
+    if (str.length > 12) {
       const mid = Math.ceil(str.length / 2);
       return {
         p1: str.slice(0, mid),
@@ -181,9 +181,9 @@ export const ReportPDF = React.forwardRef(({ surveys = [] }, ref) => {
           <thead>
             <tr style={{ backgroundColor: '#0f172a', borderBottom: '2px solid #0284c7', color: '#ffffff' }}>
               <th style={{ padding: '8px 4px', fontWeight: '700', width: '4%', textAlign: 'center' }}>#</th>
-              <th style={{ padding: '8px 6px', fontWeight: '700', width: '20%' }}>รหัส / เวลาบันทึก</th>
-              <th style={{ padding: '8px 6px', fontWeight: '700', width: '23%' }}>สถานี / จังหวัด</th>
-              <th style={{ padding: '8px 4px', fontWeight: '700', width: '11%', textAlign: 'center' }}>ผลอนุญาต</th>
+              <th style={{ padding: '8px 6px', fontWeight: '700', width: '22%' }}>รหัส / เวลาบันทึก</th>
+              <th style={{ padding: '8px 6px', fontWeight: '700', width: '22%' }}>สถานี / จังหวัด</th>
+              <th style={{ padding: '8px 4px', fontWeight: '700', width: '10%', textAlign: 'center' }}>ผลอนุญาต</th>
               <th style={{ padding: '8px 6px', fontWeight: '700', width: '15%' }}>สภาพอุปกรณ์</th>
               <th style={{ padding: '8px 6px', fontWeight: '700', width: '14%' }}>ผู้ให้ข้อมูล / ช่าง</th>
               <th style={{ padding: '8px 6px', fontWeight: '700', width: '13%' }}>สรุปสิ่งที่แจ้ง</th>
@@ -241,12 +241,12 @@ export const ReportPDF = React.forwardRef(({ surveys = [] }, ref) => {
                       {index + 1}
                     </td>
 
-                    {/* Record ID (Clean 2-line monospace, non-overlapping) & Date */}
-                    <td style={{ padding: '8px 6px', verticalAlign: 'top', width: '20%' }}>
-                      <div style={{ fontFamily: 'Consolas, Monaco, monospace', fontWeight: '700', color: '#0284c7', fontSize: '9.5px', lineHeight: 1.35 }}>
+                    {/* Record ID (Clean 2-line monospace, proportioned) & Date */}
+                    <td style={{ padding: '8px 6px', verticalAlign: 'top', width: '22%' }}>
+                      <div style={{ fontFamily: 'Consolas, Monaco, "Courier New", monospace', fontWeight: '700', color: '#0284c7', fontSize: '9.5px', lineHeight: 1.4, letterSpacing: '0.02em' }}>
                         <div style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{p1}</div>
                         {p2 && (
-                          <div style={{ color: '#0369a1', fontSize: '8.5px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', marginTop: '1.5px' }}>
+                          <div style={{ color: '#0369a1', fontSize: '8.5px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', marginTop: '2px' }}>
                             {p2}
                           </div>
                         )}
