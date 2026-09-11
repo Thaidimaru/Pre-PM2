@@ -25,42 +25,45 @@ export const ReportPDF = React.forwardRef(({ surveys = [] }, ref) => {
   const deniedPct = totalCount > 0 ? Math.round((deniedCount / totalCount) * 100) : 0;
   const pendingPct = totalCount > 0 ? Math.round((pendingCount / totalCount) * 100) : 0;
 
-  // Helper to split long record IDs cleanly onto 2 balanced lines to prevent overlapping or ugly line breaks
+  // Master helper to split any record ID format cleanly onto 2 balanced lines without line-wrapping bugs
   const formatRecordIdParts = (id) => {
     if (!id) return { p1: '-', p2: '' };
     const str = String(id).trim();
 
-    // Format: PM-20260910-1751380-5bde
-    if (str.startsWith('PM-')) {
-      const parts = str.split('-');
-      if (parts.length >= 3) {
-        return {
-          p1: `${parts[0]}-${parts[1]}`,
-          p2: parts.slice(2).join('-'),
-        };
-      }
-    }
+    // Strip leading "PM-" or "PM" case-insensitively
+    const stripped = str.replace(/^PM-?/i, '');
 
-    // Format: PM202609110637551676f or PM202609110614344b476
-    if (str.toUpperCase().startsWith('PM') && str.length >= 14) {
-      const datePart = str.slice(2, 10); // e.g. 20260911
-      const rest = str.slice(10);        // e.g. 0637551676f
-      let p2Formatted = rest;
-      if (rest.length >= 8) {
-        p2Formatted = `${rest.slice(0, 6)}-${rest.slice(6)}`; // 063755-1676f
+    // Extract 8-digit YYYYMMDD date if present at the start of stripped
+    const dateMatch = stripped.match(/^(\d{8})(.*)/);
+    if (dateMatch) {
+      const dateDigits = dateMatch[1]; // e.g. 20260911
+      let rest = dateMatch[2].replace(/^-/, ''); // e.g. 0649074-9dee or 06490749dee
+
+      // Format rest if it's raw digits + hash without hyphens
+      if (rest && !rest.includes('-')) {
+        if (rest.length >= 8) {
+          rest = `${rest.slice(0, 6)}-${rest.slice(6)}`;
+        }
       }
       return {
-        p1: `PM-${datePart}`,
-        p2: p2Formatted,
+        p1: `PM-${dateDigits}`, // e.g. PM-20260911
+        p2: rest,               // e.g. 0649074-9dee or 064907-9dee
       };
     }
 
-    // General fallback for long IDs (> 12 chars)
-    if (str.length > 12) {
-      const mid = Math.ceil(str.length / 2);
+    // Fallback for non-standard IDs: split by first hyphen or mid-point
+    if (str.includes('-')) {
+      const idx = str.indexOf('-');
       return {
-        p1: str.slice(0, mid),
-        p2: str.slice(mid),
+        p1: str.slice(0, idx),
+        p2: str.slice(idx + 1),
+      };
+    }
+
+    if (str.length > 11) {
+      return {
+        p1: str.slice(0, 11),
+        p2: str.slice(11),
       };
     }
 
@@ -71,8 +74,9 @@ export const ReportPDF = React.forwardRef(({ surveys = [] }, ref) => {
     <div
       ref={ref}
       data-theme="light"
-      className="bg-white font-sans text-slate-800"
+      className="bg-white text-slate-800"
       style={{
+        fontFamily: '"Sarabun", "TH Sarabun New", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
         width: '198mm',
         minHeight: '279mm',
         padding: '8mm 10mm 10mm 10mm',
@@ -241,12 +245,21 @@ export const ReportPDF = React.forwardRef(({ surveys = [] }, ref) => {
                       {index + 1}
                     </td>
 
-                    {/* Record ID (Clean 2-line monospace, proportioned) & Date */}
+                    {/* Record ID (Clean 2-line monospace, non-overlapping) & Date */}
                     <td style={{ padding: '7px 8px', verticalAlign: 'top', width: '23%' }}>
-                      <div style={{ fontFamily: '"SF Mono", "Cascadia Code", Consolas, "Courier New", monospace', fontWeight: '700', color: '#0284c7', fontSize: '9.5px', lineHeight: 1.4, letterSpacing: '0.01em' }}>
-                        <div style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{p1}</div>
+                      <div style={{
+                        fontFamily: 'Consolas, Monaco, "Courier New", monospace',
+                        fontWeight: '700',
+                        fontSize: '9.5px',
+                        lineHeight: '1.4',
+                        letterSpacing: '0.02em',
+                        wordBreak: 'normal',
+                      }}>
+                        <div style={{ color: '#0284c7', fontWeight: '800', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                          {p1}
+                        </div>
                         {p2 && (
-                          <div style={{ color: '#0369a1', fontSize: '8.5px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', marginTop: '2px' }}>
+                          <div style={{ color: '#0369a1', fontWeight: '700', fontSize: '8.5px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', marginTop: '2px' }}>
                             {p2}
                           </div>
                         )}

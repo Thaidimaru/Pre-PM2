@@ -410,7 +410,8 @@ exports.handler = async (event) => {
         });
       }
 
-      const recordId = `PM-${new Date().toISOString().replace(/[-:TZ.]/g, "").slice(0, 15)}-${crypto.randomBytes(2).toString("hex")}`;
+      const ts = new Date().toISOString().replace(/[-:TZ.]/g, "");
+      const recordId = `PM-${ts.slice(0, 8)}-${ts.slice(8, 14)}-${crypto.randomBytes(2).toString("hex")}`;
       const savedAt = new Date().toISOString();
       await writeJson(`${SURVEY_PREFIX}${recordId}.json`, {
         recordId,
